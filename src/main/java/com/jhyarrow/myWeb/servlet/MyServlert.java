@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 public class MyServlert extends HttpServlet{
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-		 response.setContentType("text/html");
-		 PrintWriter out = response.getWriter();
-	      out.println("<h1>³ÁÖØ¼ÍÄî2017Äê12ÔÂ24ÈÕ¿¼ÑĞÊ§°Ü£¬Í´¶¨Ë¼Í´£¬ÌØ½¨´ÎÕ¾¡£stay sense of crisis,stay freshman.</h1>");
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+	      out.println("<h1>æ²‰é‡çºªå¿µ2017å¹´12æœˆ24æ—¥è€ƒç ”å¤±è´¥ï¼Œç—›å®šæ€ç—›ï¼Œç‰¹å»ºæ­¤ç«™ã€‚stay sense of crisis,stay freshman.<br>2017å¹´12æœˆ27æ—¥</h1>");
 	}
 }
