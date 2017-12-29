@@ -15,6 +15,7 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="com/jhyarrow/myWeb/domain/BlogMapper.xml"/>
+    <mapper resource="com/jhyarrow/myWeb/mapper/BlogMapper.xml"/>
+    <mapper resource="com/jhyarrow/myWeb/mapper/VisitorsMapper.xml"/>
   </mappers>
 </configuration>
