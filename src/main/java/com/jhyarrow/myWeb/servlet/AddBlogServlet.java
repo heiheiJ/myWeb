@@ -2,6 +2,7 @@ package com.jhyarrow.myWeb.servlet;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -15,11 +16,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.jhyarrow.myWeb.dao.VisitorMapper;
-import com.jhyarrow.myWeb.domain.Visitor;
-import java.sql.Timestamp;
+import com.jhyarrow.myWeb.dao.BlogMapper;
+import com.jhyarrow.myWeb.domain.Blog;
 
-public class MyServlet extends HttpServlet{
+public class AddBlogServlet extends HttpServlet{
 	private static Reader reader;
 	private static SqlSessionFactory SqlSessionFactory;
 	
@@ -33,22 +33,26 @@ public class MyServlet extends HttpServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			
-		SqlSession session = SqlSessionFactory.openSession();
-		VisitorMapper visitorMapper = session.getMapper(VisitorMapper.class);
-		int tmp = visitorMapper.hasCome(request.getRemoteAddr());
-		if(tmp == 0){
-			Visitor visitor = new Visitor();
-			visitor.setIp(request.getRemoteAddr());
-			visitor.setPort(request.getRemoteHost());
-			visitorMapper.addVisitor(visitor);
+	    
+		try{
+			SqlSession session = SqlSessionFactory.openSession();
+			request.setCharacterEncoding("UTF-8");
+			BlogMapper blogMapper = session.getMapper(BlogMapper.class);
+			Blog blog = new Blog();
+			blog.setInfo(request.getParameter("info"));
+			blog.setTitle(request.getParameter("title"));
+			blogMapper.addBlog(blog);
 			session.commit();
+			session.close();
+			RequestDispatcher rd = request.getRequestDispatcher("/success.jsp");
+			rd.forward(request, response);
+		}catch (Exception e) {
+			RequestDispatcher rd = request.getRequestDispatcher("/failure.jsp");
+			rd.forward(request, response);
 		}
-		int cnt = visitorMapper.getCnt();
-		request.setAttribute("cnt", cnt);
-		
-		session.close();
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-		rd.forward(request, response);
 	}	
+	
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
 }

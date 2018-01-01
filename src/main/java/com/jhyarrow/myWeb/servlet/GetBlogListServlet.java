@@ -2,9 +2,10 @@ package com.jhyarrow.myWeb.servlet;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Date;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +16,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.jhyarrow.myWeb.dao.VisitorMapper;
-import com.jhyarrow.myWeb.domain.Visitor;
-import java.sql.Timestamp;
+import com.jhyarrow.myWeb.dao.BlogMapper;
+import com.jhyarrow.myWeb.domain.Blog;
 
-public class MyServlet extends HttpServlet{
+public class GetBlogListServlet extends HttpServlet{
 	private static Reader reader;
 	private static SqlSessionFactory SqlSessionFactory;
 	
@@ -33,22 +33,14 @@ public class MyServlet extends HttpServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	    
 			
 		SqlSession session = SqlSessionFactory.openSession();
-		VisitorMapper visitorMapper = session.getMapper(VisitorMapper.class);
-		int tmp = visitorMapper.hasCome(request.getRemoteAddr());
-		if(tmp == 0){
-			Visitor visitor = new Visitor();
-			visitor.setIp(request.getRemoteAddr());
-			visitor.setPort(request.getRemoteHost());
-			visitorMapper.addVisitor(visitor);
-			session.commit();
-		}
-		int cnt = visitorMapper.getCnt();
-		request.setAttribute("cnt", cnt);
-		
+		BlogMapper blogMapper = session.getMapper(BlogMapper.class);
+		ArrayList<Blog> blogs = (ArrayList<Blog>) blogMapper.getBlogList();
+		request.setAttribute("blogs", blogs);
 		session.close();
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/blog/getBlogList.jsp");
 		rd.forward(request, response);
 	}	
 }

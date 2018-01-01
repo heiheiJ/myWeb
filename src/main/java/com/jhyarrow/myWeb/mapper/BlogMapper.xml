@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhyarrow.myWeb.dao.BlogMapper">
-    <select id="getUser" parameterType="int" 
+	<resultMap id="blogs" type="com.jhyarrow.myWeb.domain.Blog">
+		<id column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="info" property="info"/>
+	</resultMap>
+
+    <select id="getBlog" parameterType="int" 
         resultType="com.jhyarrow.myWeb.domain.Blog">
         select * from blog where id=#{id}
     </select>
+    
+    <select id="getBlogList" resultMap="blogs">
+    	select * from blog order by id;
+    </select>
+    
+    <insert id="addBlog" parameterType="com.jhyarrow.myWeb.domain.Blog">
+    	insert into blog(title,info,input_date,type)
+    		values(#{title},#{info},now(),#{type})
+    </insert>
 </mapper>

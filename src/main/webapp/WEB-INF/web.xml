@@ -5,14 +5,47 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
   version="3.1"
   metadata-complete="true">
+  <jsp-config>
+  	<taglib>
+  		<taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
+    	<taglib-location>/WEB-INF/c.tld</taglib-location>
+    </taglib>
+  </jsp-config>
+  
    <servlet>
         <servlet-name>HelloWorld</servlet-name>
         <servlet-class>com.jhyarrow.myWeb.servlet.MyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetBlogList</servlet-name>
+        <servlet-class>com.jhyarrow.myWeb.servlet.GetBlogListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetBlog</servlet-name>
+        <servlet-class>com.jhyarrow.myWeb.servlet.GetBlogServlet</servlet-class>
+    </servlet>
+     <servlet>
+        <servlet-name>AddBlog</servlet-name>
+        <servlet-class>com.jhyarrow.myWeb.servlet.AddBlogServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>
         <servlet-name>HelloWorld</servlet-name>
         <url-pattern>/HelloWorld</url-pattern>
+    </servlet-mapping>
+    
+     <servlet-mapping>
+        <servlet-name>GetBlogList</servlet-name>
+        <url-pattern>/GetBlogList</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>GetBlog</servlet-name>
+        <url-pattern>/GetBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBlog</servlet-name>
+        <url-pattern>/AddBlog</url-pattern>
     </servlet-mapping>
     
     <welcome-file-list>

@@ -2,6 +2,9 @@ package com.jhyarrow.myWeb.servlet;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -24,9 +27,13 @@ public class Test {
 		}
 		
 		SqlSession session = SqlSessionFactory.openSession();
-		BlogMapper blogMapper = session.getMapper(BlogMapper.class);
-		Blog blog = blogMapper.getUser(1);
-		System.out.println(blog.toString());
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		Blog blog = new Blog();
+		blog.setInfo("info");
+		blog.setInput_date(new Timestamp(new Date().getTime()));
+		blog.setTitle("title");
+		mapper.addBlog(blog);
+		session.commit();
 		session.close();
 	}
 }

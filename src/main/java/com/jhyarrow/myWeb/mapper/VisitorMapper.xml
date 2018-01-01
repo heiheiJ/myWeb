@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhyarrow.myWeb.dao.VisitorMapper">
+    <select id="getCnt" resultType="int">
+        select count(*) from visitor
+    </select>
+    
+    <insert id="addVisitor" parameterType="com.jhyarrow.myWeb.domain.Visitor">
+    	insert into visitor(ip,port,time)
+    		values(#{ip},#{port},now())
+    </insert>
+    
+    <select id="hasCome" resultType="int" parameterType="String">
+    	select count(*) from visitor where ip =#{ip} and time > date_sub(now(),interval 60 minute)
+    </select>
+</mapper>
