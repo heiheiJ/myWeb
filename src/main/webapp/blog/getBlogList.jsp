@@ -2,7 +2,6 @@
 <%@page import="java.util.ArrayList" %>
 <%@page import="com.jhyarrow.myWeb.domain.Blog" %>
 <% ArrayList<Blog> blogs = (ArrayList<Blog>)request.getAttribute("blogs"); %>
-<!DOCTYPE html>
 <html>
 <script type="text/javascript">
 	function clickIndex(){
@@ -22,13 +21,18 @@
 	}
 </script>
 <head>
-<title>Insert title here</title>
+	<title>Insert title here</title>
+	<link rel='stylesheet' href='webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
+	<script type='text/javascript' src='webjars/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+	<script type='text/javascript' src='webjars/jquery/1.11.1/jquery.min.js'></script>
 </head>
 <body>
-	<menu>
-		<button type="button" name="clickIndex" onclick="clickIndex()">首页</button>
-		<button type="button" name="clickBookRecord" onclick="clickBookRecord()">读书笔记</button>
-	</menu>
+	<nav class="navbar navbar-default">
+		<ul class="nav nav-tabs">
+  			<li role="presentation" ><a href="/myWeb/HelloWorld">首页</a></li>
+  			<li role="presentation" class="active"><a href="/myWeb/GetBlogList">读书笔记</a></li>
+		</ul>
+	</nav>
 	<table border="1">
 		<%for (int i=0;i<blogs.size();i++){ 
 			Blog blog = blogs.get(i);

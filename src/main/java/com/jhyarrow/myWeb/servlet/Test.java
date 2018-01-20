@@ -18,22 +18,8 @@ public class Test {
 	private static Reader reader;
 	private static SqlSessionFactory SqlSessionFactory;
 	public static void main(String[] args) {
-		try {
-			reader = Resources.getResourceAsReader("config/myBatis.xml");
-			SqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		SqlSession session = SqlSessionFactory.openSession();
-		BlogMapper mapper = session.getMapper(BlogMapper.class);
-		Blog blog = new Blog();
-		blog.setInfo("info");
-		blog.setInput_date(new Timestamp(new Date().getTime()));
-		blog.setTitle("title");
-		mapper.addBlog(blog);
-		session.commit();
-		session.close();
+		 int num = 2147483647 ; 
+         long temp = num + 2L ; 
+         System.out.println(num) ; 
 	}
 }
