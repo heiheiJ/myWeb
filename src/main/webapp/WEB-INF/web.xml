@@ -1,54 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-                      http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-  version="3.1"
-  metadata-complete="true">
-  <jsp-config>
-  	<taglib>
-  		<taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
-    	<taglib-location>/WEB-INF/c.tld</taglib-location>
-    </taglib>
-  </jsp-config>
-  
-   <servlet>
-        <servlet-name>HelloWorld</servlet-name>
-        <servlet-class>com.jhyarrow.myWeb.servlet.MyServlet</servlet-class>
-    </servlet>
+<?xml version="1.0" encoding="utf-8" ?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+   
+    <!-- 加载spring容器 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext-*.xml</param-value>
+      </context-param>
+    <listener>
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+
+	<!-- springmvc 前端控制器  -->
     <servlet>
-        <servlet-name>GetBlogList</servlet-name>
-        <servlet-class>com.jhyarrow.myWeb.servlet.GetBlogListServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetBlog</servlet-name>
-        <servlet-class>com.jhyarrow.myWeb.servlet.GetBlogServlet</servlet-class>
-    </servlet>
-     <servlet>
-        <servlet-name>AddBlog</servlet-name>
-        <servlet-class>com.jhyarrow.myWeb.servlet.AddBlogServlet</servlet-class>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:springmvc.xml</param-value>
+        </init-param>
     </servlet>
     
     <servlet-mapping>
-        <servlet-name>HelloWorld</servlet-name>
-        <url-pattern>/HelloWorld</url-pattern>
-    </servlet-mapping>
-    
-     <servlet-mapping>
-        <servlet-name>GetBlogList</servlet-name>
-        <url-pattern>/GetBlogList</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>GetBlog</servlet-name>
-        <url-pattern>/GetBlog</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddBlog</servlet-name>
-        <url-pattern>/AddBlog</url-pattern>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>*.action</url-pattern>
     </servlet-mapping>
     
     <welcome-file-list>
-        <welcome-file>HelloWorld</welcome-file>
+        <welcome-file>index.action</welcome-file>
     </welcome-file-list>
 </web-app>

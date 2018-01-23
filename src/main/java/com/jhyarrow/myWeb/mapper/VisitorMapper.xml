@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jhyarrow.myWeb.dao.VisitorMapper">
+<mapper namespace="com.jhyarrow.myWeb.mapper.VisitorMapper">
     <select id="getCnt" resultType="int">
         select count(*) from visitor
     </select>
