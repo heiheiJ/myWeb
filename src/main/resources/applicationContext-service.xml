@@ -5,4 +5,5 @@
 
     <bean id="blogService" class="com.jhyarrow.myWeb.service.impl.BlogServiceImpl"/>
 	<bean id="visitorService" class="com.jhyarrow.myWeb.service.impl.VisitorServiceImpl"/>
+	<bean id="jobService" class="com.jhyarrow.myWeb.service.impl.JobServiceImpl"/>
 </beans>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="stockJob"  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">  
+			<bean class="com.jhyarrow.myWeb.job.StockJob" />  
+		</property>  
+		<property name="targetMethod" value="spide" />  
+		<property name="concurrent" value="false" /><!-- 作业不并发调度 -->  
+	</bean> 
+	
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+		<property name="jobDetail" ref="stockJob" />  
+		<property name="cronExpression" value="0 54 20 * * ?" />  
+	</bean>  
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+		<property name="triggers">  
+			<list>  
+			<ref bean="cronTrigger" />  
+			</list>  
+		</property>  
+</bean>  
+</beans>
