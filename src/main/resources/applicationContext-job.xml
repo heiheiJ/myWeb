@@ -13,13 +13,13 @@
 	
 	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
 		<property name="jobDetail" ref="stockJob" />  
-		<property name="cronExpression" value="0 54 20 * * ?" />  
+		<property name="cronExpression" value="0 13 20 * * ?" />  
 	</bean>  
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
 		<property name="triggers">  
 			<list>  
-			<ref bean="cronTrigger" />  
+				<ref bean="cronTrigger" />  
 			</list>  
 		</property>  
-</bean>  
+	</bean>
 </beans>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhyarrow.myWeb.mapper.StockMapper">
+
+    <insert id="addStock" parameterType="com.jhyarrow.myWeb.domain.Stock">
+    	insert into stock(code,open_today,volumn,highest,harden,invol,turn_volume,the_committee,famc,pe_ratio
+    		,earning_per_share,general_capital,close_lastday,turnover_rate,lowest,low_limit,outer_disc,swing,lmr
+    		,market_cap,pb_ratio,asset_per_stock,flow_of_equity,name,up,up_per,date)
+    		values(#{code},#{open_today},#{volumn},#{highest},#{harden},#{invol},#{turn_volume},#{the_committee},#{famc}
+    		,#{pe_ratio},#{earning_per_share},#{general_capital},#{close_lastday},#{turnover_rate},#{lowest},#{low_limit}
+    		,#{outer_disc},#{swing},#{lmr},#{market_cap},#{pb_ratio},#{asset_per_stock},#{flow_of_equity},#{name},#{up}
+    		,#{up_per},#{date})
+    </insert>
+</mapper>
