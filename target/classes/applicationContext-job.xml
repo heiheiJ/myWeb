@@ -3,22 +3,23 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-    <bean id="stockJob"  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+    <bean id="spideData"  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
 		<property name="targetObject">  
 			<bean class="com.jhyarrow.myWeb.job.StockJob" />  
 		</property>  
 		<property name="targetMethod" value="spide" />  
-		<property name="concurrent" value="false" /><!-- 作业不并发调度 -->  
-	</bean> 
+		<property name="concurrent" value="false" />
+	</bean>
 	
-	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
-		<property name="jobDetail" ref="stockJob" />  
-		<property name="cronExpression" value="0 13 20 * * ?" />  
+	<bean id="spideDataTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+		<property name="jobDetail" ref="spideData" />  
+		<property name="cronExpression" value="0 30 19 ? * MON-FRI" />  
 	</bean>  
+	
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
 		<property name="triggers">  
 			<list>  
-				<ref bean="cronTrigger" />  
+				<ref bean="spideDataTrigger" />  
 			</list>  
 		</property>  
 	</bean>

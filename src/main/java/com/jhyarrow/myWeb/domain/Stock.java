@@ -28,6 +28,13 @@ public class Stock {
 	private String up;
 	private String up_per;
 	private String date;
+	private String close_today;
+	public String getClose_today() {
+		return close_today;
+	}
+	public void setClose_today(String close_today) {
+		this.close_today = close_today;
+	}
 	public String getCode() {
 		return code;
 	}

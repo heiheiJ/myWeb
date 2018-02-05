@@ -11,4 +11,8 @@
     		,#{outer_disc},#{swing},#{lmr},#{market_cap},#{pb_ratio},#{asset_per_stock},#{flow_of_equity},#{name},#{up}
     		,#{up_per},#{date})
     </insert>
+    
+    <select id="getStockListByDay" parameterType = "String" resultType="com.jhyarrow.myWeb.domain.Stock">
+    	select * from stock where date = #{date}
+    </select>
 </mapper>

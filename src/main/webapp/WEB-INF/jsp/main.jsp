@@ -12,6 +12,7 @@
 				<ul class="nav nav-tabs">
 		  			<li role="presentation" class="active"><a href="getMain.action">首页</a></li>
 		  			<li role="presentation" ><a href="getBlogList.action">读书笔记</a></li>
+		  			<li role="presentation" ><a href="getSupport.action">股票预测</a></li>
 				</ul>
 		</nav>
 		<div class="jumbotron">

@@ -25,7 +25,8 @@ public class JobServiceImpl implements JobService{
 	private StockMapper stockMapper;
 	
 	private static Logger logger = Logger.getLogger("JobServiceImpl");
-	  
+	
+	//获取数据
 	public void doSpider(String bat){
 		  try{
 			  final Process process = Runtime.getRuntime().exec(bat);
@@ -255,7 +256,8 @@ public class JobServiceImpl implements JobService{
 			
 			return stock;
 		}
-	  
+	
+	//保存数据
 	public void handleData(String jsonPath) {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");  
 			File file = new File(jsonPath+df.format(new Date(System.currentTimeMillis()))+"stock.json");
@@ -264,7 +266,8 @@ public class JobServiceImpl implements JobService{
 				reader = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
 				String json = null;
 				while ((json = reader.readLine()) != null) {
-					json = json.replaceAll("},", "}").replaceAll("\n", "").replaceAll(" ", "");
+					json = json.replaceAll("},", "}").replaceAll("\n", "").replaceAll(" ", "")
+							.replaceAll("\\(", "").replaceAll("\\[", "").replaceAll("\\]", "");
 					Gson gson = new Gson();
 					Stock stock = gson.fromJson(json, Stock.class);
 					stock = this.handleDataAfterJson(stock);
@@ -293,5 +296,11 @@ public class JobServiceImpl implements JobService{
 	            }
 	        }
 		}
-
+	
+	//金针探底
+	public void goldNeedle() {
+		
+		
+	}
+	
 }

@@ -12,28 +12,23 @@
 	<nav class="navbar navbar-default">
 		<ul class="nav nav-tabs">
   			<li role="presentation" ><a href="getMain.action">首页</a></li>
-  			<li role="presentation" class="active"><a href="getBlogList.action">读书笔记</a></li>
-  			<li role="presentation" ><a href="getSupport.action">股票预测</a></li>
+  			<li role="presentation"><a href="getBlogList.action">读书笔记</a></li>
+  			<li role="presentation" class="active"><a href="getSupport.action">股票预测</a></li>
 		</ul>
 	</nav>
 	<table class="table table-hover table-bordered">
 		<tr class="active">
-			<td>序号</td>
-			<td>标题</td>
-			<td>日期</td>
-			<td>类型</td>
-			<td></td>
+			<td>股票代码</td>
+			<td>股票名称</td>
+			<td>原因</td>
 		<tr>
-		<c:forEach items="${blogList}" var="blog">
+		<c:forEach items="${stockList}" var="stock">
 		<tr>
-			<td>${blog.rowno}</td>
-			<td>${blog.title}</td>
-			<td>${blog.input_date}</td>
-			<td>${blog.type}</td>
-			<td><a href="getBlog.action?id=${blog.id}"><button>查看</button></a></td>
+			<td>${stock.code}</td>
+			<td>${stock.name}</td>
+			<td>${stock.reason}</td>
 		</tr>
 		</c:forEach>
 	</table>
-	<a href="addBlogView.action" class="btn btn-primary" role="button">添加</a>
 </body>
 </html>
