@@ -35,7 +35,7 @@ public class StockJob{
 			String bashPath= prop.getProperty("bashPath");
 			String jsonPath = prop.getProperty("jsonPath");
 			logger.info("调用爬虫start");
-			//jobService.doSpider(bashPath);
+			jobService.doSpider(bashPath);
 			logger.info("调用爬虫end");
 			logger.info("插入数据start");
 			jobService.handleData(jsonPath);

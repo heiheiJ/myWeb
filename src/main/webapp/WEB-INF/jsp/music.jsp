@@ -9,7 +9,7 @@
 </head>
 <body>
 	<audio autoplay="autoplay" controls>
-		<source src="Moonlight.mp3" type="audio/mpeg">
+		<source src="${musicPath}" type="audio/mpeg">
 	</audio>
 </body>
 </html>
