@@ -12,24 +12,29 @@
 	<nav class="navbar navbar-default">
 		<ul class="nav nav-tabs">
   			<li role="presentation" ><a href="getMain.action">首页</a></li>
-  			<li role="presentation"><a href="getBlogList.action">读书笔记</a></li>
-  			<li role="presentation" ><a href="getQuestionList.action">问答</a></li>
-  			<li role="presentation" class="active"><a href="getSupport.action">股票预测</a></li>
+  			<li role="presentation" ><a href="getBlogList.action">读书笔记</a></li>
+  			<li role="presentation" class="active"><a href="getQuestionList.action">问答</a></li>
+  			<li role="presentation" ><a href="getSupport.action">股票预测</a></li>
 		</ul>
 	</nav>
 	<table class="table table-hover table-bordered">
 		<tr class="active">
-			<td>股票代码</td>
-			<td>股票名称</td>
-			<td>原因</td>
+			<td>序号</td>
+			<td>提问</td>
+			<td>日期</td>
+			<td>状态</td>
+			<td></td>
 		<tr>
-		<c:forEach items="${stockList}" var="stock">
+		<c:forEach items="${list}" var="question">
 		<tr>
-			<td>${stock.code}</td>
-			<td>${stock.name}</td>
-			<td>${stock.reason}</td>
+			<td>${question.rowno}</td>
+			<td>${question.question}</td>
+			<td>${question.date}</td>
+			<td>${question.type}</td>
+			<td><a href="getQuestion.action?id=${question.id}"><button>查看</button></a></td>
 		</tr>
 		</c:forEach>
 	</table>
+	<a href="addQuestionView.action" class="btn btn-primary" role="button">提问</a>
 </body>
 </html>

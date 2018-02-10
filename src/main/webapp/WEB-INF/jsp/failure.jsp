@@ -10,8 +10,10 @@
 	<body>
 		<nav class="navbar navbar-default">
 				<ul class="nav nav-tabs">
-		  			  			<li role="presentation" ><a href="getMain.action">首页</a></li>
-	  			<li role="presentation" class="active"><a href="getBlogList.action">读书笔记</a></li>
+			  		<li role="presentation" ><a href="getMain.action">首页</a></li>
+		  			<li role="presentation" class="active"><a href="getBlogList.action">读书笔记</a></li>
+		  			<li role="presentation" ><a href="getQuestionList.action">问答</a></li>
+		  			<li role="presentation" ><a href="getSupport.action">股票预测</a></li>
 				</ul>
 		</nav>
 		<h1>操作成功</h1>

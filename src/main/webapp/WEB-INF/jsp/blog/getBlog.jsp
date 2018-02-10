@@ -16,12 +16,13 @@
 			<ul class="nav nav-tabs">
 	  			<li role="presentation" ><a href="getMain.action">首页</a></li>
 	  			<li role="presentation" class="active"><a href="getBlogList.action">读书笔记</a></li>
+	  			<li role="presentation" ><a href="getQuestionList.action">问答</a></li>
 	  			<li role="presentation" ><a href="getSupport.action">股票预测</a></li>
 			</ul>
 	</nav>
 	<p class="text-center h2">${blog.title}</p><br>
 	<p class="text-center h4">${blog.input_date}</p><br><br>
-	<p class="text-center h3">${blog.info}</p>
+	<p class="h3">${blog.info}</p>
 	<a href="getBlogList.action" class="btn btn-default" role="button">返回</a>
 </body>
 </html>

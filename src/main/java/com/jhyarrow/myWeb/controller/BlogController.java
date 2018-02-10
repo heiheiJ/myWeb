@@ -33,6 +33,8 @@ public class BlogController {
 	public ModelAndView getBlog(HttpServletRequest request) {
 		int id = Integer.parseInt(request.getParameter("id"));
 		Blog blog = blogService.getBlog(id);
+		blog.setInfo(blog.getInfo().replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+				.replaceAll("	", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").replaceAll("\\n", "<br>"));
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("blog",blog);
 		mv.setViewName("/blog/getBlog");
@@ -65,10 +67,11 @@ public class BlogController {
 			blog.setType(type);
 			blogService.addBlog(blog);
 		}catch(Exception e) {
-			mv.setViewName("/fail");
+			e.printStackTrace();
+			mv.setViewName("failure");
 			return mv;
 		}
-		mv.setViewName("/success");
+		mv.setViewName("success");
 		return mv;
 	}
 }

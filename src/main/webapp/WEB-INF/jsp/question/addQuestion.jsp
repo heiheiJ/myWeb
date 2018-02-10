@@ -11,38 +11,23 @@
 	<nav class="navbar navbar-default">
 			<ul class="nav nav-tabs">
 	  			<li role="presentation" ><a href="getMain.action">首页</a></li>
-  				<li role="presentation" class="active"><a href="getBlogList.action">读书笔记</a></li>
-  				<li role="presentation" ><a href="getQuestionList.action">问答</a></li>
+  				<li role="presentation" ><a href="getBlogList.action">读书笔记</a></li>
+  				<li role="presentation" class="active"><a href="getQuestionList.action">问答</a></li>
   				<li role="presentation" ><a href="getSupport.action">股票预测</a></li>
 			</ul>
 	</nav>
-	<form class="form-horizontal" action="addBlog.action">
+	<form class="form-horizontal" action="addQuestion.action">
 		<div class="form-group">
-	    	<label class="col-sm-2 control-label">类型</label>
+			<label class="col-sm-2 control-label">问题</label>
 		    <div class="col-sm-10">
-		    	<select class="form-control" name="type">
-					<option value="1">读书笔记</option>
-				    <option value="2">工作计划</option>
-				</select>
+		    	<textarea class="form-control" rows="10" name="question"></textarea>
 		    </div>
 	  	</div>
 	  	<div class="form-group">
-	    	<label class="col-sm-2 control-label">标题</label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" name="title">
-		    </div>
- 	 	</div>
- 	 	<div class="form-group">
- 	 		<label class="col-sm-2 control-label">内容</label>
- 	 		<div class="col-sm-10">
-		 	 	<textarea class="form-control" rows="10" name="info"></textarea>
- 	 		</div>
- 	 	</div>
- 	 	<div class="form-group">
  	 		<label class="col-sm-2 control-label"></label>
  	 		<div class="col-sm-10">
 		 	 	<button type="submit" class="btn btn-default">提交</button>
-		 	 	<a href="getBlogList.action" class="btn btn-default" role="button">返回</a>
+		 	 	<a href="getQuestionList.action" class="btn btn-default" role="button">返回</a>
  	 		</div>
  	 	</div>
 	</form>
