@@ -4,19 +4,9 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Insert title here</title>
-	<link rel='stylesheet' href='webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-	<script type='text/javascript' src='webjars/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-	<script type='text/javascript' src='webjars/jquery/1.11.1/jquery.min.js'></script>
 </head>
 <body>
-	<nav class="navbar navbar-default">
-		<ul class="nav nav-tabs">
-  			<li role="presentation" ><a href="getMain.action">首页</a></li>
-  			<li role="presentation" class="active"><a href="getBlogList.action">读书笔记</a></li>
-  			<li role="presentation" ><a href="getQuestionList.action">问答</a></li>
-  			<li role="presentation" ><a href="getSupport.action">股票预测</a></li>
-		</ul>
-	</nav>
+	<jsp:include page="/WEB-INF/jsp/toolbar.jsp" flush="true"/>
 	<table class="table table-hover table-bordered">
 		<tr class="active">
 			<td>序号</td>

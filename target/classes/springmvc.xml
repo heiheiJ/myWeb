@@ -9,6 +9,15 @@
 
     <context:component-scan base-package="com.jhyarrow.myWeb.controller"></context:component-scan>
     <mvc:annotation-driven/>
+    
+    <mvc:interceptors>
+    	<mvc:interceptor>
+	    	<mvc:mapping path="/addBlog.action"/>
+	    	<mvc:mapping path="/addQuestion.action"/>
+	    	<mvc:mapping path="/updateQuestion.action"/>
+	    	<bean class="com.jhyarrow.myWeb.interceptor.LoginInterceptor"></bean>
+    	</mvc:interceptor>
+    </mvc:interceptors>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!-- 配置jsp路径的前缀 -->
