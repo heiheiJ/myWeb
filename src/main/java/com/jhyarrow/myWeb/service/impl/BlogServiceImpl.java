@@ -1,6 +1,7 @@
 package com.jhyarrow.myWeb.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,8 +14,8 @@ public class BlogServiceImpl implements BlogService{
 	@Autowired
 	private BlogMapper blogmapper;
 	
-	public List<Blog> getBlogList() {
-		return blogmapper.getBlogList();
+	public List<Blog> getBlogList(Map<String, Object> userMap) {
+		return blogmapper.getBlogList(userMap);
 	}
 
 	public Blog getBlog(int id) {
@@ -23,6 +24,10 @@ public class BlogServiceImpl implements BlogService{
 	
 	public void addBlog(Blog blog) {
 		blogmapper.addBlog(blog);
+	}
+	
+	public int getBlogListCount(Map<String, Object> userMap) {
+		return blogmapper.getBlogListCount(userMap);
 	}
 
 }

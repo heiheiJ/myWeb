@@ -7,6 +7,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/toolbar.jsp" flush="true"/>
+	<a href="addQuestionView.action" class="btn btn-primary" role="button">提问</a>
 	<table class="table table-hover table-bordered">
 		<tr class="active">
 			<td>序号</td>
@@ -25,6 +26,5 @@
 		</tr>
 		</c:forEach>
 	</table>
-	<a href="addQuestionView.action" class="btn btn-primary" role="button">提问</a>
 </body>
 </html>

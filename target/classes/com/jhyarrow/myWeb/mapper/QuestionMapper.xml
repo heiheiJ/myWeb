@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhyarrow.myWeb.mapper.QuestionMapper">
+
+    <insert id="addQuestion" parameterType="com.jhyarrow.myWeb.domain.Question">
+    	insert into question(date,question,answer,type)
+    		values(now(),#{question},#{answer},#{type})
+    </insert>
+    
+    <select id="getQuestionList" resultType="com.jhyarrow.myWeb.domain.Question">
+    	select (@rowno:=@rowno+1)rowno,a.* from question a,(select @rowno:=0) t2 order by date desc;
+    </select>
+    
+    <select id="getQuestion" resultType="com.jhyarrow.myWeb.domain.Question">
+    	select * from question where id = #{id}
+    </select>
+    
+    <update id="updateQuestion" parameterType="com.jhyarrow.myWeb.domain.Question">
+    	update question set answer = #{answer},type = #{type} where id = #{id}
+    </update>
+</mapper>

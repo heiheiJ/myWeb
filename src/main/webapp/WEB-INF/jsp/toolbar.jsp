@@ -12,7 +12,7 @@
 		<nav class="navbar navbar-light">
 			<ul class="nav navbar-nav">
 		  		<li role="presentation" class="navbar-brand"><a href="getMain.action">首页</a></li>
-		  		<li role="presentation" class="navbar-brand"><a href="getBlogList.action">读书笔记</a></li>
+		  		<li role="presentation" class="navbar-brand"><a href="getBlogList.action?page=0">读书笔记</a></li>
 		  		<li role="presentation" class="navbar-brand"><a href="getQuestionList.action">问答</a></li>
 		  		<li role="presentation" class="navbar-brand"><a href="getSupport.action">股票预测</a></li>
 			</ul>
