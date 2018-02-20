@@ -7,7 +7,7 @@ public class Blog {
 	private int rowno;
 	private String title;
 	private String info;
-	private String input_date;
+	private String inputDate;
 	private String type;
 	
 	public int getRowno() {
@@ -24,11 +24,11 @@ public class Blog {
 	}
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  
-	public String getInput_date() {
-		return input_date;
+	public String getInputDate() {
+		return inputDate;
 	}
-	public void setInput_date(String input_date) {
-		this.input_date = input_date;
+	public void setInputDate(String inputDate) {
+		this.inputDate = inputDate;
 	}
 	public int getId() {
 		return id;

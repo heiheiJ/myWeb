@@ -21,7 +21,7 @@
 		<tr>
 			<td>${blog.rowno}</td>
 			<td>${blog.title}</td>
-			<td>${blog.input_date}</td>
+			<td>${blog.inputDate}</td>
 			<td>${blog.type}</td>
 			<td><a href="getBlog.action?id=${blog.id}"><button>查看</button></a></td>
 		</tr>

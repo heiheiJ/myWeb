@@ -9,7 +9,7 @@
 <body>
 	<jsp:include page="/WEB-INF/jsp/toolbar.jsp" flush="true"/>
 	<p class="text-center h2">${blog.title}</p><br>
-	<p class="text-center h4">${blog.input_date}</p><br><br>
+	<p class="text-center h4">${blog.inputDate}</p><br><br>
 	<p class="h3">${blog.info}</p>
 	<a href="getBlogList.action" class="btn btn-default" role="button">返回</a>
 </body>

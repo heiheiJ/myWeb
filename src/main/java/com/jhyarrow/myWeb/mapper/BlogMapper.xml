@@ -20,7 +20,7 @@
     </select>
     
     <insert id="addBlog" parameterType="com.jhyarrow.myWeb.domain.Blog">
-    	insert into blog(title,info,input_date,type)
+    	insert into blog(title,info,inputDate,type)
     		values(#{title},#{info},now(),#{type})
     </insert>
     

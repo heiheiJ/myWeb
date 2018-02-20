@@ -72,11 +72,11 @@ public class JobServiceImpl implements JobService{
 			stock.setDate(df.format(new Date(System.currentTimeMillis())));
 			
 			//涨跌
-			String upPer = stock.getUp_per();
+			String upPer = stock.getUpPer();
 			if(upPer.contains("%")) {
 				BigDecimal bd = new BigDecimal(upPer.substring(0, upPer.indexOf("%")));
 				bd = bd.divide(new BigDecimal(100));
-				stock.setUp_per(bd.toString());
+				stock.setUpPer(bd.toString());
 			}
 			
 			//
@@ -85,9 +85,9 @@ public class JobServiceImpl implements JobService{
 			stock.setLmr(lmr);
 			
 			//市盈率
-			String pe_ratio = stock.getPe_ratio();
-			pe_ratio = pe_ratio.replaceAll("--", "0");
-			stock.setPe_ratio(pe_ratio);
+			String PeRatio = stock.getPeRatio();
+			PeRatio = PeRatio.replaceAll("--", "0");
+			stock.setPeRatio(PeRatio);
 			
 			
 			//成交量（万手）
@@ -130,29 +130,29 @@ public class JobServiceImpl implements JobService{
 			}
 			
 			//成交额（万元）
-			String turnVolume = stock.getTurn_volume();
+			String turnVolume = stock.getTurnVolume();
 			if(turnVolume.contains("万")) {
 				BigDecimal bd = new BigDecimal(turnVolume.substring(0, turnVolume.indexOf("万")));
-				stock.setTurn_volume(bd.toString());
+				stock.setTurnVolume(bd.toString());
 			}else if (turnVolume.contains("亿")) {
 				BigDecimal bd = new BigDecimal(turnVolume.substring(0, turnVolume.indexOf("亿")));
 				bd = bd.multiply(new BigDecimal(10000));
-				stock.setTurn_volume(bd.toString());
+				stock.setTurnVolume(bd.toString());
 			}else {
 				BigDecimal bd = new BigDecimal(turnVolume);
 				bd = bd.divide(new BigDecimal(10000));
-				stock.setTurn_volume(bd.toString());
+				stock.setTurnVolume(bd.toString());
 			}
 			
 			//委比
-			String theCommittee = stock.getThe_committee();
+			String theCommittee = stock.getTheCommittee();
 			if(theCommittee.contains("%")) {
 				BigDecimal bd = new BigDecimal(theCommittee.substring(0, theCommittee.indexOf("%")));
 				bd = bd.divide(new BigDecimal(100));
-				stock.setThe_committee(bd.toString());
+				stock.setTheCommittee(bd.toString());
 			}else {
 				theCommittee = theCommittee.replaceAll("--", "0");
-				stock.setThe_committee(theCommittee);
+				stock.setTheCommittee(theCommittee);
 			}
 			
 			//流通市值(万元)
@@ -171,46 +171,46 @@ public class JobServiceImpl implements JobService{
 			}
 			
 			//总股本(万元)
-			String generalCapital = stock.getGeneral_capital();
+			String generalCapital = stock.getGeneralCapital();
 			if(generalCapital.contains("万")) {
 				BigDecimal bd = new BigDecimal(generalCapital.substring(0, generalCapital.indexOf("万")));
-				stock.setGeneral_capital(bd.toString());
+				stock.setGeneralCapital(bd.toString());
 			}else if (generalCapital.contains("亿")) {
 				BigDecimal bd = new BigDecimal(generalCapital.substring(0, generalCapital.indexOf("亿")));
 				bd = bd.multiply(new BigDecimal(10000));
-				stock.setGeneral_capital(bd.toString());
+				stock.setGeneralCapital(bd.toString());
 			}else {
 				BigDecimal bd = new BigDecimal(generalCapital);
 				bd = bd.divide(new BigDecimal(10000));
-				stock.setGeneral_capital(bd.toString());
+				stock.setGeneralCapital(bd.toString());
 			}
 			
 			//换手率
-			String turnoverRate = stock.getTurnover_rate();
+			String turnoverRate = stock.getTurnoverRate();
 			if(turnoverRate.contains("%")) {
 				BigDecimal bd = new BigDecimal(turnoverRate.substring(0, turnoverRate.indexOf("%")));
 				bd = bd.divide(new BigDecimal(100));
-				stock.setTurnover_rate(bd.toString());
+				stock.setTurnoverRate(bd.toString());
 			}
 			
 			//外盘(万手)
-			String outerDisc = stock.getOuter_disc();
+			String outerDisc = stock.getOuterDisc();
 			outerDisc = outerDisc.replaceAll("--", "0");
 			if(outerDisc.contains("万手")) {
 				BigDecimal bd = new BigDecimal(outerDisc.substring(0, outerDisc.indexOf("万手")));
-				stock.setOuter_disc(bd.toString());
+				stock.setOuterDisc(bd.toString());
 			}else if (outerDisc.contains("亿手")) {
 				BigDecimal bd = new BigDecimal(outerDisc.substring(0, outerDisc.indexOf("亿手")));
 				bd = bd.multiply(new BigDecimal(10000));
-				stock.setOuter_disc(bd.toString());
+				stock.setOuterDisc(bd.toString());
 			}else if(outerDisc.contains("手")){
 				BigDecimal bd = new BigDecimal(outerDisc.substring(0, outerDisc.indexOf("手")));
 				bd = bd.divide(new BigDecimal(10000));
-				stock.setOuter_disc(bd.toString());
+				stock.setOuterDisc(bd.toString());
 			}else {
 				BigDecimal bd = new BigDecimal(outerDisc);
 				bd = bd.divide(new BigDecimal(10000));
-				stock.setOuter_disc(bd.toString());
+				stock.setOuterDisc(bd.toString());
 			}
 			
 			//振幅
@@ -225,33 +225,33 @@ public class JobServiceImpl implements JobService{
 			}
 			
 			//总市值(万元)
-			String marketCap = stock.getMarket_cap();
+			String marketCap = stock.getMarketCap();
 			if(marketCap.contains("万")) {
 				BigDecimal bd = new BigDecimal(marketCap.substring(0, marketCap.indexOf("万")));
-				stock.setMarket_cap(bd.toString());
+				stock.setMarketCap(bd.toString());
 			}else if (marketCap.contains("亿")) {
 				BigDecimal bd = new BigDecimal(marketCap.substring(0, marketCap.indexOf("亿")));
 				bd = bd.multiply(new BigDecimal(10000));
-				stock.setMarket_cap(bd.toString());
+				stock.setMarketCap(bd.toString());
 			}else {
 				BigDecimal bd = new BigDecimal(marketCap);
 				bd = bd.divide(new BigDecimal(10000));
-				stock.setMarket_cap(bd.toString());
+				stock.setMarketCap(bd.toString());
 			}
 			
 			//流通股本（万元）
-			String flowOfEquity = stock.getFlow_of_equity();
+			String flowOfEquity = stock.getFlowOfEquity();
 			if(flowOfEquity.contains("万")) {
 				BigDecimal bd = new BigDecimal(flowOfEquity.substring(0, flowOfEquity.indexOf("万")));
-				stock.setFlow_of_equity(bd.toString());
+				stock.setFlowOfEquity(bd.toString());
 			}else if (flowOfEquity.contains("亿")) {
 				BigDecimal bd = new BigDecimal(flowOfEquity.substring(0, flowOfEquity.indexOf("亿")));
 				bd = bd.multiply(new BigDecimal(10000));
-				stock.setFlow_of_equity(bd.toString());
+				stock.setFlowOfEquity(bd.toString());
 			}else {
 				BigDecimal bd = new BigDecimal(flowOfEquity);
 				bd = bd.divide(new BigDecimal(10000));
-				stock.setFlow_of_equity(bd.toString());
+				stock.setFlowOfEquity(bd.toString());
 			}
 			
 			return stock;

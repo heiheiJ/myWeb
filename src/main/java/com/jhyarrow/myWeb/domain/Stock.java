@@ -2,206 +2,263 @@ package com.jhyarrow.myWeb.domain;
 
 public class Stock {
 	private String code;
-	private String open_today;
+	private String openToday;
 	private String volumn;
 	private String highest;
 	private String harden;
 	private String invol;
-	private String turn_volume;
-	private String the_committee;
+	private String turnVolume;
+	private String theCommittee;
 	private String famc;
-	private String pe_ratio;
-	private String earning_per_share;
-	private String general_capital;
-	private String close_lastday;
-	private String turnover_rate;
+	private String peRatio;
+	private String earningPerShare;
+	private String generalCapital;
+	private String closeLastday;
+	private String turnoverRate;
 	private String lowest;
-	private String low_limit;
-	private String outer_disc;
+	private String lowLimit;
+	private String outerDisc;
 	private String swing;
 	private String lmr;
-	private String market_cap;
-	private String pb_ratio;
-	private String asset_per_stock;
-	private String flow_of_equity;
+	private String marketCap;
+	private String pbRatio;
+	private String assetPerStock;
+	private String flowOfEquity;
 	private String name;
 	private String up;
-	private String up_per;
+	private String upPer;
 	private String date;
-	private String close_today;
-	public String getClose_today() {
-		return close_today;
-	}
-	public void setClose_today(String close_today) {
-		this.close_today = close_today;
-	}
+	private String closeToday;
+	
 	public String getCode() {
 		return code;
 	}
+
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public String getOpen_today() {
-		return open_today;
+
+	public String getOpenToday() {
+		return openToday;
 	}
-	public void setOpen_today(String open_today) {
-		this.open_today = open_today;
+
+	public void setOpenToday(String openToday) {
+		this.openToday = openToday;
 	}
+
 	public String getVolumn() {
 		return volumn;
 	}
+
 	public void setVolumn(String volumn) {
 		this.volumn = volumn;
 	}
+
 	public String getHighest() {
 		return highest;
 	}
+
 	public void setHighest(String highest) {
 		this.highest = highest;
 	}
+
 	public String getHarden() {
 		return harden;
 	}
+
 	public void setHarden(String harden) {
 		this.harden = harden;
 	}
+
 	public String getInvol() {
 		return invol;
 	}
+
 	public void setInvol(String invol) {
 		this.invol = invol;
 	}
-	public String getTurn_volume() {
-		return turn_volume;
+
+	public String getTurnVolume() {
+		return turnVolume;
 	}
-	public void setTurn_volume(String turn_volume) {
-		this.turn_volume = turn_volume;
+
+	public void setTurnVolume(String turnVolume) {
+		this.turnVolume = turnVolume;
 	}
-	public String getThe_committee() {
-		return the_committee;
+
+	public String getTheCommittee() {
+		return theCommittee;
 	}
-	public void setThe_committee(String the_committee) {
-		this.the_committee = the_committee;
+
+	public void setTheCommittee(String theCommittee) {
+		this.theCommittee = theCommittee;
 	}
+
 	public String getFamc() {
 		return famc;
 	}
+
 	public void setFamc(String famc) {
 		this.famc = famc;
 	}
-	public String getPe_ratio() {
-		return pe_ratio;
+
+	public String getPeRatio() {
+		return peRatio;
 	}
-	public void setPe_ratio(String pe_ratio) {
-		this.pe_ratio = pe_ratio;
+
+	public void setPeRatio(String peRatio) {
+		this.peRatio = peRatio;
 	}
-	public String getEarning_per_share() {
-		return earning_per_share;
+
+	public String getEarningPerShare() {
+		return earningPerShare;
 	}
-	public void setEarning_per_share(String earning_per_share) {
-		this.earning_per_share = earning_per_share;
+
+	public void setEarningPerShare(String earningPerShare) {
+		this.earningPerShare = earningPerShare;
 	}
-	public String getGeneral_capital() {
-		return general_capital;
+
+	public String getGeneralCapital() {
+		return generalCapital;
 	}
-	public void setGeneral_capital(String general_capital) {
-		this.general_capital = general_capital;
+
+	public void setGeneralCapital(String generalCapital) {
+		this.generalCapital = generalCapital;
 	}
-	public String getClose_lastday() {
-		return close_lastday;
+
+	public String getCloseLastday() {
+		return closeLastday;
 	}
-	public void setClose_lastday(String close_lastday) {
-		this.close_lastday = close_lastday;
+
+	public void setCloseLastday(String closeLastday) {
+		this.closeLastday = closeLastday;
 	}
-	public String getTurnover_rate() {
-		return turnover_rate;
+
+	public String getTurnoverRate() {
+		return turnoverRate;
 	}
-	public void setTurnover_rate(String turnover_rate) {
-		this.turnover_rate = turnover_rate;
+
+	public void setTurnoverRate(String turnoverRate) {
+		this.turnoverRate = turnoverRate;
 	}
+
 	public String getLowest() {
 		return lowest;
 	}
+
 	public void setLowest(String lowest) {
 		this.lowest = lowest;
 	}
-	public String getLow_limit() {
-		return low_limit;
+
+	public String getLowLimit() {
+		return lowLimit;
 	}
-	public void setLow_limit(String low_limit) {
-		this.low_limit = low_limit;
+
+	public void setLowLimit(String lowLimit) {
+		this.lowLimit = lowLimit;
 	}
-	public String getOuter_disc() {
-		return outer_disc;
+
+	public String getOuterDisc() {
+		return outerDisc;
 	}
-	public void setOuter_disc(String outer_disc) {
-		this.outer_disc = outer_disc;
+
+	public void setOuterDisc(String outerDisc) {
+		this.outerDisc = outerDisc;
 	}
+
 	public String getSwing() {
 		return swing;
 	}
+
 	public void setSwing(String swing) {
 		this.swing = swing;
 	}
+
 	public String getLmr() {
 		return lmr;
 	}
+
 	public void setLmr(String lmr) {
 		this.lmr = lmr;
 	}
-	public String getMarket_cap() {
-		return market_cap;
+
+	public String getMarketCap() {
+		return marketCap;
 	}
-	public void setMarket_cap(String market_cap) {
-		this.market_cap = market_cap;
+
+	public void setMarketCap(String marketCap) {
+		this.marketCap = marketCap;
 	}
-	public String getPb_ratio() {
-		return pb_ratio;
+
+	public String getPbRatio() {
+		return pbRatio;
 	}
-	public void setPb_ratio(String pb_ratio) {
-		this.pb_ratio = pb_ratio;
+
+	public void setPbRatio(String pbRatio) {
+		this.pbRatio = pbRatio;
 	}
-	public String getAsset_per_stock() {
-		return asset_per_stock;
+
+	public String getAssetPerStock() {
+		return assetPerStock;
 	}
-	public void setAsset_per_stock(String asset_per_stock) {
-		this.asset_per_stock = asset_per_stock;
+
+	public void setAssetPerStock(String assetPerStock) {
+		this.assetPerStock = assetPerStock;
 	}
-	public String getFlow_of_equity() {
-		return flow_of_equity;
+
+	public String getFlowOfEquity() {
+		return flowOfEquity;
 	}
-	public void setFlow_of_equity(String flow_of_equity) {
-		this.flow_of_equity = flow_of_equity;
+
+	public void setFlowOfEquity(String flowOfEquity) {
+		this.flowOfEquity = flowOfEquity;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getUp() {
 		return up;
 	}
+
 	public void setUp(String up) {
 		this.up = up;
 	}
-	public String getUp_per() {
-		return up_per;
+
+	public String getUpPer() {
+		return upPer;
 	}
-	public void setUp_per(String up_per) {
-		this.up_per = up_per;
+
+	public void setUpPer(String upPer) {
+		this.upPer = upPer;
 	}
+
 	public String getDate() {
 		return date;
 	}
+
 	public void setDate(String date) {
 		this.date = date;
 	}
+
+	public String getCloseToday() {
+		return closeToday;
+	}
+
+	public void setCloseToday(String closeToday) {
+		this.closeToday = closeToday;
+	}
+
 	public String toString() {
-		return "股票代码："+code+"股票名称："+name+"日期："+date+"涨跌："+up+"涨跌比率："+up_per+"今开："+open_today+"昨收："+close_lastday+"成交量："+
-				volumn+"最高："+highest+"涨停："+harden+"内盘："+invol+"成交额："+turn_volume+"委比："+the_committee+"流通市值："+famc+"市盈率："+
-				pe_ratio+"每股收益："+earning_per_share+"总股本："+general_capital+"换手率："+turnover_rate+"最低："+lowest+"跌停："+low_limit+
-				"外盘："+outer_disc+"振幅："+swing+"量比："+lmr+"总市值："+market_cap+"市净率："+pb_ratio+"每股净资产："+asset_per_stock+
-				"流通股本："+flow_of_equity;
+		return "股票代码："+code+"股票名称："+name+"日期："+date+"涨跌："+up+"涨跌比率："+upPer+"今开："+openToday+"昨收："+closeLastday+"成交量："+
+				volumn+"最高："+highest+"涨停："+harden+"内盘："+invol+"成交额："+turnVolume+"委比："+theCommittee+"流通市值："+famc+"市盈率："+
+				peRatio+"每股收益："+earningPerShare+"总股本："+generalCapital+"换手率："+turnoverRate+"最低："+lowest+"跌停："+lowLimit+
+				"外盘："+outerDisc+"振幅："+swing+"量比："+lmr+"总市值："+marketCap+"市净率："+pbRatio+"每股净资产："+assetPerStock+
+				"流通股本："+flowOfEquity;
 	}
 }

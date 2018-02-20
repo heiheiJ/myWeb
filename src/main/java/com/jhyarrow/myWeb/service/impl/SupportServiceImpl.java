@@ -17,7 +17,7 @@ public class SupportServiceImpl implements SupportService{
 	private SupportMapper supportMapper;
 	
 	public void goldNeedle(Stock stock) {
-		BigDecimal openToday = new BigDecimal(stock.getOpen_today());
+		BigDecimal openToday = new BigDecimal(stock.getOpenToday());
 		BigDecimal lowest = new BigDecimal(stock.getLowest());
 		if(lowest.compareTo(openToday.multiply(new BigDecimal(0.95))) < 0 
 				&& new BigDecimal(stock.getUp()).abs().compareTo(new BigDecimal(0.01)) < 0){
