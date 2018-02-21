@@ -13,15 +13,14 @@
 	
 	<bean id="spideDataTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
 		<property name="jobDetail" ref="spideData" />  
-		<property name="cronExpression" value="0 6 21 ? * MON-FRI" />  
+		<property name="cronExpression" value="0 6 18 ? * MON-FRI" />  
 	</bean>  
 	
-<!--<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
 		<property name="triggers">  
 			<list>  
 				<ref bean="spideDataTrigger" />  
 			</list>  
 		</property>  
 	</bean>
-  -->	
 </beans>

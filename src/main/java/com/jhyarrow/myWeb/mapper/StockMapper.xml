@@ -2,17 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhyarrow.myWeb.mapper.StockMapper">
 
-    <insert id="addStock" parameterType="com.jhyarrow.myWeb.domain.Stock">
-    	insert into stock(code,open_today,volumn,highest,harden,invol,turn_volume,the_committee,famc,pe_ratio
+    <insert id="addStock" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
+    	insert into stock_daily(code,open_today,volumn,highest,harden,invol,turn_volume,the_committee,famc,pe_ratio
     		,earning_per_share,general_capital,close_lastday,turnover_rate,lowest,low_limit,outer_disc,swing,lmr
-    		,market_cap,pb_ratio,asset_per_stock,flow_of_equity,name,up,up_per,date)
-    		values(#{code},#{open_today},#{volumn},#{highest},#{harden},#{invol},#{turn_volume},#{the_committee},#{famc}
-    		,#{pe_ratio},#{earning_per_share},#{general_capital},#{close_lastday},#{turnover_rate},#{lowest},#{low_limit}
-    		,#{outer_disc},#{swing},#{lmr},#{market_cap},#{pb_ratio},#{asset_per_stock},#{flow_of_equity},#{name},#{up}
-    		,#{up_per},#{date})
+    		,market_cap,pb_ratio,asset_per_stock,flow_of_equity,name,up,up_per,date,trade_day,week_day,close_today)
+    		values(#{code},#{openToday},#{volumn},#{highest},#{harden},#{invol},#{turnVolume},#{theCommittee},#{famc}
+    		,#{peRatio},#{earningPerShare},#{generalCapital},#{closeLastday},#{turnoverRate},#{lowest},#{lowLimit}
+    		,#{outerDisc},#{swing},#{lmr},#{marketCap},#{pbRatio},#{assetPerStock},#{flowOfEquity},#{name},#{up}
+    		,#{upPer},#{date},#{tradeDay},#{weekDay},#{closeToday})
     </insert>
     
-    <select id="getStockListByDay" parameterType = "String" resultType="com.jhyarrow.myWeb.domain.Stock">
-    	select * from stock where date = #{date}
+    <insert id="insertStockList">
+    	insert into stock(stock_code,stock_name,url) values
+    		<foreach collection="list" item="stock" separator=",">
+    			(#{stock.stockCode},#{stock.stockName},#{stock.url})
+    		</foreach>
+    </insert>
+    
+    <select id="getStockList" resultType="com.jhyarrow.myWeb.domain.Stock">
+    	select * from stock where stock_code order by stock_code
+    </select>
+    
+    <select id="getStockListByDay" parameterType = "String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
+    	select * from stock_daily where date = #{date}
     </select>
 </mapper>

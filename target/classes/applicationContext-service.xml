@@ -5,7 +5,6 @@
 
     <bean id="blogService" class="com.jhyarrow.myWeb.service.impl.BlogServiceImpl"/>
 	<bean id="visitorService" class="com.jhyarrow.myWeb.service.impl.VisitorServiceImpl"/>
-	<bean id="jobService" class="com.jhyarrow.myWeb.service.impl.JobServiceImpl"/>
 	<bean id="stockService" class="com.jhyarrow.myWeb.service.impl.StockServiceImpl"/>
 	<bean id="supportService" class="com.jhyarrow.myWeb.service.impl.SupportServiceImpl"/>
 	<bean id="musicService" class="com.jhyarrow.myWeb.service.impl.MusicServiceImpl"/>

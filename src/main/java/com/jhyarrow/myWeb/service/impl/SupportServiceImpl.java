@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.jhyarrow.myWeb.domain.Stock;
+import com.jhyarrow.myWeb.domain.StockDaily;
 import com.jhyarrow.myWeb.domain.Support;
 import com.jhyarrow.myWeb.mapper.SupportMapper;
 import com.jhyarrow.myWeb.service.SupportService;
@@ -16,7 +16,7 @@ public class SupportServiceImpl implements SupportService{
 	@Autowired
 	private SupportMapper supportMapper;
 	
-	public void goldNeedle(Stock stock) {
+	public void goldNeedle(StockDaily stock) {
 		BigDecimal openToday = new BigDecimal(stock.getOpenToday());
 		BigDecimal lowest = new BigDecimal(stock.getLowest());
 		if(lowest.compareTo(openToday.multiply(new BigDecimal(0.95))) < 0 
