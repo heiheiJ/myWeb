@@ -26,4 +26,13 @@
     <select id="getStockListByDay" parameterType = "String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
     	select * from stock_daily where date = #{date}
     </select>
+    
+    <select id="getMaxTradeDay" resultType = "int">
+    	select max(trade_day) from stock_daily
+    </select>
+    
+    <select id="getStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily" 
+    		resultType = "com.jhyarrow.myWeb.domain.StockDaily">
+    	select * from stock_daily where code = #{code} and trade_day = #{tradeDay}
+    </select>
 </mapper>

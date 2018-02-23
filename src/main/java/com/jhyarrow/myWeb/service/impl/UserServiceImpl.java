@@ -1,6 +1,7 @@
 package com.jhyarrow.myWeb.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.jhyarrow.myWeb.domain.User;
 import com.jhyarrow.myWeb.mapper.UserMapper;

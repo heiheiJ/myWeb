@@ -10,5 +10,6 @@ public interface StockService {
 	public ArrayList<StockDaily> getStockListByDay(String date);
 	public int insertStockList(List<Stock> stockList);
 	public ArrayList<Stock> getStockList();
-	public void spiderStock(Stock stock);
+	public void spiderStock(Stock stock,int tradeDay);
+	public int getMaxTradeDay();
 }

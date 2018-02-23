@@ -19,6 +19,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.domain.StockDaily;
@@ -41,7 +42,7 @@ public class StockServiceImpl implements StockService{
 		return stockMapper.getStockList();
 	}
 	
-	public void spiderStock(Stock stock) {
+	public void spiderStock(Stock stock,int tradeDay) {
 		String url = stock.getUrl();
 		String stockCode = stock.getStockCode();
 		String stockName = stock.getStockName();
@@ -61,7 +62,7 @@ public class StockServiceImpl implements StockService{
 				w = 0;
 			}
 			stockDaily.setWeekDay(w);
-			stockDaily.setTradeDay(32);
+			stockDaily.setTradeDay(tradeDay);
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");  
 			stockDaily.setDate(df.format(new Date()));
 			
@@ -273,10 +274,14 @@ public class StockServiceImpl implements StockService{
 				}
 			}
 			stockMapper.addStock(stockDaily);
-			System.out.println(stock.getStockCode()+"处理完成");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(stock.getStockCode()+"处理出错");
 		}
+	}
+
+
+	public int getMaxTradeDay() {
+		return stockMapper.getMaxTradeDay();
 	}
 }

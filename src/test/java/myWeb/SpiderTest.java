@@ -30,7 +30,7 @@ public class SpiderTest extends JUnitTest {
 		for(int i=0;i<list.size();i++) {
 			Stock stock = list.get(i);
 			try {
-				stockService.spiderStock(stock);
+				stockService.spiderStock(stock,33);
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -39,9 +39,9 @@ public class SpiderTest extends JUnitTest {
 		System.out.println(end-start);
 	}
 	
-	@Test
-	@Transactional
-	@Rollback(false)
+//	@Test
+//	@Transactional
+//	@Rollback(false)
 	public void noahArk() {
 		try {
 //			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");  
@@ -55,5 +55,16 @@ public class SpiderTest extends JUnitTest {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(false)
+	public void errorStockHandle() {
+		Stock stock = new Stock();
+		stock.setStockCode("600258");
+		stock.setStockName("首旅酒店");
+		stock.setUrl("https://gupiao.baidu.com/stock/sh600258.html");
+		stockService.spiderStock(stock,34);
 	}
 }

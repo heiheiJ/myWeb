@@ -11,4 +11,6 @@ public interface StockMapper {
 	public ArrayList<StockDaily> getStockListByDay(String date);
 	public int insertStockList(List<Stock> stockList);
 	public ArrayList<Stock> getStockList();
+	public int getMaxTradeDay();
+	public StockDaily getStockDaily(StockDaily stockDaily);
 }

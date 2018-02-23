@@ -21,29 +21,48 @@ public class StockJob{
 	
 	public void spide(){
 		long start = System.currentTimeMillis();
+		System.out.println("开始获取数据");
 		ArrayList<Stock> list = stockService.getStockList();
+		int tradeDay = stockService.getMaxTradeDay();
 		for(int i=0;i<list.size();i++) {
 			Stock stock = list.get(i);
 			try {
-				stockService.spiderStock(stock);
+				stockService.spiderStock(stock,tradeDay+1);
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		long end = System.currentTimeMillis();
-		logger.info("处理用时:"+String.valueOf(end-start));
+		logger.info("处理完成，用时:"+String.valueOf((end-start)/1000)+"秒");
 		noahArk();
 	}
 	
 	public void noahArk() {
 		try {
+			System.out.println("开始分析数据");
+			long start = System.currentTimeMillis();
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");  
 			String date = df.format(System.currentTimeMillis());
 			ArrayList<StockDaily> lists = stockService.getStockListByDay(date);
 			for(StockDaily stock :lists) {
 				supportService.goldNeedle(stock);
 			}
-			System.out.println("处理完成");
+			long end = System.currentTimeMillis();
+			System.out.println("分析完成，用时:"+String.valueOf((end-start)/1000)+"秒");
+			checkData();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void checkData() {
+		try {
+			System.out.println("开始核查数据");
+			long start = System.currentTimeMillis();
+			int tradeDay = stockService.getMaxTradeDay();
+			supportService.CheckGoldNeedle(tradeDay-1);
+			long end = System.currentTimeMillis();
+			System.out.println("核查完成，用时:"+String.valueOf((end-start)/1000)+"秒");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

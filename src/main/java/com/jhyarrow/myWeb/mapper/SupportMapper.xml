@@ -3,10 +3,18 @@
 <mapper namespace="com.jhyarrow.myWeb.mapper.SupportMapper">
 
     <insert id="addSupport" parameterType="com.jhyarrow.myWeb.domain.Support">
-    	insert into support(code,name,reason,date) values (#{code},#{name},#{reason},#{date})
+    	insert into support(code,name,reason,date,trade_day) values (#{code},#{name},#{reason},#{date},#{tradeDay})
     </insert>
     
     <select id="getSupport" parameterType="String" resultType="com.jhyarrow.myWeb.domain.Support">
     	select * from support where date = #{date}
     </select>
+    
+    <select id="getSupportGoldNeedleList" parameterType="int" resultType="com.jhyarrow.myWeb.domain.Support">
+    	select * from support where trade_day = #{tradeDay} and reason = '金针探底'
+    </select>
+    
+    <update id="updateSupport" parameterType="com.jhyarrow.myWeb.domain.Support">
+    	update support set is_true = #{isTrue},up=#{up} where id =#{id}
+    </update>
 </mapper>

@@ -3,6 +3,7 @@ package com.jhyarrow.myWeb.service.impl;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.jhyarrow.myWeb.domain.Music;
 import com.jhyarrow.myWeb.mapper.MusicMapper;
