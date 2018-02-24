@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhyarrow.myWeb.mapper.StockIndexMapper">
+    <select id="getStockIndexList" resultType="com.jhyarrow.myWeb.domain.StockIndex">
+    	select * from stock_index  order by stock_code
+    </select>
+    
+    <insert id="addStockIndexDaily" parameterType="com.jhyarrow.myWeb.domain.StockIndexDaily">
+    	insert into stock_index_daily(code,highest,lowest,open_today,close_today,turn_volume,volumn,higher,lower,equal,up,up_per,date
+    	,trade_day,week_day,name)
+    	values(#{code},#{highest},#{lowest},#{openToday},#{closeToday},#{turnVolume},#{volumn},#{higher},#{lower},#{equal},#{up},#{upPer}
+    	,#{date},#{tradeDay},#{weekDay},#{name})
+    </insert>
+</mapper>

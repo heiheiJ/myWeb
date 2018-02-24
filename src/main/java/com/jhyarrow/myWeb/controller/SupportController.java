@@ -37,7 +37,7 @@ public class SupportController {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");  
 		String date = df.format(c.getTime());
 		
-		ArrayList<Support> lists = supportService.getSupport(date);
+		ArrayList<Support> lists = supportService.getSupport();
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/stock/getStockList");

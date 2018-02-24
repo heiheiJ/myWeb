@@ -6,8 +6,8 @@
     	insert into support(code,name,reason,date,trade_day) values (#{code},#{name},#{reason},#{date},#{tradeDay})
     </insert>
     
-    <select id="getSupport" parameterType="String" resultType="com.jhyarrow.myWeb.domain.Support">
-    	select * from support where date = #{date}
+    <select id="getSupport"  resultType="com.jhyarrow.myWeb.domain.Support">
+    	select * from support order by date desc
     </select>
     
     <select id="getSupportGoldNeedleList" parameterType="int" resultType="com.jhyarrow.myWeb.domain.Support">

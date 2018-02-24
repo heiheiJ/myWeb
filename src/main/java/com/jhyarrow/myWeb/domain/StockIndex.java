@@ -1,19 +1,9 @@
 package com.jhyarrow.myWeb.domain;
 
-import java.util.List;
-
-public class Stock {
+public class StockIndex {
 	private String stockName;
 	private String stockCode;
 	private String url;
-	private List<StockDaily> stockDailyList;
-	
-	public List<StockDaily> getStockDailyList() {
-		return stockDailyList;
-	}
-	public void setStockDailyList(List<StockDaily> stockDailyList) {
-		this.stockDailyList = stockDailyList;
-	}
 	public String getStockName() {
 		return stockName;
 	}
@@ -32,5 +22,6 @@ public class Stock {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
 	
 }

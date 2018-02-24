@@ -13,7 +13,7 @@
 	
 	<bean id="spideDataTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
 		<property name="jobDetail" ref="spideData" />  
-		<property name="cronExpression" value="0 1 16 ? * MON-FRI" />  
+		<property name="cronExpression" value="0 20 13 ? * MON-SUN" />  
 	</bean>  
 	
 <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  

@@ -6,7 +6,7 @@ import com.jhyarrow.myWeb.domain.Support;
 
 public interface SupportMapper {
 	public void addSupport(Support support);
-	public ArrayList<Support> getSupport(String date);
+	public ArrayList<Support> getSupport();
 	public ArrayList<Support> getSupportGoldNeedleList(int tradeDay);
 	public int updateSupport(Support support);
 }

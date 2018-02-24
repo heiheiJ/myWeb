@@ -1,8 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhyarrow.myWeb.mapper.StockMapper">
-
-    <insert id="addStock" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
+	<resultMap id="getStockListMap" type="com.jhyarrow.myWeb.domain.Stock">
+		<id property="stockCode" column="stock_code"/>
+		<result property="stockName" column="stock_name"/>
+		<result property="url" column="url"/>
+		<collection property="stockDailyList" column="code"
+							ofType="com.jhyarrow.myWeb.domain.StockDaily">
+			<id property="code" column="code"/>
+			<id property="date" column="date"/>
+			<result property="openToday" column="open_today"/>
+			<result property="volumn" column="volumn"/>
+			<result property="highest" column="highest"/>
+			<result property="harden" column="harden"/>
+			<result property="invol" column="invol"/>
+			<result property="turnVolume" column="turn_volume"/>
+			<result property="theCommittee" column="the_committee"/>
+			<result property="famc" column="famc"/>
+			<result property="peRatio" column="pe_ratio"/>
+			<result property="earningPerShare" column="earning_per_share"/>
+			<result property="generalCapital" column="general_capital"/>
+			<result property="closeLastday" column="close_lastday"/>
+			<result property="turnoverRate" column="turnover_rate"/>
+			<result property="lowest" column="lowest"/>
+			<result property="lowLimit" column="low_limit"/>
+			<result property="outerDisc" column="outer_disc"/>
+			<result property="swing" column="swing"/>
+			<result property="lmr" column="lmr"/>
+			<result property="marketCap" column="market_cap"/>
+			<result property="pbRatio" column="pb_ratio"/>
+			<result property="assetPerStock" column="asset_per_stock"/>
+			<result property="flowOfEquity" column="flow_of_equity"/>
+			<result property="name" column="name"/>
+			<result property="up" column="up"/>
+			<result property="upPer" column="up_per"/>
+			<result property="tradeDay" column="trade_day"/>
+			<result property="weekDay" column="week_day"/>
+			<result property="closeToday" column="close_today"/>
+		</collection>
+	</resultMap>
+	
+	
+    <insert id="addStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
     	insert into stock_daily(code,open_today,volumn,highest,harden,invol,turn_volume,the_committee,famc,pe_ratio
     		,earning_per_share,general_capital,close_lastday,turnover_rate,lowest,low_limit,outer_disc,swing,lmr
     		,market_cap,pb_ratio,asset_per_stock,flow_of_equity,name,up,up_per,date,trade_day,week_day,close_today)
@@ -19,8 +58,8 @@
     		</foreach>
     </insert>
     
-    <select id="getStockList" resultType="com.jhyarrow.myWeb.domain.Stock">
-    	select * from stock where stock_code order by stock_code
+    <select id="getStockList" resultMap="getStockListMap">
+    	select s.*,sd.* from stock s left join stock_daily sd on s.stock_code = sd.code order by s.stock_code
     </select>
     
     <select id="getStockListByDay" parameterType = "String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
@@ -35,4 +74,16 @@
     		resultType = "com.jhyarrow.myWeb.domain.StockDaily">
     	select * from stock_daily where code = #{code} and trade_day = #{tradeDay}
     </select>
+    
+    <insert id="addStockDailyList">
+    	insert into stock_daily(code,open_today,volumn,highest,harden,invol,turn_volume,the_committee,famc,pe_ratio
+    		,earning_per_share,general_capital,close_lastday,turnover_rate,lowest,low_limit,outer_disc,swing,lmr
+    		,market_cap,pb_ratio,asset_per_stock,flow_of_equity,name,up,up_per,date,trade_day,week_day,close_today) values
+    		<foreach collection="list" item="stockDaily" separator=",">
+    			(#{code},#{openToday},#{volumn},#{highest},#{harden},#{invol},#{turnVolume},#{theCommittee},#{famc}
+    		,#{peRatio},#{earningPerShare},#{generalCapital},#{closeLastday},#{turnoverRate},#{lowest},#{lowLimit}
+    		,#{outerDisc},#{swing},#{lmr},#{marketCap},#{pbRatio},#{assetPerStock},#{flowOfEquity},#{name},#{up}
+    		,#{upPer},#{date},#{tradeDay},#{weekDay},#{closeToday})
+    		</foreach>
+    </insert>
 </mapper>

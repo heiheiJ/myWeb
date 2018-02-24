@@ -20,7 +20,7 @@
     </select>
     
     <insert id="addBlog" parameterType="com.jhyarrow.myWeb.domain.Blog">
-    	insert into blog(title,info,inputDate,type)
+    	insert into blog(title,info,input_date,type)
     		values(#{title},#{info},now(),#{type})
     </insert>
     
@@ -29,7 +29,7 @@
     	<where>
     		<choose>
     			<when test="type!=null">
-    				b.type like concat('%',#{type},'%')
+    				type like concat('%',#{type},'%')
     			</when>
     		</choose>
     	</where>

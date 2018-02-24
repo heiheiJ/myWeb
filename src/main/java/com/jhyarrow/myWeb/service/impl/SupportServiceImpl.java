@@ -36,8 +36,8 @@ public class SupportServiceImpl implements SupportService{
 		}
 	}
 
-	public ArrayList<Support> getSupport(String date) {
-		return supportMapper.getSupport(date);
+	public ArrayList<Support> getSupport() {
+		return supportMapper.getSupport();
 	}
 
 	public void CheckGoldNeedle(int tradeDay) {
