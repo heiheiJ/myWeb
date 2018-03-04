@@ -71,7 +71,6 @@ public class StockJob{
 		}
 		long end2 = System.currentTimeMillis();
 		logger.info("处理完成，共处理"+indexResults.size()+"条数据，用时:"+String.valueOf((end2-end)/1000)+"秒");
-		
 		noahArk();
 	}
 	
@@ -83,7 +82,7 @@ public class StockJob{
 			String date = df.format(System.currentTimeMillis());
 			ArrayList<StockDaily> lists = stockService.getStockListByDay(date);
 			for(StockDaily stock :lists) {
-				supportService.goldNeedle(stock);
+				supportService.getLine(stock);
 			}
 			long end = System.currentTimeMillis();
 			System.out.println("分析完成，用时:"+String.valueOf((end-start)/1000)+"秒");
@@ -98,7 +97,7 @@ public class StockJob{
 			System.out.println("开始核查数据");
 			long start = System.currentTimeMillis();
 			int tradeDay = stockService.getMaxTradeDay();
-			supportService.CheckGoldNeedle(tradeDay-1);
+			supportService.check(tradeDay-1);
 			long end = System.currentTimeMillis();
 			System.out.println("核查完成，用时:"+String.valueOf((end-start)/1000)+"秒");
 		}catch (Exception e) {

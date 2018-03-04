@@ -16,4 +16,5 @@ public interface StockMapper {
 	public StockDaily getStockDaily(StockDaily stockDaily);
 	public int addStockDailyList(List<StockDaily> list);
 	public int addStockIndexDaily(StockIndexDaily stockIndex);
+	public String getDateByTradeDay(int tradeDay);
 }

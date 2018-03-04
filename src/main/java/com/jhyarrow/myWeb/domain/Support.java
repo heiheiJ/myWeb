@@ -9,7 +9,15 @@ public class Support {
 	private int tradeDay;
 	private double up;
 	private String isTrue;
+	private String upOrDown;
 	
+	
+	public String getUpOrDown() {
+		return upOrDown;
+	}
+	public void setUpOrDown(String upOrDown) {
+		this.upOrDown = upOrDown;
+	}
 	public double getUp() {
 		return up;
 	}

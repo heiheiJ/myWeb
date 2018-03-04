@@ -3,18 +3,19 @@
 <mapper namespace="com.jhyarrow.myWeb.mapper.SupportMapper">
 
     <insert id="addSupport" parameterType="com.jhyarrow.myWeb.domain.Support">
-    	insert into support(code,name,reason,date,trade_day) values (#{code},#{name},#{reason},#{date},#{tradeDay})
+    	insert into support(code,name,reason,date,trade_day,up_or_down) values (#{code},#{name},#{reason},#{date},#{tradeDay},#{upOrDown})
     </insert>
     
     <select id="getSupport"  resultType="com.jhyarrow.myWeb.domain.Support">
-    	select * from support order by date desc
+    	select * from support where reason != '十字星线' order by date desc
     </select>
     
-    <select id="getSupportGoldNeedleList" parameterType="int" resultType="com.jhyarrow.myWeb.domain.Support">
-    	select * from support where trade_day = #{tradeDay} and reason = '金针探底'
+    <select id="getSupportList" parameterType="int" resultType="com.jhyarrow.myWeb.domain.Support">
+    	select * from support where trade_day = #{tradeDay}
     </select>
     
     <update id="updateSupport" parameterType="com.jhyarrow.myWeb.domain.Support">
     	update support set is_true = #{isTrue},up=#{up} where id =#{id}
     </update>
+    
 </mapper>

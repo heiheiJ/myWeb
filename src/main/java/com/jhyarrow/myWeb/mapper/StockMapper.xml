@@ -86,4 +86,8 @@
     		,#{upPer},#{date},#{tradeDay},#{weekDay},#{closeToday})
     		</foreach>
     </insert>
+    
+    <select id="getDateByTradeDay" parameterType="int" resultType="String">
+    	select date from stock_daily where trade_day = #{tradeDay} limit 0,1
+    </select>
 </mapper>

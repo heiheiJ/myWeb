@@ -7,5 +7,6 @@
     <!-- 全局setting配置，根据需要添加 -->
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="cacheEnabled" value="true"/>
 	</settings>
 </configuration>

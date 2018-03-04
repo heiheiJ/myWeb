@@ -32,6 +32,15 @@ public class StockDaily {
 	private Integer tradeDay;//当年第几交易日
 	private Integer weekDay;//星期几
 	
+	public StockDaily() {
+		
+	}
+	
+	public StockDaily(String code,int tradeDay) {
+		this.code = code;
+		this.tradeDay = tradeDay;
+	}
+	
 	public Integer getTradeDay() {
 		return tradeDay;
 	}
