@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -35,7 +36,7 @@ public class SpiderTest extends JUnitTest {
 	public void test() {
 		long start = System.currentTimeMillis();
 		ArrayList<Stock> list = (ArrayList<Stock>) stockService.getStockList();
-		ExecutorService exec = Executors.newFixedThreadPool(20);
+		ExecutorCompletionService<StockDaily> exec =new ExecutorCompletionService<StockDaily>(Executors.newFixedThreadPool(20));
 		ArrayList<Future<StockDaily>> results = new ArrayList<Future<StockDaily>>();
 		int tradeDay = stockService.getMaxTradeDay();
 		tradeDay = 37;
@@ -56,7 +57,7 @@ public class SpiderTest extends JUnitTest {
 		}
 		
 		long end = System.currentTimeMillis();
-		System.out.println(end-start);
+		System.out.println("处理完成，共处理"+results.size()+"条数据，用时:"+String.valueOf((end-start)/1000)+"秒");
 	}
 	
 	
@@ -65,15 +66,15 @@ public class SpiderTest extends JUnitTest {
 //	@Rollback(false)
 	public void errorStockHandle() {
 		Stock stock = new Stock();
-		stock.setStockCode("600830");
-		stock.setStockName("香溢融通");
-		stock.setUrl("https://gupiao.baidu.com/stock/sh600830.html");
-		stockService.spiderStock(stock,34);
+		stock.setStockCode("600369");
+		stock.setStockName("西南证券");
+		stock.setUrl("https://gupiao.baidu.com/stock/sh600369.html");
+		stockService.spiderStock(stock,46);
 	}
 	
-//	@Test
-//	@Transactional
-//	@Rollback(false)
+	@Test
+	@Transactional
+	@Rollback(false)
 	public void spideIndex() {
 		long end = System.currentTimeMillis();
 		ArrayList<StockIndex> indexList = (ArrayList<StockIndex>) stockService.getStockIndexList();

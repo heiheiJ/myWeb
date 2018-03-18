@@ -30,12 +30,13 @@ public class StockJob{
 		long start = System.currentTimeMillis();
 		logger.info("开始获取股票数据");
 		ArrayList<Stock> list = (ArrayList<Stock>) stockService.getStockList();
-		ExecutorService exec = Executors.newFixedThreadPool(20);
+		ExecutorService exec = Executors.newFixedThreadPool(10);
 		ArrayList<Future<StockDaily>> results = new ArrayList<Future<StockDaily>>();
 		int tradeDay = stockService.getMaxTradeDay();
 		for(int i=0;i<list.size();i++) {
 			Stock stock = list.get(i);
 			try {
+				logger.info("添加"+stock.getStockCode());
 				results.add(exec.submit(new StockSpideThread(stock,tradeDay+1)));  
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -71,7 +72,7 @@ public class StockJob{
 		}
 		long end2 = System.currentTimeMillis();
 		logger.info("处理完成，共处理"+indexResults.size()+"条数据，用时:"+String.valueOf((end2-end)/1000)+"秒");
-		noahArk();
+		//noahArk();
 	}
 	
 	public void noahArk() {

@@ -7,7 +7,7 @@
     </insert>
     
     <select id="getSupport"  resultType="com.jhyarrow.myWeb.domain.Support">
-    	select * from support where reason != '十字星线' order by date desc
+    	select * from support where up_or_down = '涨' order by date desc
     </select>
     
     <select id="getSupportList" parameterType="int" resultType="com.jhyarrow.myWeb.domain.Support">
