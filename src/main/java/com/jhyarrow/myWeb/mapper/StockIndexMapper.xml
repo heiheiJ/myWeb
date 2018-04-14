@@ -11,4 +11,8 @@
     	values(#{code},#{highest},#{lowest},#{openToday},#{closeToday},#{turnVolume},#{volumn},#{higher},#{lower},#{equal},#{up},#{upPer}
     	,#{date},#{tradeDay},#{weekDay},#{name})
     </insert>
+    
+     <select id="getStockIndexDailyByCode" resultType="com.jhyarrow.myWeb.domain.StockIndexDaily">
+    	select * from stock_index_daily  where code = #{stockCode}
+    </select>
 </mapper>

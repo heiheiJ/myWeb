@@ -10,4 +10,5 @@
 	<bean id="musicService" class="com.jhyarrow.myWeb.service.impl.MusicServiceImpl"/>
 	<bean id="questionService" class="com.jhyarrow.myWeb.service.impl.QuestionServiceImpl"/>
 	<bean id="userService" class="com.jhyarrow.myWeb.service.impl.UserServiceImpl"/>
+	<bean id="tradeDayService" class="com.jhyarrow.myWeb.service.impl.TradeDayServiceImpl"/>
 </beans>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhyarrow.myWeb.mapper.PlateDailyMapper">
+
+    <select id="getPlateDaily" parameterType="com.jhyarrow.myWeb.domain.PlateDaily" 
+    		resultType = "com.jhyarrow.myWeb.domain.PlateDaily">
+    	select * from plate_daily where id = #{id} and date = #{date}
+    </select>
+    
+    <insert id="insertPlateDaily" parameterType="com.jhyarrow.myWeb.domain.PlateDaily">
+    	insert into plate_daily(id,date,name,per) values
+    			(#{id},#{date},#{name},#{per})
+    </insert>
+</mapper>

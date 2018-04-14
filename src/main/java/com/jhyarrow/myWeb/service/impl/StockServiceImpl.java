@@ -1,29 +1,14 @@
 package com.jhyarrow.myWeb.service.impl;
 
-import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.domain.StockDaily;
 import com.jhyarrow.myWeb.domain.StockIndex;
-import com.jhyarrow.myWeb.domain.StockIndexDaily;
 import com.jhyarrow.myWeb.mapper.StockIndexMapper;
 import com.jhyarrow.myWeb.mapper.StockMapper;
 import com.jhyarrow.myWeb.service.StockService;
@@ -34,10 +19,6 @@ public class StockServiceImpl implements StockService{
 	@Autowired
 	private StockIndexMapper stockIndexMapper;
 	
-	public ArrayList<StockDaily> getStockListByDay(String date) {
-		return stockMapper.getStockListByDay(date);
-	}
-
 	public int insertStockList(List<Stock> stockList) {
 		return stockMapper.insertStockList(stockList);
 	}
@@ -46,372 +27,37 @@ public class StockServiceImpl implements StockService{
 		return stockMapper.getStockList();
 	}
 	
-	public void spiderStock(Stock stock,int tradeDay) {
-		String url = stock.getUrl();
-		String stockCode = stock.getStockCode();
-		String stockName = stock.getStockName();
-		HttpPost httpPost = new HttpPost(url);
-		HttpClient httpCient = HttpClients.createDefault();
-		try {
-			HttpResponse httpResponse = httpCient.execute(httpPost);
-			HttpEntity httpEntity = httpResponse.getEntity();
-			String response = EntityUtils.toString(httpEntity,"utf-8");
-			Document doc = Jsoup.parse(response);
-			StockDaily stockDaily = new StockDaily();
-			stockDaily.setCode(stockCode);
-			stockDaily.setName(stockName);
-			Calendar c = Calendar.getInstance();
-			int w = c.get(Calendar.DAY_OF_WEEK) -1;
-			if(w < 0) {
-				w = 0;
-			}
-			stockDaily.setWeekDay(w);
-			stockDaily.setTradeDay(tradeDay);
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");  
-			stockDaily.setDate(df.format(new Date()));
-			
-			//开头数据
-			Elements rows = doc.select("div[class=price s-up ]");
-			for(int i=0;i<rows.size();i++) {
-				Element row = rows.get(i);
-				String data = row.select("strong").text().replaceAll(",", "").trim();
-				stockDaily.setCloseToday(data);
-				data = row.select("span").get(0).text().replaceAll(",", "").trim();
-				stockDaily.setUp(data);
-				data = row.select("span").get(1).text().replaceAll(",", "").trim();
-				if(data.contains("%")) {
-					BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("%")));
-					bd = bd.divide(new BigDecimal(100));
-					stockDaily.setUpPer(bd.toString());
-				}
-			}
-			
-			rows = doc.select("div[class=price s-down ]");
-			for(int i=0;i<rows.size();i++) {
-				Element row = rows.get(i);
-				String data = row.select("strong").text().replaceAll(",", "").trim();
-				stockDaily.setCloseToday(data);
-				data = row.select("span").get(0).text().replaceAll(",", "").trim();
-				stockDaily.setUp(data);
-				data = row.select("span").get(1).text().replaceAll(",", "").trim();
-				if(data.contains("%")) {
-					BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("%")));
-					bd = bd.divide(new BigDecimal(100));
-					stockDaily.setUpPer(bd.toString());
-				}
-			}
-			
-			//第一行数据
-			rows = doc.select("div[class=line1]").get(0).select("dl");
-			for(Element row : rows) {
-				String title = row.select("dt").text().trim();
-				String data = row.select("dd").text().replaceAll(",", "").replaceAll("--", "0").trim();
-				if(title.contains("今开")) {
-					stockDaily.setOpenToday(data);
-				}else if (title.contains("成交量")) {
-					if(data.contains("万手")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("万手")));
-						stockDaily.setVolumn(bd.toString());
-					}else if (data.contains("亿手")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("亿手")));
-						bd = bd.multiply(new BigDecimal(10000));
-						stockDaily.setVolumn(bd.toString());
-					}else if(data.contains("手")){
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("手")));
-						bd = bd.divide(new BigDecimal(10000));
-						stockDaily.setVolumn(bd.toString());
-					}else {
-						BigDecimal bd = new BigDecimal(data);
-						bd = bd.divide(new BigDecimal(10000));
-						stockDaily.setVolumn(bd.toString());
-					}
-				}else if (title.contains("最高")) {
-					stockDaily.setHighest(data);
-				}else if (title.contains("涨停")) {
-					stockDaily.setHarden(data);
-				}else if (title.contains("内盘")) {
-					if(data.contains("万手")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("万手")));
-						stockDaily.setInvol(bd.toString());
-					}else if (data.contains("亿手")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("亿手")));
-						bd = bd.multiply(new BigDecimal(10000));
-						stockDaily.setInvol(bd.toString());
-					}else if(data.contains("手")){
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("手")));
-						bd = bd.divide(new BigDecimal(10000));
-						stockDaily.setInvol(bd.toString());
-					}else {
-						BigDecimal bd = new BigDecimal(data);
-						bd = bd.divide(new BigDecimal(10000));
-						stockDaily.setInvol(bd.toString());
-					}
-				}else if (title.contains("成交额")) {
-					if(data.contains("万")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("万")));
-						stockDaily.setTurnVolume(bd.toString());
-					}else if (data.contains("亿")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("亿")));
-						bd = bd.multiply(new BigDecimal(10000));
-						stockDaily.setTurnVolume(bd.toString());
-					}else {
-						BigDecimal bd = new BigDecimal(data);
-						bd = bd.divide(new BigDecimal(10000));
-						stockDaily.setTurnVolume(bd.toString());
-					}
-				}else if (title.contains("委比")) {
-					if(data.contains("%")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("%")));
-						bd = bd.divide(new BigDecimal(100));
-						stockDaily.setTheCommittee(bd.toString());
-					}else {
-						stockDaily.setTheCommittee(data);
-					}
-				}else if (title.contains("流通市值")) {
-					if(data.contains("万")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("万")));
-						stockDaily.setFamc(bd.toString());
-					}else if (data.contains("亿")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("亿")));
-						bd = bd.multiply(new BigDecimal(10000));
-						stockDaily.setFamc(bd.toString());
-					}else {
-						BigDecimal bd = new BigDecimal(data);
-						bd = bd.divide(new BigDecimal(10000));
-						stockDaily.setFamc(bd.toString());
-					}
-				}else if (title.contains("市盈率")) {
-					stockDaily.setPeRatio(data);
-				}else if (title.contains("每股收益")) {
-					stockDaily.setEarningPerShare(data);
-				}else if (title.contains("总股本")) {
-					if(data.contains("万")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("万")));
-						stockDaily.setGeneralCapital(bd.toString());
-					}else if (data.contains("亿")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("亿")));
-						bd = bd.multiply(new BigDecimal(10000));
-						stockDaily.setGeneralCapital(bd.toString());
-					}else {
-						BigDecimal bd = new BigDecimal(data);
-						bd = bd.divide(new BigDecimal(10000));
-						stockDaily.setGeneralCapital(bd.toString());
-					}
-				}
-			}
-			
-			//第二行数据
-			rows = doc.select("div[class=line2]").get(0).select("dl");
-			for(Element row : rows) {
-				String title = row.select("dt").text().trim();
-				String data = row.select("dd").text().replaceAll(",", "").replaceAll("--", "0").trim();
-				if(title.contains("昨收")) {
-					stockDaily.setCloseLastday(data);
-				}else if (title.contains("换手率")) {
-					if(data.contains("%")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("%")));
-						bd = bd.divide(new BigDecimal(100));
-						stockDaily.setTurnoverRate(bd.toString());
-					}
-				}else if (title.contains("最低")) {
-					stockDaily.setLowest(data);
-				}else if (title.contains("跌停")) {
-					stockDaily.setLowLimit(data);
-				}else if (title.contains("外盘")) {
-					if(data.contains("万手")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("万手")));
-						stockDaily.setOuterDisc(bd.toString());
-					}else if (data.contains("亿手")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("亿手")));
-						bd = bd.multiply(new BigDecimal(10000));
-						stockDaily.setOuterDisc(bd.toString());
-					}else if(data.contains("手")){
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("手")));
-						bd = bd.divide(new BigDecimal(10000));
-						stockDaily.setOuterDisc(bd.toString());
-					}else {
-						BigDecimal bd = new BigDecimal(data);
-						bd = bd.divide(new BigDecimal(10000));
-						stockDaily.setOuterDisc(bd.toString());
-					}
-				}else if (title.contains("振幅")) {
-					if(data.contains("%")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("%")));
-						bd = bd.divide(new BigDecimal(100));
-						stockDaily.setSwing(bd.toString());
-					}else {
-						stockDaily.setSwing(data);
-					}
-				}else if (title.contains("量比")) {
-					stockDaily.setLmr(data);
-				}else if (title.contains("总市值")) {
-					if(data.contains("万")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("万")));
-						stockDaily.setMarketCap(bd.toString());
-					}else if (data.contains("亿")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("亿")));
-						bd = bd.multiply(new BigDecimal(10000));
-						stockDaily.setMarketCap(bd.toString());
-					}else {
-						BigDecimal bd = new BigDecimal(data);
-						bd = bd.divide(new BigDecimal(10000));
-						stockDaily.setMarketCap(bd.toString());
-					}
-					
-				}else if (title.contains("市净率")) {
-					stockDaily.setPbRatio(data);
-				}else if (title.contains("每股净资产")) {
-					stockDaily.setAssetPerStock(data);
-				}else if (title.contains("流通股本")) {
-					if(data.contains("万")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("万")));
-						stockDaily.setFlowOfEquity(bd.toString());
-					}else if (data.contains("亿")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("亿")));
-						bd = bd.multiply(new BigDecimal(10000));
-						stockDaily.setFlowOfEquity(bd.toString());
-					}else {
-						BigDecimal bd = new BigDecimal(data);
-						bd = bd.divide(new BigDecimal(10000));
-						stockDaily.setFlowOfEquity(bd.toString());
-					}
-				}
-			}
-			stockMapper.addStockDaily(stockDaily);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(stock.getStockCode()+"处理出错");
-		}
-	}
-
-
-	public int getMaxTradeDay() {
-		return stockMapper.getMaxTradeDay();
-	}
-
-	public int addStockDailyList(List<StockDaily> list) {
-		return stockMapper.addStockDailyList(list);
-	}
-	public int addStockDaily(StockDaily stock) {
-		return stockMapper.addStockDaily(stock);
-	}
-
 	public List<StockIndex> getStockIndexList() {
 		return stockIndexMapper.getStockIndexList();
 	}
-	
-	public void spiderStockIndex(StockIndex stockIndex,int tradeDay) {
-		String url = stockIndex.getUrl();
-		String stockCode = stockIndex.getStockCode();
-		String stockName = stockIndex.getStockName();
-		HttpPost httpPost = new HttpPost(url);
-		HttpClient httpCient = HttpClients.createDefault();
-		try {
-			HttpResponse httpResponse = httpCient.execute(httpPost);
-			HttpEntity httpEntity = httpResponse.getEntity();
-			String response = EntityUtils.toString(httpEntity,"utf-8");
-			Document doc = Jsoup.parse(response);
-			StockIndexDaily stockIndexDaily = new StockIndexDaily();
-			stockIndexDaily.setCode(stockCode);
-			stockIndexDaily.setName(stockName);
-			Calendar c = Calendar.getInstance();
-			int w = c.get(Calendar.DAY_OF_WEEK) -1;
-			if(w < 0) {
-				w = 0;
-			}
-			stockIndexDaily.setWeekDay(w);
-			stockIndexDaily.setTradeDay(tradeDay);
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");  
-			stockIndexDaily.setDate(df.format(new Date()));
-			
-			//开头数据
-			Elements rows = doc.select("div[class=price s-up ]");
-			for(int i=0;i<rows.size();i++) {
-				Element row = rows.get(i);
-				String data = row.select("strong").text().replaceAll(",", "").trim();
-				stockIndexDaily.setCloseToday(data);
-				data = row.select("span").get(0).text().replaceAll(",", "").trim();
-				stockIndexDaily.setUp(data);
-				data = row.select("span").get(1).text().replaceAll(",", "").trim();
-				if(data.contains("%")) {
-					BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("%")));
-					bd = bd.divide(new BigDecimal(100));
-					stockIndexDaily.setUpPer(bd.toString());
-				}
-			}
-			
-			rows = doc.select("div[class=price s-down ]");
-			for(int i=0;i<rows.size();i++) {
-				Element row = rows.get(i);
-				String data = row.select("strong").text().replaceAll(",", "").trim();
-				stockIndexDaily.setCloseToday(data);
-				data = row.select("span").get(0).text().replaceAll(",", "").trim();
-				stockIndexDaily.setUp(data);
-				data = row.select("span").get(1).text().replaceAll(",", "").trim();
-				if(data.contains("%")) {
-					BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("%")));
-					bd = bd.divide(new BigDecimal(100));
-					stockIndexDaily.setUpPer(bd.toString());
-				}
-			}
-			
-			//第一行数据
-			rows = doc.select("div[class=bets-col-9]").get(0).select("dl");
-			for(Element row : rows) {
-				String title = row.select("dt").text().trim();
-				String data = row.select("dd").text().replaceAll(",", "").replaceAll("--", "0").trim();
-				if (title.contains("成交量")) {
-					if(data.contains("万手")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("万手")));
-						stockIndexDaily.setVolumn(bd.toString());
-					}else if (data.contains("亿手")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("亿手")));
-						bd = bd.multiply(new BigDecimal(10000));
-						stockIndexDaily.setVolumn(bd.toString());
-					}else if(data.contains("手")){
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("手")));
-						bd = bd.divide(new BigDecimal(10000));
-						stockIndexDaily.setVolumn(bd.toString());
-					}else {
-						BigDecimal bd = new BigDecimal(data);
-						bd = bd.divide(new BigDecimal(10000));
-						stockIndexDaily.setVolumn(bd.toString());
-					}
-				}else if (title.contains("最高")) {
-					stockIndexDaily.setHighest(data);
-				}else if (title.contains("成交额")) {
-					if(data.contains("万")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("万")));
-						stockIndexDaily.setTurnVolume(bd.toString());
-					}else if (data.contains("亿")) {
-						BigDecimal bd = new BigDecimal(data.substring(0, data.indexOf("亿")));
-						bd = bd.multiply(new BigDecimal(10000));
-						stockIndexDaily.setTurnVolume(bd.toString());
-					}else {
-						BigDecimal bd = new BigDecimal(data);
-						bd = bd.divide(new BigDecimal(10000));
-						stockIndexDaily.setTurnVolume(bd.toString());
-					}
-				}else if (title.contains("最低")) {
-					stockIndexDaily.setLowest(data);
-				}else if (title.contains("今开")) {
-					stockIndexDaily.setOpenToday(data);
-				}else if (title.contains("涨家数")) {
-					stockIndexDaily.setHigher(data);
-				}else if (title.contains("跌家数")) {
-					stockIndexDaily.setLower(data);
-				}else if (title.contains("平家数")) {
-					stockIndexDaily.setEqual(data);
-				}
-			}
-			stockIndexMapper.addStockIndexDaily(stockIndexDaily);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(stockIndex.getStockCode()+"处理出错");
-		}
+
+	public Stock getStockByCode(String code) {
+		return stockMapper.getStockByCode(code);
 	}
 
-	public int addStockIndexDaily(StockIndexDaily stockIndexDaily) {
-		return stockIndexMapper.addStockIndexDaily(stockIndexDaily);
+	public void updateStockDaily(StockDaily stockDaily) {
+		String date = stockDaily.getDate();
+		String year = date.substring(0, 4);
+		String methodName = "updateStockDaily";
+		Class stockMapperClass = stockMapper.getClass();
+		try {
+			Method method = stockMapperClass.getMethod(methodName+year, StockDaily.class);
+			method.invoke(stockMapper, stockDaily);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<StockDaily> getStockDailyList(String year,String stockCode){
+		ArrayList<StockDaily> list = null;
+		String methodName = "getStockDailyList";
+		Class stockMapperClass = stockMapper.getClass();
+		try {
+			Method method = stockMapperClass.getMethod(methodName+year, String.class);
+			list =  (ArrayList<StockDaily>) method.invoke(stockMapper, stockCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }
