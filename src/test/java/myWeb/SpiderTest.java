@@ -35,15 +35,19 @@ public class SpiderTest extends JUnitTest {
 	public void spideStockDaily(String code) {
 		Stock stock = stockService.getStockByCode(code);
 		String stockName = stock.getStockName();
-		String url = "http://q.stock.sohu.com/hisHq?code=cn_"+code+"&start=19700101&end=20180405&stat=1&order=D&period=d"
+		String url = "http://q.stock.sohu.com/hisHq?code=cn_"+code+"&start=20180405&end=20180415&stat=1&order=D&period=d"
 				+ "&callback=historySearchHandler&rt=json&r=0.8391495715053367&0.9677250558488026";
 		HttpPost httpPost = new HttpPost(url);
 		HttpClient httpCient = HttpClients.createDefault();
 		HttpResponse httpResponse;
+		String response = "" ;
 		try {
 			httpResponse = httpCient.execute(httpPost);
 			HttpEntity httpEntity = httpResponse.getEntity();
-			String response = EntityUtils.toString(httpEntity,"utf-8");
+			response = EntityUtils.toString(httpEntity,"utf-8");
+			if("{}\n".equals(response)) {//停牌返回为空
+				return;
+			}
 			response = response.substring(response.indexOf("[[")+1, response.indexOf("]]")+1);
 			String stockList[] = response.split("],");
 			for(int i=0;i<stockList.length;i++) {
@@ -64,13 +68,7 @@ public class SpiderTest extends JUnitTest {
 				stockService.addStockDaily(sd);
 			}
 			System.out.println(code+"处理完成");
-		} catch (ClientProtocolException e) {
-			System.out.println(code+"处理错误");
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println(code+"处理错误");
-			e.printStackTrace();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println(code+"处理错误");
 			e.printStackTrace();
 		}
@@ -127,9 +125,9 @@ public class SpiderTest extends JUnitTest {
 		}
 	}
 	
-//	@Test
-//	@Transactional
-//	@Rollback(false)
+	@Test
+	@Transactional
+	@Rollback(false)
 	public void spideSingle() {
 		spideStockDaily("000787");
 	}

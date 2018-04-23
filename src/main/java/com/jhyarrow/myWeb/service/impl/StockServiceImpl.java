@@ -35,29 +35,16 @@ public class StockServiceImpl implements StockService{
 		return stockMapper.getStockByCode(code);
 	}
 
-	public void updateStockDaily(StockDaily stockDaily) {
-		String date = stockDaily.getDate();
-		String year = date.substring(0, 4);
-		String methodName = "updateStockDaily";
-		Class stockMapperClass = stockMapper.getClass();
-		try {
-			Method method = stockMapperClass.getMethod(methodName+year, StockDaily.class);
-			method.invoke(stockMapper, stockDaily);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public ArrayList<StockDaily> getStockDailyListNew(String stockCode){
+		return stockMapper.getStockDailyList(stockCode);
 	}
-	
-	public ArrayList<StockDaily> getStockDailyList(String year,String stockCode){
-		ArrayList<StockDaily> list = null;
-		String methodName = "getStockDailyList";
-		Class stockMapperClass = stockMapper.getClass();
-		try {
-			Method method = stockMapperClass.getMethod(methodName+year, String.class);
-			list =  (ArrayList<StockDaily>) method.invoke(stockMapper, stockCode);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
+
+	public void updateStockDailyNew(StockDaily stockDaily) {
+		stockMapper.updateStockDaily(stockDaily);
+		
+	}
+
+	public void addStockDaily(StockDaily stockDaily) {
+		stockMapper.addStockDaily(stockDaily);
 	}
 }

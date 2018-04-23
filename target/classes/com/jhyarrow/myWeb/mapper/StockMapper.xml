@@ -13,182 +13,23 @@
     </select>
     
     <select id="getStockList" resultType="com.jhyarrow.myWeb.domain.Stock">
-    	select * from stock  order by stock_code
+    	select * from stock  where stock_code order by stock_code
     </select>
     
-    <update id="updateStockDaily1990" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily1990 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
+     <update id="updateStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
+    	update stock_daily set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where stock_code = #{stockCode} and date = #{date}
     </update>
-    <update id="updateStockDaily1991" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily1991 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily1992" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily1992 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily1993" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily1993 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily1994" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily1994 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily1995" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily1995 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily1996" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily1996 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily1997" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily1997 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>    
-    <update id="updateStockDaily1998" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily1998 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily1999" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily1999 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily2000" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2000 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily2001" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2001 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily2002" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2002 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily2003" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2003 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily2004" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2004 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily2005" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2005 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>  
-    <update id="updateStockDaily2006" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2006 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily2007" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2007 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily2008" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2008 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily2009" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2009 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>
-    <update id="updateStockDaily2010" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2010 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>  
-    <update id="updateStockDaily2011" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2011 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update> 
-    <update id="updateStockDaily2012" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2012 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>  
-    <update id="updateStockDaily2013" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2013 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>  
-    <update id="updateStockDaily2014" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2014 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>  
-    <update id="updateStockDaily2015" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2015 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update> 
-    <update id="updateStockDaily2016" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2016 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>  
-    <update id="updateStockDaily2017" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2017 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>  
-    <update id="updateStockDaily2018" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily2018 set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where date = #{date} and stock_code = #{stockCode}
-    </update>  
     
-    <select id="getStockDailyList1990" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily1990 where stock_code = #{stockCode} order by trade_day
+    <select id="getStockDailyList" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
+    	select * from stock_daily where stock_code = #{stockCode} order by trade_day
     </select>
-    <select id="getStockDailyList1991" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily1991 where stock_code = #{stockCode} order by trade_day
+    
+    <insert id="addStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
+    	insert into stock_daily(stock_code,stock_name,date,trade_day,open_today,close_today,up,up_per,highest,lowest,volumn,turn_volume,turnover_rate)
+    	values (#{stockCode},#{stockName},#{date},#{tradeDay},#{openToday},#{closeToday},#{up},#{upPer},#{highest},#{lowest},#{volumn},#{turnVolume},#{turnoverRate})
+    </insert>
+    
+    <select id="getStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily" resultType="com.jhyarrow.myWeb.domain.StockDaily">
+    	select * from stock_daily  where stock_code = #{stockCode} and trade_day = #{tradeDay}
     </select>
-    <select id="getStockDailyList1992" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily1992 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList1993" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily1993 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList1994" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily1994 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList1995" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily1995 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList1996" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily1996 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList1997" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily1997 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList1998" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily1998 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList1999" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily1999 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList2000" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2000 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList2001" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2001 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList2002" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2002 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList2003" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2003 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList2004" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2004 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList2005" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2005 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList2006" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2006 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList2007" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2007 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList2008" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2008 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList2009" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2009 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList2010" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2010 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList2011" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2011 where stock_code = #{stockCode} order by trade_day
-    </select>
-    <select id="getStockDailyList2012" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2012 where stock_code = #{stockCode} order by trade_day
-    </select>  
-    <select id="getStockDailyList2013" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2013 where stock_code = #{stockCode} order by trade_day
-    </select> 
-    <select id="getStockDailyList2014" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2014 where stock_code = #{stockCode} order by trade_day
-    </select>  
-    <select id="getStockDailyList2015" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2015 where stock_code = #{stockCode} order by trade_day
-    </select>  
-    <select id="getStockDailyList2016" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2016 where stock_code = #{stockCode} order by trade_day
-    </select>  
-    <select id="getStockDailyList2017" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2017 where stock_code = #{stockCode} order by trade_day
-    </select>  
-    <select id="getStockDailyList2018" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily2018 where stock_code = #{stockCode} order by trade_day
-    </select>      
 </mapper>

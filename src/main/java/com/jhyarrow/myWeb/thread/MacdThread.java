@@ -17,7 +17,7 @@ public class MacdThread extends Thread{
 	public void run() {
 		try {
 			long start2 = System.currentTimeMillis();
-			supportService.getAvgStatus(stockCode);
+			supportService.getAvgStatusNew(stockCode);
 			long end2 = System.currentTimeMillis();
 			System.out.println(stockCode+"共耗时"+ (end2-start2)/1000+"秒");
 			countDownLatch.countDown();
