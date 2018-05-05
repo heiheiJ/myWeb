@@ -19,6 +19,15 @@ public class StockDaily {
 	private String diff;
 	private String dea;
 	private String bar;
+	private String upLevel;
+
+	public String getUpLevel() {
+		return upLevel;
+	}
+
+	public void setUpLevel(String upLevel) {
+		this.upLevel = upLevel;
+	}
 
 	public String getDea() {
 		return dea;

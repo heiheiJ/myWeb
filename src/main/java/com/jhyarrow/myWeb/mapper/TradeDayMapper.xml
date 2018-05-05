@@ -4,4 +4,8 @@
     <select id="getTradeDayList" resultType="com.jhyarrow.myWeb.domain.TradeDay">
     	select * from trade_day
     </select>
+    
+    <select id="getTradeDayByDate" parameterType="String" resultType="int" >
+    	select trade_day from trade_day where date = #{date}
+    </select>
 </mapper>

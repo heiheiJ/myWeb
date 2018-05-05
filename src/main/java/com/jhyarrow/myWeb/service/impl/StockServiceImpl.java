@@ -1,6 +1,5 @@
 package com.jhyarrow.myWeb.service.impl;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,11 +34,11 @@ public class StockServiceImpl implements StockService{
 		return stockMapper.getStockByCode(code);
 	}
 
-	public ArrayList<StockDaily> getStockDailyListNew(String stockCode){
+	public ArrayList<StockDaily> getStockDailyList(String stockCode){
 		return stockMapper.getStockDailyList(stockCode);
 	}
 
-	public void updateStockDailyNew(StockDaily stockDaily) {
+	public void updateStockDaily(StockDaily stockDaily) {
 		stockMapper.updateStockDaily(stockDaily);
 		
 	}

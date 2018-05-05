@@ -6,5 +6,5 @@ import com.jhyarrow.myWeb.domain.TradeDay;
 
 public interface TradeDayMapper {
 	public ArrayList<TradeDay> getTradeDayList();
-	
+	public int getTradeDayByDate(String date);
 }

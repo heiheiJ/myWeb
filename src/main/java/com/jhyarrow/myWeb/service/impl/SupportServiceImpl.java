@@ -21,7 +21,7 @@ public class SupportServiceImpl implements SupportService{
 		BigDecimal ema26lastDay = new BigDecimal(0);
 		BigDecimal deaLastDay = new BigDecimal(0);
 		int cnt = 0;
-			ArrayList<StockDaily> list = stockService.getStockDailyListNew(stockCode);
+			ArrayList<StockDaily> list = stockService.getStockDailyList(stockCode);
 			for(int j=0;j<list.size();j++) {
 				StockDaily sd = list.get(j);
 				String closeToday = sd.getCloseToday();
@@ -54,7 +54,7 @@ public class SupportServiceImpl implements SupportService{
 					sd.setBar((diff.subtract(dea)).multiply(new BigDecimal(2)).toString());
 				}
 				cnt++;
-				stockService.updateStockDailyNew(sd);
+				stockService.updateStockDaily(sd);
 			}
 		System.out.println("共计"+cnt+"条数据");
 	}
@@ -89,6 +89,6 @@ public class SupportServiceImpl implements SupportService{
 		today.setDiff(diff.toString());
 		today.setDea(dea.toString());
 		today.setBar((diff.subtract(dea)).multiply(new BigDecimal(2)).toString());
-		stockService.updateStockDailyNew(today);
+		stockService.updateStockDaily(today);
 	}
 }

@@ -17,7 +17,7 @@
     </select>
     
      <update id="updateStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily set ema12 = #{ema12},ema26 = #{ema26}, diff = #{diff}, dea = #{dea} ,bar = #{bar} where stock_code = #{stockCode} and date = #{date}
+    	update stock_daily set up_per = #{upPer}, up_level = #{upLevel} where stock_code = #{stockCode} and date = #{date}
     </update>
     
     <select id="getStockDailyList" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">

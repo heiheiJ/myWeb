@@ -10,7 +10,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
@@ -22,70 +21,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
 import com.jhyarrow.myWeb.domain.Stock;
-import com.jhyarrow.myWeb.domain.StockDaily;
-import com.jhyarrow.myWeb.service.StockService;
+import com.jhyarrow.myWeb.mapper.StockMapper;
+import com.jhyarrow.myWeb.service.SpiderService;
 
 public class SpiderTest extends JUnitTest {
 	@Autowired
-	private StockService stockService;
+	private StockMapper stockMapper;
+	@Autowired
+	private SpiderService spiderService;
 	
-//	@Test
-//	@Transactional
-//	@Rollback(false)
-	public void spideStockDaily(String code) {
-		Stock stock = stockService.getStockByCode(code);
-		String stockName = stock.getStockName();
-		String url = "http://q.stock.sohu.com/hisHq?code=cn_"+code+"&start=20180405&end=20180415&stat=1&order=D&period=d"
-				+ "&callback=historySearchHandler&rt=json&r=0.8391495715053367&0.9677250558488026";
-		HttpPost httpPost = new HttpPost(url);
-		HttpClient httpCient = HttpClients.createDefault();
-		HttpResponse httpResponse;
-		String response = "" ;
-		try {
-			httpResponse = httpCient.execute(httpPost);
-			HttpEntity httpEntity = httpResponse.getEntity();
-			response = EntityUtils.toString(httpEntity,"utf-8");
-			if("{}\n".equals(response)) {//停牌返回为空
-				return;
-			}
-			response = response.substring(response.indexOf("[[")+1, response.indexOf("]]")+1);
-			String stockList[] = response.split("],");
-			for(int i=0;i<stockList.length;i++) {
-				String datas[] = stockList[i].replaceAll("\\[", "").replaceAll("\\]","").replaceAll("\"","").split(",");
-				StockDaily sd = new StockDaily();
-				sd.setStockCode(code);
-				sd.setStockName(stockName);
-				sd.setDate(datas[0]);
-				sd.setOpenToday(datas[1]);
-				sd.setCloseToday(datas[2]);
-				sd.setUp(datas[3]);
-				sd.setUpPer(String.valueOf(Double.parseDouble(datas[4].replaceAll("-", "0").replaceAll("%", ""))/100.0));
-				sd.setLowest(datas[5]);
-				sd.setHighest(datas[6]);
-				sd.setVolumn(datas[7]);
-				sd.setTurnVolume(datas[8]);
-				sd.setTurnoverRate(String.valueOf(Double.parseDouble(datas[9].replaceAll("-", "0").replaceAll("%", ""))/100.0));
-				stockService.addStockDaily(sd);
-			}
-			System.out.println(code+"处理完成");
-		} catch (Exception e) {
-			System.out.println(code+"处理错误");
-			e.printStackTrace();
+	@Test
+	@Transactional
+	@Rollback(false)
+	public void spideStockDaily() {
+		String dates[] = {"2018-04-17","2018-04-18","2018-04-19","2018-04-20",
+				"2018-04-23","2018-04-24","2018-04-25","2018-04-26","2018-04-27"
+				};
+		for(int i=0;i<dates.length;i++) {
+			spiderService.spideStockDaily(dates[i]);
 		}
 	}
-	
-//	@Test
-//	@Transactional
-//	@Rollback(false)
-	public void spide() {
-		ArrayList<Stock> list = (ArrayList<Stock>) stockService.getStockList();
-		for(int i=0;i<list.size();i++) {
-			Stock stock = list.get(i);
-			String code = stock.getStockCode();
-			spideStockDaily(code);
-		}
-	}
-	
 	
 //	@Test
 //	@Transactional
@@ -114,7 +69,7 @@ public class SpiderTest extends JUnitTest {
 				}
 				System.out.println("第"+k+"页完成");
 			}
-			stockService.insertStockList(stockList);
+			stockMapper.insertStockList(stockList);
 			
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
@@ -123,12 +78,5 @@ public class SpiderTest extends JUnitTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	@Test
-	@Transactional
-	@Rollback(false)
-	public void spideSingle() {
-		spideStockDaily("000787");
 	}
 }
