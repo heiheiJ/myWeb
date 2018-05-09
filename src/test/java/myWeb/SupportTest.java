@@ -8,47 +8,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.domain.StockDaily;
 import com.jhyarrow.myWeb.mapper.StockMapper;
-import com.jhyarrow.myWeb.service.StockService;
+import com.jhyarrow.myWeb.mapper.SupportMapper;
 import com.jhyarrow.myWeb.service.SupportService;
+import com.jhyarrow.myWeb.view.StockDailyView;
 
 public class SupportTest extends JUnitTest {
 	@Autowired
-	private SupportService supportService;
-	@Autowired
-	private StockService stockService;
+	private SupportMapper supportMapper;
 	@Autowired
 	private StockMapper stockMapper;
+	@Autowired
+	private SupportService supportService;
 	
-	
-//	@Test
-//	@Transactional
-//	@Rollback(false)
-	public void caculatorAvgDayNew(String stockCode) {
-		try {
-			long start2 = System.currentTimeMillis();
-			supportService.getAvgStatusNew(stockCode);
-			long end2 = System.currentTimeMillis();
-			System.out.println(stockCode+"共耗时"+ (end2-start2)/1000+"秒");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 //	@Test
 //	@Transactional
 //	@Rollback(false)
 	public void caculator() throws Exception {
 		long start = System.currentTimeMillis();
-		ArrayList<Stock> list = (ArrayList<Stock>) stockService.getStockList();
+		ArrayList<Stock> list = (ArrayList<Stock>) stockMapper.getStockList();
 		for(int i=0;i<list.size();i++) {
 			String stockCode = list.get(i).getStockCode();
-			long start2 = System.currentTimeMillis();
-			supportService.getAvgStatusNew(stockCode);
-			long end2 = System.currentTimeMillis();
-			System.out.println(stockCode+"共耗时"+ (end2-start2)/1000+"秒");
+			try {
+				for(int j=6744;j<=6753;j++) {
+					supportService.getMACDDay(stockCode,j);
+				}
+			}catch (Exception e) {
+				System.out.println(stockCode+"出错");
+				e.printStackTrace();
+			}
 		}
 		long end = System.currentTimeMillis();
 		System.out.println("共耗时"+ (end-start)/1000+"秒");
@@ -58,6 +50,18 @@ public class SupportTest extends JUnitTest {
 	@Transactional
 	@Rollback(false)	
 	public void test() {
+		String date = "2016-08-25";
+		ArrayList<StockDailyView> sdList = supportService.getGoldenNeedle(date);
+		Gson gson = new Gson();
+		String jsonString = gson.toJson(sdList);
+		System.out.println(jsonString);
+
+	}
+	
+//	@Test
+//	@Transactional
+//	@Rollback(false)	
+	public void testHeihei() {
 		ArrayList<Stock> stockList = (ArrayList<Stock>) stockMapper.getStockList();
 		for(int i=0;i<stockList.size();i++) {
 			Stock s = stockList.get(i);
@@ -65,17 +69,10 @@ public class SupportTest extends JUnitTest {
 			ArrayList<StockDaily> list = (ArrayList<StockDaily>)stockMapper.getStockDailyList(code);
 			for(int j=0;j<list.size();j++) {
 				StockDaily sd = list.get(j);
-				BigDecimal up = new BigDecimal(sd.getUp());
 				BigDecimal upPer = new BigDecimal(sd.getUpPer());
-				if(up.compareTo(new BigDecimal(0))< 0) {
-					upPer = upPer.multiply(new BigDecimal(-1));
-				}
-				sd.setUpPer(upPer.toString());
-				upPer = upPer.multiply(new BigDecimal(100)).divide(new BigDecimal(1),0,BigDecimal.ROUND_HALF_UP);
+				upPer = upPer.divide(new BigDecimal(1),0,BigDecimal.ROUND_HALF_UP);
 				sd.setUpLevel(upPer.toString());
-				stockMapper.updateStockDaily(sd);
 			}
-			System.out.println(code+"操作完成");
 		}
 	}
 }

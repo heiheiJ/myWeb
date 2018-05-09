@@ -13,11 +13,12 @@
     </select>
     
     <select id="getStockList" resultType="com.jhyarrow.myWeb.domain.Stock">
-    	select * from stock  where stock_code order by stock_code
+    	select * from stock   order by stock_code
     </select>
     
      <update id="updateStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily set up_per = #{upPer}, up_level = #{upLevel} where stock_code = #{stockCode} and date = #{date}
+    	update stock_daily set ema12= #{ema12},ema26= #{ema26},diff = #{diff},dea = #{dea},bar = #{bar},
+    	 up_per = #{upPer}, up_level = #{upLevel} where stock_code = #{stockCode} and date = #{date}
     </update>
     
     <select id="getStockDailyList" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
@@ -31,5 +32,21 @@
     
     <select id="getStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily" resultType="com.jhyarrow.myWeb.domain.StockDaily">
     	select * from stock_daily  where stock_code = #{stockCode} and trade_day = #{tradeDay}
+    </select>
+    
+    <select id="getStockDailyListN"  resultType="com.jhyarrow.myWeb.domain.StockDaily">
+    	select * from stock_daily  where stock_code = #{stockCode} order by date desc limit #{n}
+    </select>
+    
+    <select id="getStockListSh" resultType="com.jhyarrow.myWeb.domain.Stock">
+    	select * from stock where stock_code like '00%'  order by stock_code
+    </select>
+    
+    <select id="getStockListSz" resultType="com.jhyarrow.myWeb.domain.Stock">
+    	select * from stock where stock_code like '60%'  order by stock_code
+    </select>
+    
+    <select id="getStockListCy" resultType="com.jhyarrow.myWeb.domain.Stock">
+    	select * from stock where stock_code like '30%'  order by stock_code
     </select>
 </mapper>

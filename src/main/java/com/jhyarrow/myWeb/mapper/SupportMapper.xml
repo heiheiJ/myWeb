@@ -18,4 +18,28 @@
     	update support set is_true = #{isTrue},up=#{up} where id =#{id}
     </update>
     
+    <select id="getLine3" parameterType="com.jhyarrow.myWeb.domain.Line3" resultType="com.jhyarrow.myWeb.domain.Line3">
+    	select * from line3 where day1 = #{day1} and day2 = #{day2} and day3 = #{day3}
+    </select>
+    
+    <update id="updateLine3" parameterType="com.jhyarrow.myWeb.domain.Line3">
+    	update line3 set up_days = #{upDays}, down_days = #{downDays},avg_up = #{avgUp},avg_down = #{avgDown} 
+    		 where day1 = #{day1} and day2 = #{day2} and day3 = #{day3}
+    </update>
+    
+    <insert id="addLine3" parameterType="com.jhyarrow.myWeb.domain.Line3">
+    	insert into line3(day1,day2,day3,up_days,down_days,avg_up,avg_down) 
+    		values(#{day1},#{day2},#{day3},#{upDays},#{downDays},#{avgUp},#{avgDown})
+    </insert>
+    
+    <insert id="addSupportGoldenNeedle" parameterType="com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle">
+    	insert into support_golden_needle(stock_code,stock_name,date,trade_day,max_day1,min_day1,close_day1,
+    		max_day3,min_day3,close_day3,max_day5,min_day5,close_day5,up_per1,up_per3,up_per5,close_today) values(
+    		#{stockCode},#{stockName},#{date},#{tradeDay},#{maxDay1},#{minDay1},#{closeDay1},#{maxDay3},#{minDay3},
+    		#{closeDay3},#{maxDay5},#{minDay5},#{closeDay5},#{upPer1},#{upPer3},#{upPer5},#{closeToday})
+    </insert>
+    
+    <select id="getSupportGoldenNeedle" parameterType="Integer" resultType="com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle">
+    	select * from support_golden_needle where trade_day = #{tradeDay}
+    </select>
 </mapper>

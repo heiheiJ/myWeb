@@ -11,7 +11,21 @@ public interface StockMapper {
 	public List<Stock> getStockList();
 	public Stock getStockByCode(String code);
 	public void updateStockDaily(StockDaily stockDaily);
-	public ArrayList<StockDaily> getStockDailyList(String stockCode);
 	public void addStockDaily(StockDaily stockDaily);
 	public StockDaily getStockDaily(StockDaily stockDaily);
+	
+	//获取stockCode记录，按trade_day增序
+	public ArrayList<StockDaily> getStockDailyList(String stockCode);
+	
+	//获取近N天记录，按date降序
+	public ArrayList<StockDaily> getStockDailyListN(String stockCode,int n);
+	
+	//获取上证股票
+	public List<Stock> getStockListSh();
+	
+	//获取深证股票
+	public List<Stock> getStockListSz();
+		
+	//获取创业板股票
+	public List<Stock> getStockListCy();
 }
