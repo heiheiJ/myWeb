@@ -6,10 +6,8 @@
     </select>
     
     <insert id="addStockIndexDaily" parameterType="com.jhyarrow.myWeb.domain.StockIndexDaily">
-    	insert into stock_index_daily(code,highest,lowest,open_today,close_today,turn_volume,volumn,higher,lower,equal,up,up_per,date
-    	,trade_day,week_day,name)
-    	values(#{code},#{highest},#{lowest},#{openToday},#{closeToday},#{turnVolume},#{volumn},#{higher},#{lower},#{equal},#{up},#{upPer}
-    	,#{date},#{tradeDay},#{weekDay},#{name})
+    	insert into stock_index_daily(stock_code,stock_name,date,trade_day,open_today,close_today,up,up_per,highest,lowest,volumn,turn_volume,turnover_rate)
+    	values(#{stockCode},#{stockName},#{date},#{tradeDay},#{openToday},#{closeToday},#{up},#{upPer},#{highest},#{lowest},#{volumn},#{turnVolume},#{turnoverRate})
     </insert>
     
      <select id="getStockIndexDailyByCode" resultType="com.jhyarrow.myWeb.domain.StockIndexDaily">

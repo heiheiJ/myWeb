@@ -26,8 +26,8 @@
     </select>
     
     <insert id="addStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	insert into stock_daily(stock_code,stock_name,date,trade_day,open_today,close_today,up,up_per,highest,lowest,volumn,turn_volume,turnover_rate)
-    	values (#{stockCode},#{stockName},#{date},#{tradeDay},#{openToday},#{closeToday},#{up},#{upPer},#{highest},#{lowest},#{volumn},#{turnVolume},#{turnoverRate})
+    	insert into stock_daily(stock_code,stock_name,date,trade_day,open_today,close_today,up,up_per,highest,lowest,volumn,turn_volume,turnover_rate,up_level)
+    	values (#{stockCode},#{stockName},#{date},#{tradeDay},#{openToday},#{closeToday},#{up},#{upPer},#{highest},#{lowest},#{volumn},#{turnVolume},#{turnoverRate},#{upLevel})
     </insert>
     
     <select id="getStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily" resultType="com.jhyarrow.myWeb.domain.StockDaily">

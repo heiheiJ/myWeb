@@ -23,16 +23,19 @@ import org.springframework.test.annotation.Rollback;
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.mapper.StockMapper;
 import com.jhyarrow.myWeb.service.SpiderService;
+import com.jhyarrow.myWeb.service.SupportService;
 
 public class SpiderTest extends JUnitTest {
 	@Autowired
 	private StockMapper stockMapper;
 	@Autowired
 	private SpiderService spiderService;
+	@Autowired
+	private SupportService supportService;
 	
-	@Test
-	@Transactional
-	@Rollback(false)
+//	@Test
+//	@Transactional
+//	@Rollback(false)
 	public void spideStockDaily() {
 		String dates[] = {"2018-04-17","2018-04-18","2018-04-19","2018-04-20",
 				"2018-04-23","2018-04-24","2018-04-25","2018-04-26","2018-04-27"
@@ -78,5 +81,39 @@ public class SpiderTest extends JUnitTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+		
+
+//	@Test
+//	@Transactional
+//	@Rollback(false)
+	public void spideStockDailyIndex() {
+		String dates[] = {"2018-05-11"};
+		for(int i=0;i<dates.length;i++) {
+			spiderService.spideStockIndexDaily(dates[i]);
+		}
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(false)
+	public void addNewStock() throws Exception {
+//		spiderService.spideStockDaily("603897", "长城科技", "20180401", "20180430");
+//		spiderService.spideStockDaily("603301", "振德医疗", "20180401", "20180430");
+//		spiderService.spideStockDaily("300743", "天地数码", "20180401", "20180430");
+//		spiderService.spideStockDaily("603876", "鼎胜新材", "20180401", "20180430");
+//		spiderService.spideStockDaily("603773", "沃格光电", "20180401", "20180430");
+//		spiderService.spideStockDaily("603733", "仙鹤股份", "20180401", "20180430");
+//		spiderService.spideStockDaily("603348", "文灿股份", "20180401", "20180430");
+//		spiderService.spideStockDaily("603596", "伯特利", "20180401", "20180430");
+		
+		supportService.getMACD("603897");
+		supportService.getMACD("603301");
+		supportService.getMACD("300743");
+		supportService.getMACD("603876");
+		supportService.getMACD("603773");
+		supportService.getMACD("603733");
+		supportService.getMACD("603348");
+		supportService.getMACD("603596");
 	}
 }

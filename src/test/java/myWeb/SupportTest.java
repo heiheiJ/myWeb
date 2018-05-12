@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.Gson;
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.domain.StockDaily;
+import com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle;
 import com.jhyarrow.myWeb.mapper.StockMapper;
 import com.jhyarrow.myWeb.mapper.SupportMapper;
 import com.jhyarrow.myWeb.service.SupportService;
@@ -45,17 +46,61 @@ public class SupportTest extends JUnitTest {
 		long end = System.currentTimeMillis();
 		System.out.println("共耗时"+ (end-start)/1000+"秒");
 	}
-	
+
 	@Test
 	@Transactional
-	@Rollback(false)	
+	@Rollback(false)
+	public void testGoldenNeedle() {
+		ArrayList<Stock> stockList = (ArrayList<Stock>) stockMapper.getStockListSh();
+		for(int i=0;i<stockList.size();i++) {
+			Stock sd = stockList.get(i);
+			String stockCode = sd.getStockCode();
+			supportService.updateGoldenNeedle(stockCode);
+		}
+		
+		stockList = (ArrayList<Stock>) stockMapper.getStockListSz();
+		for(int i=0;i<stockList.size();i++) {
+			Stock sd = stockList.get(i);
+			String stockCode = sd.getStockCode();
+			supportService.updateGoldenNeedle(stockCode);
+		}
+		
+		stockList = (ArrayList<Stock>) stockMapper.getStockListCy();
+		for(int i=0;i<stockList.size();i++) {
+			Stock sd = stockList.get(i);
+			String stockCode = sd.getStockCode();
+			supportService.updateGoldenNeedle(stockCode);
+		}
+	}
+	
+//	@Test
+//	@Transactional
+//	@Rollback(false)	
 	public void test() {
-		String date = "2016-08-25";
-		ArrayList<StockDailyView> sdList = supportService.getGoldenNeedle(date);
-		Gson gson = new Gson();
-		String jsonString = gson.toJson(sdList);
-		System.out.println(jsonString);
-
+		ArrayList<SupportGoldenNeedle> list = supportMapper.getSupportGoldenNeedleList();
+		BigDecimal ansA = new BigDecimal(0);
+		BigDecimal ansB = new BigDecimal(0);
+		int cnta = 0;
+		int cntb = 0;
+		for(int i=0;i<list.size();i++) {
+			SupportGoldenNeedle sgn = list.get(i);
+			StockDaily sd = new StockDaily();
+			sd.setStockCode(sgn.getStockCode());
+			sd.setTradeDay(sgn.getTradeDay());
+			sd = stockMapper.getStockDaily(sd);
+			BigDecimal upPer = new BigDecimal(sd.getUpPer());
+			
+			BigDecimal upPer1 = new BigDecimal(sgn.getUpPer1());
+			if(upPer1.compareTo(new BigDecimal(0)) > 0) {
+				ansA = ansA.add(upPer.abs());
+				cnta ++;
+			}else if(upPer1.compareTo(new BigDecimal(0)) < 0){
+				ansB = ansB.add(upPer.abs());
+				cntb ++;
+			}
+		}
+		System.out.print(ansA.divide(new BigDecimal(cnta),4,BigDecimal.ROUND_HALF_UP));
+		System.out.print(ansB.divide(new BigDecimal(cntb),4,BigDecimal.ROUND_HALF_UP));
 	}
 	
 //	@Test

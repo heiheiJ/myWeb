@@ -8,8 +8,8 @@ public interface SupportService {
 	//获取MACD，从第一天开始
 	public void getMACD(String stockCode) throws Exception;
 	
-	//获取MACD，从第tradeDay天开始
-	public void getMACDDay(String stockCode,int tradeDay)  throws Exception;
+	//获取第tradeDay天的MACD
+	public void getMACD(int tradeDay);
 	
 	//更新第tradeDay交易日的近3日走势
 	public void updateLine3(int tradeDay);

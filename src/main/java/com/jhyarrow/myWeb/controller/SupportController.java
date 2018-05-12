@@ -18,7 +18,7 @@ public class SupportController {
 	@Autowired
 	private SupportService supportService;
 	
-	@RequestMapping("/support/getGoldenNeedle")
+	@RequestMapping(value="/support/getGoldenNeedle",produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String getGoldenNeedle(HttpServletRequest request) {
 		String date = "2016-08-25";

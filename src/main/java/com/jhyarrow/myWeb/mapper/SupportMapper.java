@@ -20,4 +20,7 @@ public interface SupportMapper {
 	
 	//获取tradeDay下金针探底
 	public ArrayList<SupportGoldenNeedle> getSupportGoldenNeedle(int tradeDay);
+	
+	//获取所有金针探底
+	public ArrayList<SupportGoldenNeedle> getSupportGoldenNeedleList();
 }

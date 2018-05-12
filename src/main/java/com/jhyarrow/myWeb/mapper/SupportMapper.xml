@@ -42,4 +42,8 @@
     <select id="getSupportGoldenNeedle" parameterType="Integer" resultType="com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle">
     	select * from support_golden_needle where trade_day = #{tradeDay}
     </select>
+    
+    <select id="getSupportGoldenNeedleList" resultType="com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle">
+    	select * from support_golden_needle order by stock_code,date
+    </select>
 </mapper>
