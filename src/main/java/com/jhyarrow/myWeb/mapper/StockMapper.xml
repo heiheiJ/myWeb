@@ -49,4 +49,8 @@
     <select id="getStockListCy" resultType="com.jhyarrow.myWeb.domain.Stock">
     	select * from stock where stock_code like '30%'  order by stock_code
     </select>
+    
+    <select id="getStockDailyYesterDay" resultType="com.jhyarrow.myWeb.domain.StockDaily">
+    	select * from stock_daily where stock_code = #{stockCode}  order by trade_day desc limit 1,1
+    </select>
 </mapper>

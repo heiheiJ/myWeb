@@ -16,7 +16,7 @@ public class TradeDayServiceImpl implements TradeDayService{
 		return tradeDayMapper.getTradeDayList();
 	}
 
-	public int getTradeDayByDate(String date) {
+	public Integer getTradeDayByDate(String date) {
 		return tradeDayMapper.getTradeDayByDate(date);
 	}
 	

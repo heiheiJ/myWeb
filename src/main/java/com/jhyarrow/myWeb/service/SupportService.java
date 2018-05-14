@@ -19,4 +19,7 @@ public interface SupportService {
 	
 	//获取tradeDay日金针探底的stockDaily
 	public ArrayList<StockDailyView> getGoldenNeedle(String tradeDay);
+	
+	//获取MACD，从第tradeDay天开始
+	public void getMACD(String stockCode,int tradeDay)  throws Exception;
 }

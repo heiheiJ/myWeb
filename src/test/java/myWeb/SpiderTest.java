@@ -33,15 +33,16 @@ public class SpiderTest extends JUnitTest {
 	@Autowired
 	private SupportService supportService;
 	
-//	@Test
-//	@Transactional
-//	@Rollback(false)
+	@Test
+	@Transactional
+	@Rollback(false)
 	public void spideStockDaily() {
-		String dates[] = {"2018-04-17","2018-04-18","2018-04-19","2018-04-20",
-				"2018-04-23","2018-04-24","2018-04-25","2018-04-26","2018-04-27"
-				};
-		for(int i=0;i<dates.length;i++) {
-			spiderService.spideStockDaily(dates[i]);
+		try {
+			spiderService.spideStockDaily("603118", "共进股份", "20180510", "20180510");
+			supportService.getMACD("603118",6760);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -94,9 +95,9 @@ public class SpiderTest extends JUnitTest {
 		}
 	}
 	
-	@Test
-	@Transactional
-	@Rollback(false)
+//	@Test
+//	@Transactional
+//	@Rollback(false)
 	public void addNewStock() throws Exception {
 //		spiderService.spideStockDaily("603897", "长城科技", "20180401", "20180430");
 //		spiderService.spideStockDaily("603301", "振德医疗", "20180401", "20180430");
@@ -116,4 +117,5 @@ public class SpiderTest extends JUnitTest {
 		supportService.getMACD("603348");
 		supportService.getMACD("603596");
 	}
+	
 }

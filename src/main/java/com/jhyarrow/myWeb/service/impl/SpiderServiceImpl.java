@@ -27,7 +27,6 @@ public class SpiderServiceImpl implements SpiderService{
 	private TradeDayMapper tradeDayMapper;
 	@Autowired
 	private StockIndexMapper stockIndexMapper;
-	
 	/*
 	 * @param date:yyyy-MM-dd
 	 */
@@ -40,7 +39,6 @@ public class SpiderServiceImpl implements SpiderService{
 			String stockName = stock.getStockName();
 			spideStockDaily(code,stockName,tradeDay,date.replaceAll("-", ""));
 		}
-		System.out.println(date+"处理完成");
 	}
 	
 	/*
@@ -55,7 +53,6 @@ public class SpiderServiceImpl implements SpiderService{
 			String stockName = stockIndex.getStockName();
 			spideStockIndexDaily(stockCode,stockName,tradeDay,date.replaceAll("-", ""));
 		}
-		System.out.println(date+"处理完成");
 		
 	}
 	private void spideStockDaily(String code,String stockName,int tradeDay,String date) {

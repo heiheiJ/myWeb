@@ -5,7 +5,7 @@
     	select * from trade_day
     </select>
     
-    <select id="getTradeDayByDate" parameterType="String" resultType="int" >
+    <select id="getTradeDayByDate" parameterType="String" resultType="Integer" >
     	select trade_day from trade_day where date = #{date}
     </select>
 </mapper>

@@ -1,21 +1,24 @@
 package myWeb;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+
+import javax.mail.MessagingException;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.gson.Gson;
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.domain.StockDaily;
 import com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle;
 import com.jhyarrow.myWeb.mapper.StockMapper;
 import com.jhyarrow.myWeb.mapper.SupportMapper;
 import com.jhyarrow.myWeb.service.SupportService;
-import com.jhyarrow.myWeb.view.StockDailyView;
+import com.jhyarrow.myWeb.service.TradeDayService;
+import com.jhyarrow.myWeb.util.MailUtil;
 
 public class SupportTest extends JUnitTest {
 	@Autowired
@@ -24,32 +27,14 @@ public class SupportTest extends JUnitTest {
 	private StockMapper stockMapper;
 	@Autowired
 	private SupportService supportService;
+	@Autowired
+	private TradeDayService tradeDayService;
 	
-	
+
+
 //	@Test
 //	@Transactional
 //	@Rollback(false)
-	public void caculator() throws Exception {
-		long start = System.currentTimeMillis();
-		ArrayList<Stock> list = (ArrayList<Stock>) stockMapper.getStockList();
-		for(int i=0;i<list.size();i++) {
-			String stockCode = list.get(i).getStockCode();
-			try {
-				for(int j=6744;j<=6753;j++) {
-					supportService.getMACDDay(stockCode,j);
-				}
-			}catch (Exception e) {
-				System.out.println(stockCode+"出错");
-				e.printStackTrace();
-			}
-		}
-		long end = System.currentTimeMillis();
-		System.out.println("共耗时"+ (end-start)/1000+"秒");
-	}
-
-	@Test
-	@Transactional
-	@Rollback(false)
 	public void testGoldenNeedle() {
 		ArrayList<Stock> stockList = (ArrayList<Stock>) stockMapper.getStockListSh();
 		for(int i=0;i<stockList.size();i++) {
@@ -118,6 +103,42 @@ public class SupportTest extends JUnitTest {
 				upPer = upPer.divide(new BigDecimal(1),0,BigDecimal.ROUND_HALF_UP);
 				sd.setUpLevel(upPer.toString());
 			}
+		}
+	}
+	
+//	@Test
+//	@Transactional
+//	@Rollback(false)
+	public void getTradeDay() {
+		String date = "2018-05-02";
+		String to = "632849309@qq.com";
+		String subject = date+"";
+		try {
+			MailUtil.sendMail(to, subject,"lalala");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(false)
+	public void testMacd() {
+		ArrayList<Stock> list = (ArrayList<Stock>) stockMapper.getStockList();
+		for(int i=0;i<list.size();i++) {
+			Stock s = list.get(i);
+			String stockCode = s.getStockCode();
+			try {
+				supportService.getMACD(stockCode);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(stockCode+"操作完成");
 		}
 	}
 }

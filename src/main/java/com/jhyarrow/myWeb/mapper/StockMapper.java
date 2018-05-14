@@ -3,6 +3,8 @@ package com.jhyarrow.myWeb.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.domain.StockDaily;
 
@@ -19,6 +21,9 @@ public interface StockMapper {
 	
 	//获取近N天记录，按date降序
 	public ArrayList<StockDaily> getStockDailyListN(String stockCode,int n);
+	
+	//获取tradeDay前一天的股票数据
+	public StockDaily getStockDailyYesterDay(@Param("stockCode") String stockCode);
 	
 	//获取上证股票
 	public List<Stock> getStockListSh();

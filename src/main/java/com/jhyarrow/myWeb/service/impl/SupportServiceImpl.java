@@ -3,6 +3,7 @@ package com.jhyarrow.myWeb.service.impl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jhyarrow.myWeb.domain.Line3;
@@ -82,16 +83,13 @@ public class SupportServiceImpl implements SupportService{
 	}
 	
 	//获取MACD，从第tradeDay天开始
-	private void getMACD(String stockCode,int tradeDay) throws Exception {
+	public void getMACD(String stockCode,int tradeDay) throws Exception {
 		StockDaily today = new StockDaily();
 		today.setStockCode(stockCode);
 		today.setTradeDay(tradeDay);
 		today = stockMapper.getStockDaily(today);
 		
-		StockDaily yesterDay = new StockDaily();
-		yesterDay.setStockCode(stockCode);
-		yesterDay.setTradeDay(tradeDay-1);
-		yesterDay = stockMapper.getStockDaily(yesterDay);
+		StockDaily yesterDay = stockMapper.getStockDailyYesterDay(stockCode);
 		BigDecimal ema12lastDay = new BigDecimal(yesterDay.getEma12());
 		BigDecimal ema26lastDay = new BigDecimal(yesterDay.getEma26());
 		BigDecimal deaLastDay = new BigDecimal(yesterDay.getDea());
