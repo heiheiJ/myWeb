@@ -33,10 +33,8 @@
     </insert>
     
     <insert id="addSupportGoldenNeedle" parameterType="com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle">
-    	insert into support_golden_needle(stock_code,stock_name,date,trade_day,max_day1,min_day1,close_day1,
-    		max_day3,min_day3,close_day3,max_day5,min_day5,close_day5,up_per1,up_per3,up_per5,close_today) values(
-    		#{stockCode},#{stockName},#{date},#{tradeDay},#{maxDay1},#{minDay1},#{closeDay1},#{maxDay3},#{minDay3},
-    		#{closeDay3},#{maxDay5},#{minDay5},#{closeDay5},#{upPer1},#{upPer3},#{upPer5},#{closeToday})
+    	insert into support_golden_needle(stock_code,stock_name,date,trade_day) values(
+    		#{stockCode},#{stockName},#{date},#{tradeDay})
     </insert>
     
     <select id="getSupportGoldenNeedle" parameterType="Integer" resultType="com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle">
@@ -46,4 +44,36 @@
     <select id="getSupportGoldenNeedleList" resultType="com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle">
     	select * from support_golden_needle order by stock_code,date
     </select>
+    
+    <update id="updateSupportGoldenNeedle" parameterType="com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle">
+    	update support_golden_needle set max_day1 = #{maxDay1}, max_day3 = #{maxDay3},max_day5 = #{maxDay5},
+    		 min_day1 = #{minDay1},  min_day3 = #{minDay3},  min_day5 = #{minDay5} ,close_day1 = #{closeDay1} 
+    		 ,close_day3 = #{closeDay3} ,close_day5 = #{closeDay5} ,up_per1 = #{upPer1} ,up_per3 = #{upPer3} ,up_per5 = #{upPer5} 
+    		 where stock_code = #{stockCode} and date = #{date}
+    </update>
+    
+    <insert id="addMacdGoldenCross" parameterType="com.jhyarrow.myWeb.domain.support.MacdGoldenCross">
+    	insert into macd_golden_cross(stock_code,trade_day) values(#{stockCode},#{tradeDay})
+    </insert>
+    
+    <select id="getMacdGoldenCrossList" parameterType="String"  resultType="com.jhyarrow.myWeb.domain.support.MacdGoldenCross">
+    	select * from macd_golden_cross where stock_code = #{stockCode} order by trade_day
+    </select>
+    
+    <update id="updateMacdGoldenCross" parameterType="com.jhyarrow.myWeb.domain.support.MacdGoldenCross">
+    	update macd_golden_cross set up_per1 = #{upPer1}, up_per5 = #{upPer5},up_per10 = #{upPer10},bar = #{bar} 
+    		 where stock_code = #{stockCode} and trade_day = #{tradeDay}
+    </update>
+    
+    <insert id="addSpiderStockDailyError" parameterType="com.jhyarrow.myWeb.domain.SpiderStockDailyError">
+    	insert into spider_stock_daily_error(stock_code,date,trade_day,stock_name) values (#{stockCode},#{date},#{tradeDay},#{stockName})
+    </insert>
+    
+    <select id="getSpiderStockDailyErrorList" resultType="com.jhyarrow.myWeb.domain.SpiderStockDailyError">
+    	select * from spider_stock_daily_error
+    </select>
+    
+    <delete id="deleteSpiderStockDailyError" parameterType="com.jhyarrow.myWeb.domain.SpiderStockDailyError">
+    	delete from spider_stock_daily_error where stock_code = #{stockCode} and date = #{date}
+    </delete>
 </mapper>

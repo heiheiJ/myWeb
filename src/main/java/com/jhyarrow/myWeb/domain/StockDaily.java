@@ -20,6 +20,78 @@ public class StockDaily {
 	private String dea;
 	private String bar;
 	private String upLevel;
+	private Integer nextTradeDay;//下一个交易日
+	private Integer prevTradeDay;//上一个交易日
+	private float rsv;
+	private float k;
+	private float d;
+	private float j;
+	private float max9;
+	private float min9;
+	
+	public float getMax9() {
+		return max9;
+	}
+
+	public void setMax9(float max9) {
+		this.max9 = max9;
+	}
+
+	public float getMin9() {
+		return min9;
+	}
+
+	public void setMin9(float min9) {
+		this.min9 = min9;
+	}
+
+	public Integer getPrevTradeDay() {
+		return prevTradeDay;
+	}
+
+	public void setPrevTradeDay(Integer prevTradeDay) {
+		this.prevTradeDay = prevTradeDay;
+	}
+
+	public float getRsv() {
+		return rsv;
+	}
+
+	public void setRsv(float rsv) {
+		this.rsv = rsv;
+	}
+
+	public float getK() {
+		return k;
+	}
+
+	public void setK(float k) {
+		this.k = k;
+	}
+
+	public float getD() {
+		return d;
+	}
+
+	public void setD(float d) {
+		this.d = d;
+	}
+
+	public float getJ() {
+		return j;
+	}
+
+	public void setJ(float j) {
+		this.j = j;
+	}
+
+	public Integer getNextTradeDay() {
+		return nextTradeDay;
+	}
+
+	public void setNextTradeDay(Integer nextTradeDay) {
+		this.nextTradeDay = nextTradeDay;
+	}
 
 	public String getUpLevel() {
 		return upLevel;

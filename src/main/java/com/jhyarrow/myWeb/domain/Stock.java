@@ -1,11 +1,17 @@
 package com.jhyarrow.myWeb.domain;
 
-import java.util.List;
-
 public class Stock {
 	private String stockName;
 	private String stockCode;
 	private String comName;
+	private Integer lastTradeDay;
+	
+	public Integer getLastTradeDay() {
+		return lastTradeDay;
+	}
+	public void setLastTradeDay(Integer lastTradeDay) {
+		this.lastTradeDay = lastTradeDay;
+	}
 	public String getStockName() {
 		return stockName;
 	}

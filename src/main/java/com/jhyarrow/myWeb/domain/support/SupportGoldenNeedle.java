@@ -17,14 +17,7 @@ public class SupportGoldenNeedle {
 	private String upPer1;
 	private String upPer3;
 	private String upPer5;
-	private String closeToday;
 	
-	public String getCloseToday() {
-		return closeToday;
-	}
-	public void setCloseToday(String closeToday) {
-		this.closeToday = closeToday;
-	}
 	public String getStockCode() {
 		return stockCode;
 	}

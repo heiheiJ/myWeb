@@ -11,12 +11,14 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.jhyarrow.myWeb.domain.SpiderStockDailyError;
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.domain.StockDaily;
 import com.jhyarrow.myWeb.domain.StockIndex;
 import com.jhyarrow.myWeb.domain.StockIndexDaily;
 import com.jhyarrow.myWeb.mapper.StockIndexMapper;
 import com.jhyarrow.myWeb.mapper.StockMapper;
+import com.jhyarrow.myWeb.mapper.SupportMapper;
 import com.jhyarrow.myWeb.mapper.TradeDayMapper;
 import com.jhyarrow.myWeb.service.SpiderService;
 
@@ -27,18 +29,23 @@ public class SpiderServiceImpl implements SpiderService{
 	private TradeDayMapper tradeDayMapper;
 	@Autowired
 	private StockIndexMapper stockIndexMapper;
+	@Autowired
+	private SupportMapper supportMapper;
 	/*
 	 * @param date:yyyy-MM-dd
 	 */
-	public void spideStockDaily(String date) {
+	public int spideStockDaily(String date) {
 		ArrayList<Stock> list = (ArrayList<Stock>) stockMapper.getStockList();
 		int tradeDay =  tradeDayMapper.getTradeDayByDate(date);
 		for(int i=0;i<list.size();i++) {
 			Stock stock = list.get(i);
 			String code = stock.getStockCode();
 			String stockName = stock.getStockName();
-			spideStockDaily(code,stockName,tradeDay,date.replaceAll("-", ""));
+			Integer lastTradeDay = stock.getLastTradeDay(); 
+			spideStockDaily(code,stockName,tradeDay,lastTradeDay,date.replaceAll("-", ""));
 		}
+		
+		return stockMapper.getStockDailyCount(date);
 	}
 	
 	/*
@@ -55,7 +62,7 @@ public class SpiderServiceImpl implements SpiderService{
 		}
 		
 	}
-	private void spideStockDaily(String code,String stockName,int tradeDay,String date) {
+	public void spideStockDaily(String code,String stockName,int tradeDay,int lastTradeDay,String date) {
 		String url = "http://q.stock.sohu.com/hisHq?code=cn_"+code+"&start="+date+"&end="+date+"&stat=1&order=D&period=d"
 				+ "&callback=historySearchHandler&rt=json&r=0.8391495715053367&0.9677250558488026";
 		
@@ -92,13 +99,30 @@ public class SpiderServiceImpl implements SpiderService{
 				sd.setTurnVolume(datas[8]);
 				sd.setTurnoverRate(String.valueOf(Double.parseDouble(datas[9].replaceAll("-", "0").replaceAll("%", ""))/100.0));
 				sd.setTradeDay(tradeDay);
+				sd.setPrevTradeDay(lastTradeDay);
 				BigDecimal upPerBd = new BigDecimal(upPer).multiply(new BigDecimal(100)).divide(new BigDecimal(1),0,BigDecimal.ROUND_HALF_UP);
 				sd.setUpLevel(upPerBd.toString());
 				stockMapper.addStockDaily(sd);
+				
+				//更新指针
+				StockDaily lastStockDaily = stockMapper.getStockDaily(code, lastTradeDay);
+				lastStockDaily.setNextTradeDay(tradeDay);
+				stockMapper.updateStockDaily(lastStockDaily);
+				
+				Stock stock = stockMapper.getStockByCode(code);
+				stock.setLastTradeDay(tradeDay);
+				stockMapper.updateStock(stock);
 			}
 		} catch (Exception e) {
-			System.out.println(code+"处理错误");
+			System.out.println(code+"处理错误，response："+response);
 			e.printStackTrace();
+			
+			SpiderStockDailyError ssde = new SpiderStockDailyError();
+			ssde.setDate(date);
+			ssde.setTradeDay(tradeDay);
+			ssde.setStockCode(code);
+			ssde.setStockName(stockName);
+			addSpiderServiceImpl(ssde);
 		}
 	}
 	
@@ -195,4 +219,7 @@ public class SpiderServiceImpl implements SpiderService{
 		}
 	}
 
+	private void addSpiderServiceImpl(SpiderStockDailyError ssde) {
+		supportMapper.addSpiderStockDailyError(ssde);
+	}
 }

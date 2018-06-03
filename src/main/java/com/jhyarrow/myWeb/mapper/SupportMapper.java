@@ -3,7 +3,9 @@ package com.jhyarrow.myWeb.mapper;
 import java.util.ArrayList;
 
 import com.jhyarrow.myWeb.domain.Line3;
+import com.jhyarrow.myWeb.domain.SpiderStockDailyError;
 import com.jhyarrow.myWeb.domain.Support;
+import com.jhyarrow.myWeb.domain.support.MacdGoldenCross;
 import com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle;
 
 public interface SupportMapper {
@@ -23,4 +25,24 @@ public interface SupportMapper {
 	
 	//获取所有金针探底
 	public ArrayList<SupportGoldenNeedle> getSupportGoldenNeedleList();
+	
+	public void updateSupportGoldenNeedle(SupportGoldenNeedle sgn);
+	
+	//添加Macd金叉
+	public void addMacdGoldenCross(MacdGoldenCross mgc);
+	
+	//获取所有Macd金叉
+	public ArrayList<MacdGoldenCross> getMacdGoldenCrossList(String stockCode);
+	
+	//更新Macd金叉
+	public void updateMacdGoldenCross(MacdGoldenCross mgc);
+	
+	//添加爬虫错误记录
+	public void addSpiderStockDailyError(SpiderStockDailyError ssde);
+	
+	//获取爬虫错误记录列表
+	public ArrayList<SpiderStockDailyError> getSpiderStockDailyErrorList();
+	
+	//删除爬虫错误记录
+	public void deleteSpiderStockDailyError(SpiderStockDailyError ssde);
 }

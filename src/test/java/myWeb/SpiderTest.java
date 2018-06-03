@@ -1,6 +1,7 @@
 package myWeb;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.transaction.Transactional;
@@ -20,9 +21,11 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
+import com.jhyarrow.myWeb.domain.SpiderStockDailyError;
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.mapper.StockMapper;
 import com.jhyarrow.myWeb.service.SpiderService;
+import com.jhyarrow.myWeb.service.StockService;
 import com.jhyarrow.myWeb.service.SupportService;
 
 public class SpiderTest extends JUnitTest {
@@ -32,14 +35,16 @@ public class SpiderTest extends JUnitTest {
 	private SpiderService spiderService;
 	@Autowired
 	private SupportService supportService;
+	@Autowired
+	private StockService stockService;
 	
-	@Test
-	@Transactional
-	@Rollback(false)
+//	@Test
+//	@Transactional
+//	@Rollback(false)
 	public void spideStockDaily() {
 		try {
-			spiderService.spideStockDaily("603118", "共进股份", "20180510", "20180510");
-			supportService.getMACD("603118",6760);
+			spiderService.spideStockDaily("600031", "三一重工", "20180518", "20180518");
+			supportService.getMACD("600031",6766);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,27 +100,18 @@ public class SpiderTest extends JUnitTest {
 		}
 	}
 	
-//	@Test
-//	@Transactional
-//	@Rollback(false)
+	@Test
+	@Transactional
+	@Rollback(false)
 	public void addNewStock() throws Exception {
-//		spiderService.spideStockDaily("603897", "长城科技", "20180401", "20180430");
-//		spiderService.spideStockDaily("603301", "振德医疗", "20180401", "20180430");
-//		spiderService.spideStockDaily("300743", "天地数码", "20180401", "20180430");
-//		spiderService.spideStockDaily("603876", "鼎胜新材", "20180401", "20180430");
-//		spiderService.spideStockDaily("603773", "沃格光电", "20180401", "20180430");
-//		spiderService.spideStockDaily("603733", "仙鹤股份", "20180401", "20180430");
-//		spiderService.spideStockDaily("603348", "文灿股份", "20180401", "20180430");
-//		spiderService.spideStockDaily("603596", "伯特利", "20180401", "20180430");
-		
-		supportService.getMACD("603897");
-		supportService.getMACD("603301");
-		supportService.getMACD("300743");
-		supportService.getMACD("603876");
-		supportService.getMACD("603773");
-		supportService.getMACD("603733");
-		supportService.getMACD("603348");
-		supportService.getMACD("603596");
+		ArrayList<SpiderStockDailyError> list = supportService.getSpiderStockDailyErrorList();
+		for(int i=0;i<list.size();i++) {
+			SpiderStockDailyError ssde = list.get(i);
+			Stock stock = stockService.getStockByCode(ssde.getStockCode());
+			spiderService.spideStockDaily(ssde.getStockCode(), ssde.getStockName(),ssde.getTradeDay(),stock.getLastTradeDay(),ssde.getDate().substring(0, 10).replaceAll("-", ""));
+			supportService.getMACD(ssde.getStockCode(),ssde.getTradeDay());
+			supportService.deleteSpiderStockDailyError(ssde);
+		}
 	}
 	
 }

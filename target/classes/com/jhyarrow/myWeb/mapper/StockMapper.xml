@@ -16,9 +16,19 @@
     	select * from stock   order by stock_code
     </select>
     
-     <update id="updateStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily set ema12= #{ema12},ema26= #{ema26},diff = #{diff},dea = #{dea},bar = #{bar},
-    	 up_per = #{upPer}, up_level = #{upLevel} where stock_code = #{stockCode} and date = #{date}
+    <update id="updateStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
+    	update stock_daily set up_per = #{upPer}, up_level = #{upLevel},next_trade_day = #{nextTradeDay},prev_trade_day = #{prevTradeDay} 
+    	 where stock_code = #{stockCode} and date = #{date}
+    </update>
+    
+     <update id="updateStockDailyMACD" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
+    	update stock_daily set ema12= #{ema12},ema26= #{ema26},diff = #{diff},dea = #{dea},bar = #{bar} 
+    	 where stock_code = #{stockCode} and date = #{date}
+    </update>
+    
+    <update id="updateStockDailyKdj" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
+    	update stock_daily set max9=#{max9},min9=#{min9},rsv= #{rsv},k= #{k},d = #{d},j = #{j}
+    	  where stock_code = #{stockCode} and date = #{date}
     </update>
     
     <select id="getStockDailyList" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
@@ -30,12 +40,16 @@
     	values (#{stockCode},#{stockName},#{date},#{tradeDay},#{openToday},#{closeToday},#{up},#{upPer},#{highest},#{lowest},#{volumn},#{turnVolume},#{turnoverRate},#{upLevel})
     </insert>
     
-    <select id="getStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily" resultType="com.jhyarrow.myWeb.domain.StockDaily">
+    <select id="getStockDaily" resultType="com.jhyarrow.myWeb.domain.StockDaily">
     	select * from stock_daily  where stock_code = #{stockCode} and trade_day = #{tradeDay}
     </select>
     
     <select id="getStockDailyListN"  resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily  where stock_code = #{stockCode} order by date desc limit #{n}
+    	select * from stock_daily  where stock_code = #{stockCode} 
+    	<if test="tradeDay != null">
+    		and trade_day > #{tradeDay}
+    	</if>
+    	 order by date desc limit #{n}
     </select>
     
     <select id="getStockListSh" resultType="com.jhyarrow.myWeb.domain.Stock">
@@ -50,7 +64,16 @@
     	select * from stock where stock_code like '30%'  order by stock_code
     </select>
     
-    <select id="getStockDailyYesterDay" resultType="com.jhyarrow.myWeb.domain.StockDaily">
-    	select * from stock_daily where stock_code = #{stockCode}  order by trade_day desc limit 1,1
+    <select id="getStockListOther" resultType="com.jhyarrow.myWeb.domain.Stock">
+    	select * from stock where stock_code like '20%' or stock_code like '90%'  order by stock_code
     </select>
+    
+    <select id="getStockDailyCount" resultType="int">
+    	select count(*) from stock_daily where date = #{date}
+    </select>
+    
+    <update id="updateStock" parameterType="com.jhyarrow.myWeb.domain.Stock">
+    	update stock set last_trade_day = #{lastTradeDay} where stock_code = #{stockCode}
+    </update>
+    
 </mapper>

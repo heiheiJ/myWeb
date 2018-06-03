@@ -11,15 +11,29 @@
 		<property name="concurrent" value="false" />
 	</bean>
 	
+	<bean id="errorJob"  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">  
+			<bean class="com.jhyarrow.myWeb.job.ErrorJob" />  
+		</property>  
+		<property name="targetMethod" value="clearStockDailyError" />  
+		<property name="concurrent" value="false" />
+	</bean>
+	
 	<bean id="spideDataTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
 		<property name="jobDetail" ref="spideData" />  
-		<property name="cronExpression" value="0 10 0 ? * MON-SUN" />  
+		<property name="cronExpression" value="0 55 20 ? * MON-SUN" />  
+	</bean>  
+	
+	<bean id="errorTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+		<property name="jobDetail" ref="errorJob" />  
+		<property name="cronExpression" value="0 15 21 ? * MON-SUN" />  
 	</bean>  
 	
 <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
 		<property name="triggers">  
 			<list>  
 				<ref bean="spideDataTrigger" />  
+				<ref bean="errorTrigger" />  
 			</list>  
 		</property>  
 	</bean>

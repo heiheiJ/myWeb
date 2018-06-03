@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.domain.StockDaily;
+import com.jhyarrow.myWeb.domain.support.MacdGoldenCross;
 import com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle;
 import com.jhyarrow.myWeb.mapper.StockMapper;
 import com.jhyarrow.myWeb.mapper.SupportMapper;
@@ -30,31 +31,55 @@ public class SupportTest extends JUnitTest {
 	@Autowired
 	private TradeDayService tradeDayService;
 	
-
-
 //	@Test
 //	@Transactional
 //	@Rollback(false)
-	public void testGoldenNeedle() {
+	public void testAddMacdGoldenCross() {
 		ArrayList<Stock> stockList = (ArrayList<Stock>) stockMapper.getStockListSh();
 		for(int i=0;i<stockList.size();i++) {
 			Stock sd = stockList.get(i);
 			String stockCode = sd.getStockCode();
-			supportService.updateGoldenNeedle(stockCode);
+			supportService.addMacdGoldenCross(stockCode);
 		}
 		
 		stockList = (ArrayList<Stock>) stockMapper.getStockListSz();
 		for(int i=0;i<stockList.size();i++) {
 			Stock sd = stockList.get(i);
 			String stockCode = sd.getStockCode();
-			supportService.updateGoldenNeedle(stockCode);
+			supportService.addMacdGoldenCross(stockCode);
 		}
 		
 		stockList = (ArrayList<Stock>) stockMapper.getStockListCy();
 		for(int i=0;i<stockList.size();i++) {
 			Stock sd = stockList.get(i);
 			String stockCode = sd.getStockCode();
-			supportService.updateGoldenNeedle(stockCode);
+			supportService.addMacdGoldenCross(stockCode);
+		}
+	}
+
+//	@Test
+//	@Transactional
+//	@Rollback(false)
+	public void testUpdateMacdGoldenCross() {
+		ArrayList<Stock> stockList = (ArrayList<Stock>) stockMapper.getStockListSh();
+		for(int i=0;i<stockList.size();i++) {
+			Stock sd = stockList.get(i);
+			String stockCode = sd.getStockCode();
+			supportService.updateMacdGoldenCross(stockCode);
+		}
+		
+		stockList = (ArrayList<Stock>) stockMapper.getStockListSz();
+		for(int i=0;i<stockList.size();i++) {
+			Stock sd = stockList.get(i);
+			String stockCode = sd.getStockCode();
+			supportService.updateMacdGoldenCross(stockCode);
+		}
+		
+		stockList = (ArrayList<Stock>) stockMapper.getStockListCy();
+		for(int i=0;i<stockList.size();i++) {
+			Stock sd = stockList.get(i);
+			String stockCode = sd.getStockCode();
+			supportService.updateMacdGoldenCross(stockCode);
 		}
 	}
 	
@@ -63,29 +88,31 @@ public class SupportTest extends JUnitTest {
 //	@Rollback(false)	
 	public void test() {
 		ArrayList<SupportGoldenNeedle> list = supportMapper.getSupportGoldenNeedleList();
-		BigDecimal ansA = new BigDecimal(0);
-		BigDecimal ansB = new BigDecimal(0);
-		int cnta = 0;
-		int cntb = 0;
 		for(int i=0;i<list.size();i++) {
 			SupportGoldenNeedle sgn = list.get(i);
-			StockDaily sd = new StockDaily();
-			sd.setStockCode(sgn.getStockCode());
-			sd.setTradeDay(sgn.getTradeDay());
-			sd = stockMapper.getStockDaily(sd);
-			BigDecimal upPer = new BigDecimal(sd.getUpPer());
-			
-			BigDecimal upPer1 = new BigDecimal(sgn.getUpPer1());
-			if(upPer1.compareTo(new BigDecimal(0)) > 0) {
-				ansA = ansA.add(upPer.abs());
-				cnta ++;
-			}else if(upPer1.compareTo(new BigDecimal(0)) < 0){
-				ansB = ansB.add(upPer.abs());
-				cntb ++;
+			StockDaily sd = stockMapper.getStockDaily(sgn.getStockCode(),sgn.getTradeDay()+1);
+			if(sd != null) {
+				sgn.setMaxDay1(sd.getHighest());
+				sgn.setMinDay1(sd.getLowest());
+				sgn.setCloseDay1(sd.getCloseToday());
+				sgn.setUpPer1(sd.getUpPer());
 			}
+			sd = stockMapper.getStockDaily(sgn.getStockCode(),sgn.getTradeDay()+3);
+			if(sd != null) {
+				sgn.setMaxDay3(sd.getHighest());
+				sgn.setMinDay3(sd.getLowest());
+				sgn.setCloseDay3(sd.getCloseToday());
+				sgn.setUpPer3(sd.getUpPer());
+			}
+			sd = stockMapper.getStockDaily(sgn.getStockCode(),sgn.getTradeDay()+5);
+			if(sd != null) {
+				sgn.setMaxDay5(sd.getHighest());
+				sgn.setMinDay5(sd.getLowest());
+				sgn.setCloseDay5(sd.getCloseToday());
+				sgn.setUpPer5(sd.getUpPer());
+			}
+			supportMapper.updateSupportGoldenNeedle(sgn);
 		}
-		System.out.print(ansA.divide(new BigDecimal(cnta),4,BigDecimal.ROUND_HALF_UP));
-		System.out.print(ansB.divide(new BigDecimal(cntb),4,BigDecimal.ROUND_HALF_UP));
 	}
 	
 //	@Test
@@ -124,9 +151,9 @@ public class SupportTest extends JUnitTest {
 		}
 	}
 	
-	@Test
-	@Transactional
-	@Rollback(false)
+//	@Test
+//	@Transactional
+//	@Rollback(false)
 	public void testMacd() {
 		ArrayList<Stock> list = (ArrayList<Stock>) stockMapper.getStockList();
 		for(int i=0;i<list.size();i++) {
@@ -139,6 +166,38 @@ public class SupportTest extends JUnitTest {
 				e.printStackTrace();
 			}
 			System.out.println(stockCode+"操作完成");
+		}
+	}
+	@Test
+	@Transactional
+	@Rollback(false)	
+	public void getKDJ() {
+		ArrayList<Stock> stockList = (ArrayList<Stock>) stockMapper.getStockListSh();
+		for(int i=0;i<stockList.size();i++) {
+			Stock sd = stockList.get(i);
+			String stockCode = sd.getStockCode();
+			supportService.getKDJ(stockCode);
+		}
+		
+		stockList = (ArrayList<Stock>) stockMapper.getStockListSz();
+		for(int i=0;i<stockList.size();i++) {
+			Stock sd = stockList.get(i);
+			String stockCode = sd.getStockCode();
+			supportService.getKDJ(stockCode);
+		}
+		
+		stockList = (ArrayList<Stock>) stockMapper.getStockListCy();
+		for(int i=0;i<stockList.size();i++) {
+			Stock sd = stockList.get(i);
+			String stockCode = sd.getStockCode();
+			supportService.getKDJ(stockCode);
+		}
+		
+		stockList = (ArrayList<Stock>) stockMapper.getStockListOther();
+		for(int i=0;i<stockList.size();i++) {
+			Stock sd = stockList.get(i);
+			String stockCode = sd.getStockCode();
+			supportService.getKDJ(stockCode);
 		}
 	}
 }

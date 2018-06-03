@@ -26,12 +26,13 @@ public class MailUtil {
 
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		mailSender.setHost(props.getProperty("mailHost"));
-		mailSender.setPort(25);
+		mailSender.setPort(Integer.parseInt(props.getProperty("mailPort")));
 		mailSender.setUsername(props.getProperty("mailUsername"));
 		mailSender.setPassword(props.getProperty("mailPassword"));
 		Properties p = new Properties();
         p.setProperty("mail.smtp.timeout", props.getProperty("mailTimeout"));
         p.setProperty("mail.smtp.auth", "false");
+        p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         mailSender.setJavaMailProperties(p);
         emailForm = props.getProperty("mailFrom");
         personal = props.getProperty("personal");
