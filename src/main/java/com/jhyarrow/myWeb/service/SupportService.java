@@ -7,7 +7,13 @@ import com.jhyarrow.myWeb.view.StockDailyView;
 
 public interface SupportService {
 	//获取MACD，从第一天开始
-	public void getMACD(String stockCode) throws Exception;
+	public void getMACD() throws Exception;
+	//获取9日内最高最低值
+	public void get9();	
+	//获取KDJ,从第一天开始
+	public void getKDJ();
+	
+	
 	
 	//获取第tradeDay天的MACD
 	public void getMACD(int tradeDay);
@@ -36,12 +42,7 @@ public interface SupportService {
 	//删除爬虫错误记录
 	public void deleteSpiderStockDailyError(SpiderStockDailyError ssde);
 	
-	//获取KDJ,从第一天开始
-	public void getKDJ(String stockCode);
-	
 	//获取第tradeDay的KDJ
 	public void getKDJ(int tradeDay);
 	
-	//获取9日内最高最低值
-	public void get9(String stockCode);
 }

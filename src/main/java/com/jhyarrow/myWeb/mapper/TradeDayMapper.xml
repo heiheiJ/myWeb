@@ -8,4 +8,12 @@
     <select id="getTradeDayByDate" parameterType="String" resultType="Integer" >
     	select trade_day from trade_day where date = #{date}
     </select>
+    
+    <update id="truncateTradeDay">
+    	truncate table trade_day
+    </update>
+    
+    <insert id="addTradeDay" parameterType="com.jhyarrow.myWeb.domain.TradeDay">
+    	insert into trade_day (date,trade_day) values(#{date},#{tradeDay})
+    </insert>
 </mapper>

@@ -1,12 +1,12 @@
 package com.jhyarrow.myWeb.domain;
 
 public class TradeDay {
-	private String tradeDay;
+	private Integer tradeDay;
 	private String date;
-	public String getTradeDay() {
+	public Integer getTradeDay() {
 		return tradeDay;
 	}
-	public void setTradeDay(String tradeDay) {
+	public void setTradeDay(Integer tradeDay) {
 		this.tradeDay = tradeDay;
 	}
 	public String getDate() {

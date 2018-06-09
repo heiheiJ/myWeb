@@ -19,14 +19,28 @@
 		<property name="concurrent" value="false" />
 	</bean>
 	
+	<bean id="stockJobWeek"  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">  
+			<bean class="com.jhyarrow.myWeb.job.StockJobWeek" />  
+		</property>  
+		<property name="targetMethod" value="spideWeek" />  
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	
 	<bean id="spideDataTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
 		<property name="jobDetail" ref="spideData" />  
-		<property name="cronExpression" value="0 55 20 ? * MON-SUN" />  
+		<property name="cronExpression" value="0 40 22 ? * MON-SUN" />  
 	</bean>  
 	
 	<bean id="errorTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
 		<property name="jobDetail" ref="errorJob" />  
-		<property name="cronExpression" value="0 15 21 ? * MON-SUN" />  
+		<property name="cronExpression" value="0 30 12 ? * MON-SUN" />  
+	</bean>  
+	
+	<bean id="stockJobWeekTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+		<property name="jobDetail" ref="stockJobWeek" />  
+		<property name="cronExpression" value="0 2 23 ? * MON-SUN" />  
 	</bean>  
 	
 <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
@@ -34,6 +48,7 @@
 			<list>  
 				<ref bean="spideDataTrigger" />  
 				<ref bean="errorTrigger" />  
+				<ref bean="stockJobWeekTrigger" />  
 			</list>  
 		</property>  
 	</bean>

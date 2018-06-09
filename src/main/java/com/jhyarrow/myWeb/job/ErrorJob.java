@@ -20,14 +20,14 @@ public class ErrorJob {
 	
 	public void clearStockDailyError(){
 		try {
-			ArrayList<SpiderStockDailyError> list = supportService.getSpiderStockDailyErrorList();
-			for(int i=0;i<list.size();i++) {
-				SpiderStockDailyError ssde = list.get(i);
-				Stock stock = stockService.getStockByCode(ssde.getStockCode());
-				spiderService.spideStockDaily(ssde.getStockCode(), ssde.getStockName(),ssde.getTradeDay(),stock.getLastTradeDay(),ssde.getDate().substring(0, 10).replaceAll("-", ""));
-				supportService.getMACD(ssde.getStockCode(),ssde.getTradeDay());
-				supportService.deleteSpiderStockDailyError(ssde);
-			}
+//			ArrayList<SpiderStockDailyError> list = supportService.getSpiderStockDailyErrorList();
+//			for(int i=0;i<list.size();i++) {
+//				SpiderStockDailyError ssde = list.get(i);
+//				Stock stock = stockService.getStockByCode(ssde.getStockCode());
+//				spiderService.spideStockDaily(ssde.getStockCode(), ssde.getStockName(),ssde.getTradeDay(),stock.getLastTradeDay(),ssde.getDate().substring(0, 10).replaceAll("-", ""));
+//				supportService.getMACD(ssde.getStockCode(),ssde.getTradeDay());
+//				supportService.deleteSpiderStockDailyError(ssde);
+//			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

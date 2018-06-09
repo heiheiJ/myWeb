@@ -10,25 +10,19 @@ import org.springframework.test.annotation.Rollback;
 
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.domain.StockDaily;
+import com.jhyarrow.myWeb.domain.StockIndexDaily;
 import com.jhyarrow.myWeb.mapper.StockMapper;
+import com.jhyarrow.myWeb.service.StockService;
+import com.jhyarrow.myWeb.service.TradeDayService;
 
 public class StockTest extends JUnitTest{
 	@Autowired
 	private StockMapper stockMapper;
+	@Autowired
+	private StockService stockService;
+	@Autowired
+	private TradeDayService tradeDayService;
 	
-	
-	@Test
-	public void heihei() {
-		String src = "<heihei></heihei><aaaa/><bbb/><cc/><d/>";
-		while(src.indexOf("/>")!= -1) {
-			String tmp1 = src.substring(0,src.indexOf("/>"));
-			String tmp2 = src.substring(src.indexOf("/>")+2, src.length());
-			String tmp3 = tmp1.substring(0,tmp1.lastIndexOf("<"));
-			String tmp4 = tmp1.substring(tmp1.lastIndexOf("<")+1, tmp1.length());
-			src = tmp3 + "<"+tmp4+"></"+tmp4+">" + tmp2;
-		}
-		System.out.println(src);
-	}
 	
 //	@Test
 //	@Transactional
@@ -88,6 +82,21 @@ public class StockTest extends JUnitTest{
 				stockMapper.updateStockDaily(stockDaily);
 			}
 			System.out.println(stockCode + "处理完成");
+		}
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(false)
+	public  void stockJobWeek4() {
+		ArrayList<StockIndexDaily> list = stockService.getStockIndexDailyList();
+		for(int i=0;i<list.size();i++) {
+			StockIndexDaily sid = list.get(i);
+			String stockIndexDailyDate = sid.getDate();
+			stockIndexDailyDate = stockIndexDailyDate.substring(0, 10);
+			Integer tradeDay = tradeDayService.getTradeDayByDate(stockIndexDailyDate);
+			sid.setTradeDay(tradeDay);
+			stockService.updateStockIndexDaily(sid);
 		}
 	}
 }

@@ -17,7 +17,7 @@
     </select>
     
     <update id="updateStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	update stock_daily set up_per = #{upPer}, up_level = #{upLevel},next_trade_day = #{nextTradeDay},prev_trade_day = #{prevTradeDay} 
+    	update stock_daily set up_level = #{upLevel},next_trade_day = #{nextTradeDay},prev_trade_day = #{prevTradeDay} 
     	 where stock_code = #{stockCode} and date = #{date}
     </update>
     
@@ -36,8 +36,10 @@
     </select>
     
     <insert id="addStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
-    	insert into stock_daily(stock_code,stock_name,date,trade_day,open_today,close_today,up,up_per,highest,lowest,volumn,turn_volume,turnover_rate,up_level)
-    	values (#{stockCode},#{stockName},#{date},#{tradeDay},#{openToday},#{closeToday},#{up},#{upPer},#{highest},#{lowest},#{volumn},#{turnVolume},#{turnoverRate},#{upLevel})
+    	insert into stock_daily(stock_code,stock_name,date,trade_day,open_today,close_today,up,up_per
+    	,highest,lowest,volumn,turn_volume,turnover_rate,up_level,prev_trade_day)
+    	values (#{stockCode},#{stockName},#{date},#{tradeDay},#{openToday},#{closeToday},#{up},#{upPer},#{highest},#{lowest}
+    	,#{volumn},#{turnVolume},#{turnoverRate},#{upLevel},#{prevTradeDay})
     </insert>
     
     <select id="getStockDaily" resultType="com.jhyarrow.myWeb.domain.StockDaily">
@@ -76,4 +78,11 @@
     	update stock set last_trade_day = #{lastTradeDay} where stock_code = #{stockCode}
     </update>
     
+    <update id="deleteStock">
+    	truncate table stock
+    </update>
+    
+    <update id="truncateStockDaily">
+    	truncate table stock_daily
+    </update>
 </mapper>

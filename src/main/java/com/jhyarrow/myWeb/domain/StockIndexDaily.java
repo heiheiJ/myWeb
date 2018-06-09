@@ -1,5 +1,7 @@
 package com.jhyarrow.myWeb.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class StockIndexDaily {
 	private String stockCode;//股票代码
 	private String stockName;//股票名称
@@ -26,6 +28,8 @@ public class StockIndexDaily {
 	public void setStockName(String stockName) {
 		this.stockName = stockName;
 	}
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd") 
 	public String getDate() {
 		return date;
 	}

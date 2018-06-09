@@ -11,6 +11,18 @@
     </insert>
     
      <select id="getStockIndexDailyByCode" resultType="com.jhyarrow.myWeb.domain.StockIndexDaily">
-    	select * from stock_index_daily  where code = #{stockCode}
+    	select * from stock_index_daily  where stock_code = #{stockCode} order by date
+    </select>
+    
+    <update id="truncateStockIndexDaily">
+    	truncate table stock_index_daily
+    </update>
+    
+    <update id="updateStockIndexDaily" parameterType="com.jhyarrow.myWeb.domain.StockIndexDaily">
+    	update stock_index_daily set trade_day = #{tradeDay} where date = #{date}
+    </update>
+    
+    <select id="getStockIndexDailyList" resultType="com.jhyarrow.myWeb.domain.StockIndexDaily">
+    	select * from stock_index_daily  order by date
     </select>
 </mapper>

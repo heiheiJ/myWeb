@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhyarrow.myWeb.mapper.SupportMapper">
+	<insert id="addSpiderStockDailyError" parameterType="com.jhyarrow.myWeb.domain.SpiderStockDailyError">
+    	insert into spider_stock_daily_error(stock_code,date,trade_day,stock_name) values (#{stockCode},#{date},#{tradeDay},#{stockName})
+    </insert>
+    
+    <insert id="addSpiderStockDailyAllError" parameterType="com.jhyarrow.myWeb.domain.SpiderStockDailyAllError">
+    	insert into spider_stock_daily_all_error(stock_code,stock_name,response) values (#{stockCode},#{stockName},#{response})
+    </insert>
+
 
     <insert id="addSupport" parameterType="com.jhyarrow.myWeb.domain.Support">
     	insert into support(code,name,reason,date,trade_day,up_or_down) values (#{code},#{name},#{reason},#{date},#{tradeDay},#{upOrDown})
@@ -64,10 +72,6 @@
     	update macd_golden_cross set up_per1 = #{upPer1}, up_per5 = #{upPer5},up_per10 = #{upPer10},bar = #{bar} 
     		 where stock_code = #{stockCode} and trade_day = #{tradeDay}
     </update>
-    
-    <insert id="addSpiderStockDailyError" parameterType="com.jhyarrow.myWeb.domain.SpiderStockDailyError">
-    	insert into spider_stock_daily_error(stock_code,date,trade_day,stock_name) values (#{stockCode},#{date},#{tradeDay},#{stockName})
-    </insert>
     
     <select id="getSpiderStockDailyErrorList" resultType="com.jhyarrow.myWeb.domain.SpiderStockDailyError">
     	select * from spider_stock_daily_error

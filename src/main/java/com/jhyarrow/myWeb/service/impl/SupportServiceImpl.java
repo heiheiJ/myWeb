@@ -25,8 +25,43 @@ public class SupportServiceImpl implements SupportService{
 	@Autowired
 	private TradeDayMapper tradeDayMapper;
 	
-	//获取MACD，从第一天开始
-	public void getMACD(String stockCode) throws Exception {
+	//计算macd,从第一天开始
+	public void getMACD() {
+		ArrayList<Stock> szList = (ArrayList<Stock>) stockMapper.getStockListSz();
+		for(int i=0;i<szList.size();i++) {
+			String stockCode = szList.get(i).getStockCode();
+			try {
+				getMACD(stockCode);
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(stockCode+"计算MACD失败");
+			}
+		}
+		
+		ArrayList<Stock> shList = (ArrayList<Stock>) stockMapper.getStockListSh();
+		for(int i=0;i<shList.size();i++) {
+			String stockCode = shList.get(i).getStockCode();
+			try {
+				getMACD(stockCode);
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(stockCode+"计算MACD失败");
+			}
+		}
+		
+		ArrayList<Stock> cyList = (ArrayList<Stock>) stockMapper.getStockListCy();
+		for(int i=0;i<cyList.size();i++) {
+			String stockCode = cyList.get(i).getStockCode();
+			try {
+				getMACD(stockCode);
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(stockCode+"计算MACD失败");
+			}
+		}
+	}
+	//计算stockCODE的macd
+	private void getMACD(String stockCode) throws Exception {
 		BigDecimal ema12lastDay = new BigDecimal(0);
 		BigDecimal ema26lastDay = new BigDecimal(0);
 		BigDecimal deaLastDay = new BigDecimal(0);
@@ -65,8 +100,134 @@ public class SupportServiceImpl implements SupportService{
 			cnt++;
 			stockMapper.updateStockDailyMACD(sd);
 		}
-		System.out.println("共计"+cnt+"条数据");
 	}
+	
+	//计算九日内最大最小值
+	public void get9() {
+		ArrayList<Stock> stockList = stockMapper.getStockList();
+		for(int j=0;j<stockList.size();j++) {
+			Stock s = stockList.get(j);
+			String stockCode = s.getStockCode();
+			ArrayList<StockDaily> list = stockMapper.getStockDailyList(stockCode);
+			for(int i=0;i<list.size();i++) {
+				BigDecimal max9 = new BigDecimal(-1);
+				BigDecimal min9 = new BigDecimal(1000000);	
+				StockDaily sd = list.get(i);
+				int cnt = 0;
+				while(cnt<9) {
+					if(i-cnt>=0) {
+						StockDaily sdTmp = list.get(i-cnt);
+						if(max9.compareTo(new BigDecimal(sdTmp.getHighest()))<0) {
+							max9 = new BigDecimal(sdTmp.getHighest());
+						}
+						if(min9.compareTo(new BigDecimal(sdTmp.getLowest())) > 0) {
+							min9 = new BigDecimal(sdTmp.getLowest());
+						}
+					}else {
+						break;					
+					}
+					cnt++;
+				}
+				sd.setMax9(max9.floatValue());
+				sd.setMin9(min9.floatValue());
+				stockMapper.updateStockDailyKdj(sd);
+			}
+		}			
+	}
+	//获取KDJ,从第一天开始
+	public void getKDJ() {
+		ArrayList<Stock> szList = (ArrayList<Stock>) stockMapper.getStockListSz();
+		for(int i=0;i<szList.size();i++) {
+			String stockCode = szList.get(i).getStockCode();
+			try {
+				getKDJ(stockCode);
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(stockCode+"计算KDJ失败");
+			}
+		}
+		
+		ArrayList<Stock> shList = (ArrayList<Stock>) stockMapper.getStockListSh();
+		for(int i=0;i<shList.size();i++) {
+			String stockCode = shList.get(i).getStockCode();
+			try {
+				getKDJ(stockCode);
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(stockCode+"计算KDJ失败");
+			}
+		}
+		
+		ArrayList<Stock> cyList = (ArrayList<Stock>) stockMapper.getStockListCy();
+		for(int i=0;i<cyList.size();i++) {
+			String stockCode = cyList.get(i).getStockCode();
+			try {
+				getKDJ(stockCode);
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(stockCode+"计算KDJ失败");
+			}
+		}
+	}
+	
+	//计算stockCODE的KDJ
+	private void getKDJ(String stockCode) {
+		BigDecimal kYesterday = new BigDecimal(0);
+		BigDecimal dYesterday = new BigDecimal(0);
+		BigDecimal jYesterday = new BigDecimal(0);
+		ArrayList<StockDaily> list = stockMapper.getStockDailyList(stockCode);
+		for(int i=0;i<list.size();i++) {
+			StockDaily sd = list.get(i);
+			String closeToday = sd.getCloseToday();
+			float lowest = sd.getMin9();
+			float highest = sd.getMax9();
+			BigDecimal rsv;
+			if(new BigDecimal(highest).subtract(new BigDecimal(lowest)).compareTo(new BigDecimal(0)) == 0){
+				rsv = new BigDecimal(100);
+			}else {
+				rsv = (new BigDecimal(closeToday).subtract(new BigDecimal(lowest)))
+						.divide(new BigDecimal(highest).subtract(new BigDecimal(lowest)),6,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100));
+			}
+			
+			if(i == 0) {
+				kYesterday = rsv.divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP);
+				dYesterday = kYesterday.divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP);
+				jYesterday = kYesterday.multiply(new BigDecimal(3)).subtract(dYesterday.multiply(new BigDecimal(2)));
+				if(jYesterday.compareTo(new BigDecimal(100)) > 0) {
+					jYesterday = new BigDecimal(100);
+				}else if (jYesterday.compareTo(new BigDecimal(0)) < 0) {
+					jYesterday = new BigDecimal(0);
+				}
+				sd.setK(kYesterday.floatValue());
+				sd.setD(dYesterday.floatValue());
+				sd.setJ(jYesterday.floatValue());
+				sd.setRsv(rsv.floatValue());
+				stockMapper.updateStockDailyKdj(sd);
+			}else {
+				kYesterday = kYesterday.multiply(new BigDecimal(2)).divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP)
+						.add(rsv.divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP));
+				dYesterday = dYesterday.multiply(new BigDecimal(2)).divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP)
+						.add(kYesterday.divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP));
+				jYesterday = kYesterday.multiply(new BigDecimal(3)).subtract(dYesterday.multiply(new BigDecimal(2)));
+				if(jYesterday.compareTo(new BigDecimal(100)) > 0) {
+					jYesterday = new BigDecimal(100);
+				}else if (jYesterday.compareTo(new BigDecimal(0)) < 0) {
+					jYesterday = new BigDecimal(0);
+				}
+				sd.setK(kYesterday.floatValue());
+				sd.setD(dYesterday.floatValue());
+				sd.setJ(jYesterday.floatValue());
+				sd.setRsv(rsv.floatValue());
+				stockMapper.updateStockDailyKdj(sd);
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
 	
 	//获取第tradeDay天的MACD
 	public void getMACD(int tradeDay){
@@ -172,31 +333,46 @@ public class SupportServiceImpl implements SupportService{
 	//获取MACD，从第tradeDay天开始
 	public void getMACD(String stockCode,int tradeDay) throws Exception {
 		StockDaily today = stockMapper.getStockDaily(stockCode,tradeDay);
-		
+		if(today == null)
+			return;
 		StockDaily yesterDay = stockMapper.getStockDaily(stockCode,today.getPrevTradeDay());
-		BigDecimal ema12lastDay = new BigDecimal(yesterDay.getEma12());
-		BigDecimal ema26lastDay = new BigDecimal(yesterDay.getEma26());
-		BigDecimal deaLastDay = new BigDecimal(yesterDay.getDea());
+		if(yesterDay == null) {
+			String closeToday = today.getCloseToday();
+			if(closeToday == null || closeToday.length() == 0) {
+				closeToday = "0";
+			}
+			today.setEma12(new BigDecimal(closeToday).toString());
+			today.setEma26(new BigDecimal(closeToday).toString());
+			today.setDiff("0");
+			today.setDea("0");
+			today.setBar("0");
+			stockMapper.updateStockDailyMACD(today);
+		}else {
+			BigDecimal ema12lastDay = new BigDecimal(yesterDay.getEma12());
+			BigDecimal ema26lastDay = new BigDecimal(yesterDay.getEma26());
+			BigDecimal deaLastDay = new BigDecimal(yesterDay.getDea());
 
-		String closeToday = today.getCloseToday();
-		if(closeToday == null || closeToday.length() == 0) {
-			closeToday = "0";
+			String closeToday = today.getCloseToday();
+			if(closeToday == null || closeToday.length() == 0) {
+				closeToday = "0";
+			}
+			BigDecimal ema12 = (new BigDecimal(closeToday).multiply(new BigDecimal(2)).divide(new BigDecimal(13),4,BigDecimal.ROUND_HALF_UP))
+				.add(ema12lastDay.multiply(new BigDecimal(11)).divide(new BigDecimal(13),4,BigDecimal.ROUND_HALF_UP));
+			ema12lastDay = ema12.add(new BigDecimal(0));
+			BigDecimal ema26 = (new BigDecimal(closeToday).multiply(new BigDecimal(2)).divide(new BigDecimal(27),4,BigDecimal.ROUND_HALF_UP))
+				.add(ema26lastDay.multiply(new BigDecimal(25)).divide(new BigDecimal(27),4,BigDecimal.ROUND_HALF_UP));
+			ema26lastDay = ema26.add(new BigDecimal(0));
+			BigDecimal diff = ema12.subtract(ema26);
+			BigDecimal dea = (deaLastDay.multiply(new BigDecimal(0.8))).add(diff.multiply(new BigDecimal(0.2))).setScale(4,BigDecimal.ROUND_HALF_UP);
+			deaLastDay = dea.add(new BigDecimal(0));
+			today.setEma12(ema12.toString());
+			today.setEma26(ema26.toString());
+			today.setDiff(diff.toString());
+			today.setDea(dea.toString());
+			today.setBar((diff.subtract(dea)).multiply(new BigDecimal(2)).toString());
+			stockMapper.updateStockDailyMACD(today);
 		}
-		BigDecimal ema12 = (new BigDecimal(closeToday).multiply(new BigDecimal(2)).divide(new BigDecimal(13),4,BigDecimal.ROUND_HALF_UP))
-			.add(ema12lastDay.multiply(new BigDecimal(11)).divide(new BigDecimal(13),4,BigDecimal.ROUND_HALF_UP));
-		ema12lastDay = ema12.add(new BigDecimal(0));
-		BigDecimal ema26 = (new BigDecimal(closeToday).multiply(new BigDecimal(2)).divide(new BigDecimal(27),4,BigDecimal.ROUND_HALF_UP))
-			.add(ema26lastDay.multiply(new BigDecimal(25)).divide(new BigDecimal(27),4,BigDecimal.ROUND_HALF_UP));
-		ema26lastDay = ema26.add(new BigDecimal(0));
-		BigDecimal diff = ema12.subtract(ema26);
-		BigDecimal dea = (deaLastDay.multiply(new BigDecimal(0.8))).add(diff.multiply(new BigDecimal(0.2))).setScale(4,BigDecimal.ROUND_HALF_UP);
-		deaLastDay = dea.add(new BigDecimal(0));
-		today.setEma12(ema12.toString());
-		today.setEma26(ema26.toString());
-		today.setDiff(diff.toString());
-		today.setDea(dea.toString());
-		today.setBar((diff.subtract(dea)).multiply(new BigDecimal(2)).toString());
-		stockMapper.updateStockDailyMACD(today);
+		
 	}
 
 	//更新第tradeDay交易日的近3日走势
@@ -420,82 +596,4 @@ public class SupportServiceImpl implements SupportService{
 		supportMapper.deleteSpiderStockDailyError(ssde);
 	}
 
-	public void getKDJ(String stockCode) {
-		BigDecimal kYesterday = new BigDecimal(0);
-		BigDecimal dYesterday = new BigDecimal(0);
-		BigDecimal jYesterday = new BigDecimal(0);
-		ArrayList<StockDaily> list = stockMapper.getStockDailyList(stockCode);
-		for(int i=0;i<list.size();i++) {
-			StockDaily sd = list.get(i);
-			String closeToday = sd.getCloseToday();
-			float lowest = sd.getMin9();
-			float highest = sd.getMax9();
-			BigDecimal rsv;
-			if(new BigDecimal(highest).subtract(new BigDecimal(lowest)).compareTo(new BigDecimal(0)) == 0){
-				rsv = new BigDecimal(100);
-			}else {
-				rsv = (new BigDecimal(closeToday).subtract(new BigDecimal(lowest)))
-						.divide(new BigDecimal(highest).subtract(new BigDecimal(lowest)),6,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100));
-			}
-			
-			if(i == 0) {
-				kYesterday = rsv.divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP);
-				dYesterday = kYesterday.divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP);
-				jYesterday = kYesterday.multiply(new BigDecimal(3)).subtract(dYesterday.multiply(new BigDecimal(2)));
-				if(jYesterday.compareTo(new BigDecimal(100)) > 0) {
-					jYesterday = new BigDecimal(100);
-				}else if (jYesterday.compareTo(new BigDecimal(0)) < 0) {
-					jYesterday = new BigDecimal(0);
-				}
-				sd.setK(kYesterday.floatValue());
-				sd.setD(dYesterday.floatValue());
-				sd.setJ(jYesterday.floatValue());
-				sd.setRsv(rsv.floatValue());
-				stockMapper.updateStockDailyKdj(sd);
-			}else {
-				kYesterday = kYesterday.multiply(new BigDecimal(2)).divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP)
-						.add(rsv.divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP));
-				dYesterday = dYesterday.multiply(new BigDecimal(2)).divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP)
-						.add(kYesterday.divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP));
-				jYesterday = kYesterday.multiply(new BigDecimal(3)).subtract(dYesterday.multiply(new BigDecimal(2)));
-				if(jYesterday.compareTo(new BigDecimal(100)) > 0) {
-					jYesterday = new BigDecimal(100);
-				}else if (jYesterday.compareTo(new BigDecimal(0)) < 0) {
-					jYesterday = new BigDecimal(0);
-				}
-				sd.setK(kYesterday.floatValue());
-				sd.setD(dYesterday.floatValue());
-				sd.setJ(jYesterday.floatValue());
-				sd.setRsv(rsv.floatValue());
-				stockMapper.updateStockDailyKdj(sd);
-			}
-		}
-	}
-
-	public void get9(String stockCode) {
-		ArrayList<StockDaily> list = stockMapper.getStockDailyList(stockCode);
-		for(int i=0;i<list.size();i++) {
-			BigDecimal max9 = new BigDecimal(-1);
-			BigDecimal min9 = new BigDecimal(1000000);
-			StockDaily sd = list.get(i);
-			int cnt = 0;
-			while(cnt<9) {
-				if(i-cnt>=0) {
-					StockDaily sdTmp = list.get(i-cnt);
-					if(max9.compareTo(new BigDecimal(sdTmp.getHighest()))<0) {
-						max9 = new BigDecimal(sdTmp.getHighest());
-					}
-					if(min9.compareTo(new BigDecimal(sdTmp.getLowest())) > 0) {
-						min9 = new BigDecimal(sdTmp.getLowest());
-					}
-				}else {
-					break;
-				}
-				cnt++;
-			}
-			sd.setMax9(max9.floatValue());
-			sd.setMin9(min9.floatValue());
-			stockMapper.updateStockDailyKdj(sd);
-		}
-	}
 }
