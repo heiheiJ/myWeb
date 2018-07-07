@@ -26,18 +26,10 @@
     	update support set is_true = #{isTrue},up=#{up} where id =#{id}
     </update>
     
-    <select id="getLine3" parameterType="com.jhyarrow.myWeb.domain.Line3" resultType="com.jhyarrow.myWeb.domain.Line3">
-    	select * from line3 where day1 = #{day1} and day2 = #{day2} and day3 = #{day3}
-    </select>
     
-    <update id="updateLine3" parameterType="com.jhyarrow.myWeb.domain.Line3">
-    	update line3 set up_days = #{upDays}, down_days = #{downDays},avg_up = #{avgUp},avg_down = #{avgDown} 
-    		 where day1 = #{day1} and day2 = #{day2} and day3 = #{day3}
-    </update>
-    
-    <insert id="addLine3" parameterType="com.jhyarrow.myWeb.domain.Line3">
-    	insert into line3(day1,day2,day3,up_days,down_days,avg_up,avg_down) 
-    		values(#{day1},#{day2},#{day3},#{upDays},#{downDays},#{avgUp},#{avgDown})
+    <insert id="addLine" parameterType="com.jhyarrow.myWeb.domain.Line">
+    	insert into line(stock_code,start_day,end_day,start_price,end_price,up_per) 
+    		values(#{stockCode},#{startDay},#{endDay},#{startPrice},#{endPrice},#{upPer})
     </insert>
     
     <insert id="addSupportGoldenNeedle" parameterType="com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle">
@@ -60,19 +52,6 @@
     		 where stock_code = #{stockCode} and date = #{date}
     </update>
     
-    <insert id="addMacdGoldenCross" parameterType="com.jhyarrow.myWeb.domain.support.MacdGoldenCross">
-    	insert into macd_golden_cross(stock_code,trade_day) values(#{stockCode},#{tradeDay})
-    </insert>
-    
-    <select id="getMacdGoldenCrossList" parameterType="String"  resultType="com.jhyarrow.myWeb.domain.support.MacdGoldenCross">
-    	select * from macd_golden_cross where stock_code = #{stockCode} order by trade_day
-    </select>
-    
-    <update id="updateMacdGoldenCross" parameterType="com.jhyarrow.myWeb.domain.support.MacdGoldenCross">
-    	update macd_golden_cross set up_per1 = #{upPer1}, up_per5 = #{upPer5},up_per10 = #{upPer10},bar = #{bar} 
-    		 where stock_code = #{stockCode} and trade_day = #{tradeDay}
-    </update>
-    
     <select id="getSpiderStockDailyErrorList" resultType="com.jhyarrow.myWeb.domain.SpiderStockDailyError">
     	select * from spider_stock_daily_error
     </select>
@@ -80,4 +59,22 @@
     <delete id="deleteSpiderStockDailyError" parameterType="com.jhyarrow.myWeb.domain.SpiderStockDailyError">
     	delete from spider_stock_daily_error where stock_code = #{stockCode} and date = #{date}
     </delete>
+    
+    <select id="getSpiderStockDailyAllErrorList" resultType="com.jhyarrow.myWeb.domain.SpiderStockDailyAllError">
+    	select * from spider_stock_daily_all_error
+    </select>
+    
+    <delete id="deleteSpiderStockDailyAllError" parameterType="com.jhyarrow.myWeb.domain.SpiderStockDailyAllError">
+    	delete from spider_stock_daily_all_error where stock_code = #{stockCode}
+    </delete>
+    
+     <insert id="addSupportMacd" parameterType="com.jhyarrow.myWeb.domain.support.SupportMacd">
+    	insert into support_macd(stock_code,stock_name,start_day,end_day,start_price,end_price,up_per) 
+    	values (#{stockCode},#{stockName},#{startDay},#{endDay},#{startPrice},#{endPrice},#{upPer})
+    </insert>
+    
+    <insert id="addSupportKdj" parameterType="com.jhyarrow.myWeb.domain.support.SupportKdj">
+    	insert into support_kdj(stock_code,stock_name,start_day,end_day,start_price,end_price,up_per) 
+    	values (#{stockCode},#{stockName},#{startDay},#{endDay},#{startPrice},#{endPrice},#{upPer})
+    </insert>
 </mapper>

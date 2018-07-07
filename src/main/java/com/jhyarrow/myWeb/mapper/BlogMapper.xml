@@ -7,16 +7,9 @@
         select * from blog where id=#{id}
     </select>
     
-    <select id="getBlogList" resultType="com.jhyarrow.myWeb.domain.Blog" parameterType ="Map">
-    	select (@rowno:=@rowno+1)rowno,b.* from blog b ,(select @rowno:=0)  t2 
-    	<where>
-    		<choose>
-    			<when test="type!=null">
-    				b.type like concat('%',#{type},'%')
-    			</when>
-    		</choose>
-    	</where>
-    	order by id limit #{offset},#{rows};
+    <select id="getBlogList" resultType="com.jhyarrow.myWeb.domain.Blog">
+    	select * from blog
+   
     </select>
     
     <insert id="addBlog" parameterType="com.jhyarrow.myWeb.domain.Blog">

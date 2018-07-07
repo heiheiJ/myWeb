@@ -1,5 +1,5 @@
-2018-06-16 00:32:59  [ org.mybatis.spring.mapper.MapperFactoryBean.checkDaoConfig(MapperFactoryBean.java:82):org.mybatis.spring.mapper.MapperFactoryBean:main:1954 ] - [ ERROR ]  Error while adding the mapper 'interface com.jhyarrow.myWeb.mapper.SupportMapper' to configuration.
-org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+2018-05-19 16:25:25  [ org.mybatis.spring.mapper.MapperFactoryBean.checkDaoConfig(MapperFactoryBean.java:82):org.mybatis.spring.mapper.MapperFactoryBean:main:2046 ] - [ ERROR ]  Error while adding the mapper 'interface com.jhyarrow.myWeb.mapper.SupportMapper' to configuration.
+org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.SupportGoldenNeedle'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.SupportGoldenNeedle
 	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:120)
 	at org.apache.ibatis.builder.xml.XMLMapperBuilder.parse(XMLMapperBuilder.java:92)
 	at org.apache.ibatis.builder.annotation.MapperAnnotationBuilder.loadXmlResource(MapperAnnotationBuilder.java:173)
@@ -76,25 +76,25 @@ org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
-Caused by: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+Caused by: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.SupportGoldenNeedle'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.SupportGoldenNeedle
 	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:118)
 	at org.apache.ibatis.builder.xml.XMLStatementBuilder.parseStatementNode(XMLStatementBuilder.java:68)
 	at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:135)
 	at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:128)
 	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:118)
 	... 75 more
-Caused by: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+Caused by: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.SupportGoldenNeedle'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.SupportGoldenNeedle
 	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:120)
 	at org.apache.ibatis.builder.BaseBuilder.resolveAlias(BaseBuilder.java:149)
 	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:116)
 	... 79 more
-Caused by: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+Caused by: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.SupportGoldenNeedle
 	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:200)
 	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:89)
 	at org.apache.ibatis.io.Resources.classForName(Resources.java:261)
 	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:116)
 	... 81 more
-2018-06-16 00:32:59  [ org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:234):org.springframework.test.context.TestContextManager:main:2011 ] - [ ERROR ]  Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482f8f11] to prepare test instance [myWeb.SupportTest@2c4d1ac]
+2018-05-19 16:25:25  [ org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:234):org.springframework.test.context.TestContextManager:main:2064 ] - [ ERROR ]  Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@4cc0edeb] to prepare test instance [myWeb.SupportTest@524f3b3a]
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -122,7 +122,7 @@ java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'supportController': Unsatisfied dependency expressed through field 'supportService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'supportService': Unsatisfied dependency expressed through field 'supportMapper'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'supportMapper' defined in file [F:\workplace\myWeb\target\classes\com\jhyarrow\myWeb\mapper\SupportMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'supportController': Unsatisfied dependency expressed through field 'supportService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'supportService': Unsatisfied dependency expressed through field 'supportMapper'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'supportMapper' defined in file [F:\workplace\myWeb\target\classes\com\jhyarrow\myWeb\mapper\SupportMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.SupportGoldenNeedle'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.SupportGoldenNeedle
 	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)
 	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
 	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
@@ -143,7 +143,7 @@ Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Err
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
 	... 25 more
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'supportService': Unsatisfied dependency expressed through field 'supportMapper'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'supportMapper' defined in file [F:\workplace\myWeb\target\classes\com\jhyarrow\myWeb\mapper\SupportMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'supportService': Unsatisfied dependency expressed through field 'supportMapper'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'supportMapper' defined in file [F:\workplace\myWeb\target\classes\com\jhyarrow\myWeb\mapper\SupportMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.SupportGoldenNeedle'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.SupportGoldenNeedle
 	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)
 	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
 	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
@@ -159,7 +159,7 @@ Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Err
 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
 	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
 	... 43 more
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'supportMapper' defined in file [F:\workplace\myWeb\target\classes\com\jhyarrow\myWeb\mapper\SupportMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'supportMapper' defined in file [F:\workplace\myWeb\target\classes\com\jhyarrow\myWeb\mapper\SupportMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.SupportGoldenNeedle'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.SupportGoldenNeedle
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1628)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
@@ -172,13 +172,13 @@ Caused by: org.springframework.beans.factory.BeanCreationException: Error creati
 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
 	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
 	... 56 more
-Caused by: java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+Caused by: java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.SupportGoldenNeedle'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.SupportGoldenNeedle
 	at org.mybatis.spring.mapper.MapperFactoryBean.checkDaoConfig(MapperFactoryBean.java:83)
 	at org.springframework.dao.support.DaoSupport.afterPropertiesSet(DaoSupport.java:44)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624)
 	... 66 more
-Caused by: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+Caused by: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.SupportGoldenNeedle'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.SupportGoldenNeedle
 	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:120)
 	at org.apache.ibatis.builder.xml.XMLMapperBuilder.parse(XMLMapperBuilder.java:92)
 	at org.apache.ibatis.builder.annotation.MapperAnnotationBuilder.loadXmlResource(MapperAnnotationBuilder.java:173)
@@ -187,19 +187,19 @@ Caused by: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML.
 	at org.apache.ibatis.session.Configuration.addMapper(Configuration.java:741)
 	at org.mybatis.spring.mapper.MapperFactoryBean.checkDaoConfig(MapperFactoryBean.java:80)
 	... 69 more
-Caused by: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+Caused by: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.SupportGoldenNeedle'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.SupportGoldenNeedle
 	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:118)
 	at org.apache.ibatis.builder.xml.XMLStatementBuilder.parseStatementNode(XMLStatementBuilder.java:68)
 	at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:135)
 	at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:128)
 	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:118)
 	... 75 more
-Caused by: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+Caused by: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.SupportGoldenNeedle'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.SupportGoldenNeedle
 	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:120)
 	at org.apache.ibatis.builder.BaseBuilder.resolveAlias(BaseBuilder.java:149)
 	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:116)
 	... 79 more
-Caused by: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+Caused by: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.SupportGoldenNeedle
 	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:200)
 	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:89)
 	at org.apache.ibatis.io.Resources.classForName(Resources.java:261)

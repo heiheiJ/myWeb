@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.jhyarrow.myWeb.domain.Line3;
+import com.jhyarrow.myWeb.domain.Line;
+import com.jhyarrow.myWeb.domain.SpiderStockDailyAllError;
 import com.jhyarrow.myWeb.domain.SpiderStockDailyError;
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.domain.StockDaily;
-import com.jhyarrow.myWeb.domain.support.MacdGoldenCross;
 import com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle;
 import com.jhyarrow.myWeb.mapper.StockMapper;
 import com.jhyarrow.myWeb.mapper.SupportMapper;
@@ -101,7 +101,6 @@ public class SupportServiceImpl implements SupportService{
 			stockMapper.updateStockDailyMACD(sd);
 		}
 	}
-	
 	//计算九日内最大最小值
 	public void get9() {
 		ArrayList<Stock> stockList = stockMapper.getStockList();
@@ -169,7 +168,6 @@ public class SupportServiceImpl implements SupportService{
 			}
 		}
 	}
-	
 	//计算stockCODE的KDJ
 	private void getKDJ(String stockCode) {
 		BigDecimal kYesterday = new BigDecimal(0);
@@ -193,11 +191,6 @@ public class SupportServiceImpl implements SupportService{
 				kYesterday = rsv.divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP);
 				dYesterday = kYesterday.divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP);
 				jYesterday = kYesterday.multiply(new BigDecimal(3)).subtract(dYesterday.multiply(new BigDecimal(2)));
-				if(jYesterday.compareTo(new BigDecimal(100)) > 0) {
-					jYesterday = new BigDecimal(100);
-				}else if (jYesterday.compareTo(new BigDecimal(0)) < 0) {
-					jYesterday = new BigDecimal(0);
-				}
 				sd.setK(kYesterday.floatValue());
 				sd.setD(dYesterday.floatValue());
 				sd.setJ(jYesterday.floatValue());
@@ -209,11 +202,6 @@ public class SupportServiceImpl implements SupportService{
 				dYesterday = dYesterday.multiply(new BigDecimal(2)).divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP)
 						.add(kYesterday.divide(new BigDecimal(3),4,BigDecimal.ROUND_HALF_UP));
 				jYesterday = kYesterday.multiply(new BigDecimal(3)).subtract(dYesterday.multiply(new BigDecimal(2)));
-				if(jYesterday.compareTo(new BigDecimal(100)) > 0) {
-					jYesterday = new BigDecimal(100);
-				}else if (jYesterday.compareTo(new BigDecimal(0)) < 0) {
-					jYesterday = new BigDecimal(0);
-				}
 				sd.setK(kYesterday.floatValue());
 				sd.setD(dYesterday.floatValue());
 				sd.setJ(jYesterday.floatValue());
@@ -222,8 +210,19 @@ public class SupportServiceImpl implements SupportService{
 			}
 		}
 	}
-	
-	
+	//获取爬虫错误记录列表
+	public ArrayList<SpiderStockDailyAllError> getSpiderStockDailyAllErrorList() {
+		return supportMapper.getSpiderStockDailyAllErrorList();
+	}
+	//删除爬虫错误记录
+	public void deleteSpiderStockDailyAllError(SpiderStockDailyAllError ssde) {
+		supportMapper.deleteSpiderStockDailyAllError(ssde);
+	}
+	//获取趋势线
+	public void getLine() {
+		
+		
+	}
 	
 	
 	
@@ -244,7 +243,7 @@ public class SupportServiceImpl implements SupportService{
 		}
 	}
 	
-	//获取第tradeDay天的MACD
+	//获取第tradeDay天的KDJ
 	public void getKDJ(int tradeDay){
 		ArrayList<Stock> list = (ArrayList<Stock>) stockMapper.getStockList();
 		for(int i=0;i<list.size();i++) {
@@ -375,70 +374,6 @@ public class SupportServiceImpl implements SupportService{
 		
 	}
 
-	//更新第tradeDay交易日的近3日走势
-	public void updateLine3(int tradeDay) {
-		ArrayList<Stock> stockList = (ArrayList<Stock>) stockMapper.getStockList();
-		for(int i=0;i<stockList.size();i++) {
-			Stock s = stockList.get(i);
-			String code = s.getStockCode();
-			//根据最新的一天判断，所以需要4天的记录
-			ArrayList<StockDaily> list = (ArrayList<StockDaily>)stockMapper.getStockDailyListN(code,4,null);
-			if(list.size() <=3) {
-				continue;
-			}
-			String level1 = list.get(0).getUpLevel();
-			String level2 = list.get(1).getUpLevel();
-			String level3 = list.get(2).getUpLevel();
-			int levelInt1 = Integer.parseInt(level1);
-			int levelInt2 = Integer.parseInt(level2);
-			int levelInt3 = Integer.parseInt(level3);
-			if(levelInt1 > 10 || levelInt2 > 10 || levelInt3 > 10 || levelInt1 < -10 || levelInt2 < -10 || levelInt3 < -10) {
-				continue;
-			}
-			Line3 tmp = new Line3();
-			tmp.setDay1(level1);
-			tmp.setDay2(level2);
-			tmp.setDay3(level3);
-			Line3 line3 = supportMapper.getLine3(tmp);
-			if(line3 == null) {
-				StockDaily sd = list.get(3);
-				BigDecimal upPer = new BigDecimal(sd.getUpPer());
-				if(upPer.compareTo(new BigDecimal(0)) > 0) {
-					tmp.setUpDays(1);
-					tmp.setAvgUp(upPer.floatValue());
-					tmp.setDownDays(0);
-					tmp.setAvgDown(0);
-					supportMapper.addLine3(tmp);
-				}else if (upPer.compareTo(new BigDecimal(0)) < 0){
-					tmp.setUpDays(0);
-					tmp.setDownDays(1);
-					tmp.setAvgUp(0);
-					tmp.setAvgDown(upPer.floatValue());
-					supportMapper.addLine3(tmp);
-				}
-			}else {
-				StockDaily sd = list.get(3);
-				BigDecimal upPer = new BigDecimal(sd.getUpPer());
-				if(upPer.compareTo(new BigDecimal(0)) > 0) {
-					BigDecimal ans = new BigDecimal(line3.getAvgUp()).multiply(new BigDecimal(line3.getUpDays()));
-					ans = ans.add(upPer);
-					ans = ans.divide(new BigDecimal(line3.getUpDays()+1),4,BigDecimal.ROUND_HALF_UP);
-					line3.setAvgUp(ans.floatValue());
-					line3.setUpDays(line3.getUpDays() + 1);
-					supportMapper.updateLine3(line3);
-				}else if (upPer.compareTo(new BigDecimal(0)) < 0){
-					BigDecimal ans = new BigDecimal(line3.getAvgDown()).multiply(new BigDecimal(line3.getDownDays()));
-					ans = ans.add(upPer);
-					ans = ans.divide(new BigDecimal(line3.getDownDays()+1),4,BigDecimal.ROUND_HALF_UP);
-					line3.setAvgDown(ans.floatValue());
-					line3.setDownDays(line3.getDownDays() + 1);
-					supportMapper.updateLine3(line3);
-				}
-			}
-			System.out.println(code+"操作完成");
-		}
-	}
-
 	//获取金针探底
 	public void updateGoldenNeedle(String stockCode) {
 		ArrayList<StockDaily> list = stockMapper.getStockDailyList(stockCode);
@@ -521,73 +456,6 @@ public class SupportServiceImpl implements SupportService{
 		return sdvList;
 	}
 
-	//
-	public void addMacdGoldenCross(String stockCode) {
-		ArrayList<StockDaily> list = stockMapper.getStockDailyList(stockCode);
-		if(list.size() <2) {
-			return;
-		}
-		StockDaily sd1,sd2;
-		for(int i=0;i<list.size()-2;i++) {
-			sd1 = list.get(i);
-			sd2 = list.get(i+1);
-			
-			BigDecimal diff1 = new BigDecimal(sd1.getDiff());
-			BigDecimal diff2 = new BigDecimal(sd2.getDiff());
-			BigDecimal dea1 = new BigDecimal(sd1.getDea());
-			BigDecimal dea2 = new BigDecimal(sd2.getDea());
-			
-			if(diff1.compareTo(dea1) < 0 && diff2.compareTo(dea2) > 0) {
-				MacdGoldenCross mgc = new MacdGoldenCross();
-				mgc.setStockCode(stockCode);
-				mgc.setTradeDay(sd2.getTradeDay());
-				supportMapper.addMacdGoldenCross(mgc);
-				System.out.println("发现macd金叉"+stockCode + sd2.getTradeDay());
-			}
-		}
-		
-	}
-
-	public void updateMacdGoldenCross(String stockCode) {
-		ArrayList<MacdGoldenCross> list = supportMapper.getMacdGoldenCrossList(stockCode);
-		for(int i=0;i<list.size();i++) {
-			MacdGoldenCross mgc = list.get(i);
-			Integer tradeDay = mgc.getTradeDay();
-			int cnt = 0;
-			Integer nextTradeDay = tradeDay;
-			BigDecimal bd1 = new BigDecimal(0);
-			BigDecimal bd5 = new BigDecimal(0);
-			BigDecimal bd10 = new BigDecimal(0);
-			while(cnt<10) {
-				StockDaily stockDaily = stockMapper.getStockDaily(stockCode, nextTradeDay);
-				nextTradeDay = stockDaily.getNextTradeDay();
-				if(nextTradeDay != null) {
-					if(cnt == 1) {
-						bd1 = bd1.add(new BigDecimal(stockDaily.getUpPer()));
-					}else if (cnt > 0 && cnt <=5) {
-						bd5 = bd5.add(new BigDecimal(stockDaily.getUpPer()));
-					}else if (cnt > 0 && cnt <=10) {
-						bd10 = bd10.add(new BigDecimal(stockDaily.getUpPer()));
-					}
-				}else {
-					break;
-				}
-				cnt++;
-			}
-			if(cnt >=1) {
-				mgc.setUpPer1(bd1.floatValue());
-			}
-			if(cnt >=5) {
-				mgc.setUpPer5(bd5.floatValue());
-			}
-			if(cnt >= 10) {
-				mgc.setUpPer10(bd10.floatValue());
-			}
-			supportMapper.updateMacdGoldenCross(mgc);
-		}
-		System.out.println(stockCode+"处理完成");
-	}
-
 	public ArrayList<SpiderStockDailyError> getSpiderStockDailyErrorList() {
 		return supportMapper.getSpiderStockDailyErrorList();
 	}
@@ -595,5 +463,4 @@ public class SupportServiceImpl implements SupportService{
 	public void deleteSpiderStockDailyError(SpiderStockDailyError ssde) {
 		supportMapper.deleteSpiderStockDailyError(ssde);
 	}
-
 }

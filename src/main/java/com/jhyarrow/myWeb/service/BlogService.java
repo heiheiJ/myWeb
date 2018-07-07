@@ -6,7 +6,12 @@ import java.util.Map;
 import com.jhyarrow.myWeb.domain.Blog;
 
 public interface BlogService {
-	public List<Blog> getBlogList(Map<String, Object> userMap);
+	//获取博客列表
+	public List<Blog> getBlogList(int pageNum,int pageSize);
+	
+	
+	
+	
 	public Blog getBlog(int id);
 	public void addBlog(Blog blog);
 	public int getBlogListCount(Map<String, Object> userMap);

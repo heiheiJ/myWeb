@@ -28,15 +28,7 @@ public class BlogController {
 		String username = (String)session.getAttribute("username");
 		int page = request.getAttribute("page") == null ? Integer.parseInt(request.getParameter("page")) 
 				:Integer.parseInt((String)request.getAttribute("page"));
-		Map<String, Object> userMap = new HashMap<String,Object>();	
-		if(username == null || username == "") {
-			userMap.put("type", "读书笔记");
-		}else {
-			userMap.put("type", null);
-		}
-		userMap.put("offset", page*10);
-		userMap.put("rows", 10);
-		ArrayList<Blog> blogList = (ArrayList<Blog>) blogService.getBlogList(userMap);
+		ArrayList<Blog> blogList = (ArrayList<Blog>) blogService.getBlogList(page,10);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("blogList",blogList);
         modelAndView.setViewName("/blog/getBlogList");

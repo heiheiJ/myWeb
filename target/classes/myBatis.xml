@@ -8,5 +8,21 @@
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 		<setting name="cacheEnabled" value="true"/>
+		<setting name="logImpl" value="STDOUT_LOGGING" />  
 	</settings>
+	
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<!-- 将 RowBounds 中的 offset 参数当成 pageNum 使用，可以用页码和页面大小两个参数进行分页。 -->
+			<property name="offsetAsPageNum" value="true"/>
+			<!-- 使用 RowBounds 分页会进行 count 查询。 -->
+			<property name="rowBoundsWithCount" value="true"/>
+			<!-- pageSize=0查询出全部的结果 -->
+			<property name="pageSizeZero" value="true"/>
+			<!-- pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页 -->
+			<property name="reasonable" value="true"/>
+			<property name="supportMethodsArguments" value="true"/>
+			<property name="params" value="pageNum=pageNumKey;pageSize=pageSizeKey;"/>
+		</plugin>
+	</plugins>
 </configuration>

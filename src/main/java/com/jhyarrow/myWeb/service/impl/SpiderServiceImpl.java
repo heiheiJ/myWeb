@@ -1,12 +1,10 @@
 package com.jhyarrow.myWeb.service.impl;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -41,7 +39,7 @@ public class SpiderServiceImpl implements SpiderService{
 	private SupportMapper supportMapper;
 	
 	//获取所有股票
-	public void spideStock() {
+	public void spideStock() throws Exception{
 		//清库
 		stockMapper.deleteStock();
 		
@@ -50,51 +48,43 @@ public class SpiderServiceImpl implements SpiderService{
 		HttpClient httpCient = HttpClients.createDefault();
 		HttpResponse httpResponse;
 		ArrayList<Stock> stockList = new ArrayList<Stock>();
-		try {
-			HttpGet httpGet = new HttpGet(url);
+		HttpGet httpGet = new HttpGet(url);
+		httpResponse = httpCient.execute(httpGet);
+		HttpEntity httpEntity = httpResponse.getEntity();
+		String response = EntityUtils.toString(httpEntity,"utf-8");
+		Document doc = Jsoup.parse(response);
+		Element table = doc.select("table[class=stockBlock]").get(0);
+		Elements rows = table.select("tr");
+		for(int i=1;i<rows.size();i++) {
+			Elements tds = rows.get(i).select("td");
+			Stock stock = new Stock();
+			stock.setStockCode(tds.get(1).select("a").text().trim());
+			stock.setStockName(tds.get(2).select("a").text().trim());
+			stock.setComName(tds.get(3).select("a").text().trim());
+			stockList.add(stock);
+		}
+			
+		for(int k=2;k<=182;k++) {
+			httpGet = new HttpGet(url + "stocklist_"+k+".html");
 			httpResponse = httpCient.execute(httpGet);
-			HttpEntity httpEntity = httpResponse.getEntity();
-			String response = EntityUtils.toString(httpEntity,"utf-8");
-			Document doc = Jsoup.parse(response);
-			Element table = doc.select("table[class=stockBlock]").get(0);
-			Elements rows = table.select("tr");
+			httpEntity = httpResponse.getEntity();
+			response = EntityUtils.toString(httpEntity,"utf-8");
+			doc = Jsoup.parse(response);
+			table = doc.select("table[class=stockBlock]").get(0);
+			rows = table.select("tr");
 			for(int i=1;i<rows.size();i++) {
 				Elements tds = rows.get(i).select("td");
 				Stock stock = new Stock();
 				stock.setStockCode(tds.get(1).select("a").text().trim());
 				stock.setStockName(tds.get(2).select("a").text().trim());
 				stock.setComName(tds.get(3).select("a").text().trim());
+				if(stock.getStockCode().startsWith("900") || stock.getStockCode().startsWith("200")) {
+					continue;
+				}
 				stockList.add(stock);
 			}
-			
-			for(int k=2;k<=182;k++) {
-				httpGet = new HttpGet(url + "stocklist_"+k+".html");
-				httpResponse = httpCient.execute(httpGet);
-				httpEntity = httpResponse.getEntity();
-				response = EntityUtils.toString(httpEntity,"utf-8");
-				doc = Jsoup.parse(response);
-				table = doc.select("table[class=stockBlock]").get(0);
-				rows = table.select("tr");
-				for(int i=1;i<rows.size();i++) {
-					Elements tds = rows.get(i).select("td");
-					Stock stock = new Stock();
-					stock.setStockCode(tds.get(1).select("a").text().trim());
-					stock.setStockName(tds.get(2).select("a").text().trim());
-					stock.setComName(tds.get(3).select("a").text().trim());
-					stockList.add(stock);
-				}
-				System.out.println("第"+k+"页完成");
-			}
-			stockMapper.insertStockList(stockList);
-			
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
+		stockMapper.insertStockList(stockList);
 	}
 	
 	//获取股票数据
@@ -117,7 +107,10 @@ public class SpiderServiceImpl implements SpiderService{
 			if("{}\n".equals(response)) {//停牌返回为空
 				return;
 			}
-			String status = response.substring(response.indexOf("status")+8,response.indexOf(","));
+			String status = "";
+			if(response.contains("status")) {
+				status = response.substring(response.indexOf("status")+8,response.indexOf(","));
+			}
 			if(!"0".equals(status)) {
 				return;
 			}

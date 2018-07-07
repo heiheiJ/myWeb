@@ -8,6 +8,6 @@ public interface SpiderService {
 	public void spideStockDaily(String code,String stockName,String start,String end);
 	
 	//获取所有股票
-	public void spideStock();
+	public void spideStock() throws Exception;
 	
 }

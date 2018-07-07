@@ -8,7 +8,7 @@ public interface TradeDayMapper {
 	//清空trade_day表
 	public void truncateTradeDay();
 	//添加tradeDay
-	public void addTradeDay(TradeDay tradeDay);
+	public void addTradeDay();
 	//获取date的tradeDay
 	public Integer getTradeDayByDate(String date);
 	

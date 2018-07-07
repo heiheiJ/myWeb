@@ -1,203 +1,165 @@
 package myWeb;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-
-import javax.mail.MessagingException;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jhyarrow.myWeb.domain.Line;
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.domain.StockDaily;
-import com.jhyarrow.myWeb.domain.support.MacdGoldenCross;
-import com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle;
+import com.jhyarrow.myWeb.domain.support.SupportKdj;
+import com.jhyarrow.myWeb.domain.support.SupportMacd;
 import com.jhyarrow.myWeb.mapper.StockMapper;
 import com.jhyarrow.myWeb.mapper.SupportMapper;
-import com.jhyarrow.myWeb.service.SupportService;
-import com.jhyarrow.myWeb.service.TradeDayService;
-import com.jhyarrow.myWeb.util.MailUtil;
 
 public class SupportTest extends JUnitTest {
 	@Autowired
 	private SupportMapper supportMapper;
 	@Autowired
 	private StockMapper stockMapper;
-	@Autowired
-	private SupportService supportService;
-	@Autowired
-	private TradeDayService tradeDayService;
 	
-//	@Test
-//	@Transactional
-//	@Rollback(false)
-	public void testAddMacdGoldenCross() {
-		ArrayList<Stock> stockList = (ArrayList<Stock>) stockMapper.getStockListSh();
-		for(int i=0;i<stockList.size();i++) {
-			Stock sd = stockList.get(i);
-			String stockCode = sd.getStockCode();
-			supportService.addMacdGoldenCross(stockCode);
-		}
-		
-		stockList = (ArrayList<Stock>) stockMapper.getStockListSz();
-		for(int i=0;i<stockList.size();i++) {
-			Stock sd = stockList.get(i);
-			String stockCode = sd.getStockCode();
-			supportService.addMacdGoldenCross(stockCode);
-		}
-		
-		stockList = (ArrayList<Stock>) stockMapper.getStockListCy();
-		for(int i=0;i<stockList.size();i++) {
-			Stock sd = stockList.get(i);
-			String stockCode = sd.getStockCode();
-			supportService.addMacdGoldenCross(stockCode);
-		}
-	}
-
-//	@Test
-//	@Transactional
-//	@Rollback(false)
-	public void testUpdateMacdGoldenCross() {
-		ArrayList<Stock> stockList = (ArrayList<Stock>) stockMapper.getStockListSh();
-		for(int i=0;i<stockList.size();i++) {
-			Stock sd = stockList.get(i);
-			String stockCode = sd.getStockCode();
-			supportService.updateMacdGoldenCross(stockCode);
-		}
-		
-		stockList = (ArrayList<Stock>) stockMapper.getStockListSz();
-		for(int i=0;i<stockList.size();i++) {
-			Stock sd = stockList.get(i);
-			String stockCode = sd.getStockCode();
-			supportService.updateMacdGoldenCross(stockCode);
-		}
-		
-		stockList = (ArrayList<Stock>) stockMapper.getStockListCy();
-		for(int i=0;i<stockList.size();i++) {
-			Stock sd = stockList.get(i);
-			String stockCode = sd.getStockCode();
-			supportService.updateMacdGoldenCross(stockCode);
-		}
-	}
-	
-//	@Test
-//	@Transactional
-//	@Rollback(false)	
-	public void test() {
-		ArrayList<SupportGoldenNeedle> list = supportMapper.getSupportGoldenNeedleList();
-		for(int i=0;i<list.size();i++) {
-			SupportGoldenNeedle sgn = list.get(i);
-			StockDaily sd = stockMapper.getStockDaily(sgn.getStockCode(),sgn.getTradeDay()+1);
-			if(sd != null) {
-				sgn.setMaxDay1(sd.getHighest());
-				sgn.setMinDay1(sd.getLowest());
-				sgn.setCloseDay1(sd.getCloseToday());
-				sgn.setUpPer1(sd.getUpPer());
-			}
-			sd = stockMapper.getStockDaily(sgn.getStockCode(),sgn.getTradeDay()+3);
-			if(sd != null) {
-				sgn.setMaxDay3(sd.getHighest());
-				sgn.setMinDay3(sd.getLowest());
-				sgn.setCloseDay3(sd.getCloseToday());
-				sgn.setUpPer3(sd.getUpPer());
-			}
-			sd = stockMapper.getStockDaily(sgn.getStockCode(),sgn.getTradeDay()+5);
-			if(sd != null) {
-				sgn.setMaxDay5(sd.getHighest());
-				sgn.setMinDay5(sd.getLowest());
-				sgn.setCloseDay5(sd.getCloseToday());
-				sgn.setUpPer5(sd.getUpPer());
-			}
-			supportMapper.updateSupportGoldenNeedle(sgn);
-		}
-	}
-	
-//	@Test
-//	@Transactional
-//	@Rollback(false)	
-	public void testHeihei() {
-		ArrayList<Stock> stockList = (ArrayList<Stock>) stockMapper.getStockList();
-		for(int i=0;i<stockList.size();i++) {
-			Stock s = stockList.get(i);
-			String code = s.getStockCode();
-			ArrayList<StockDaily> list = (ArrayList<StockDaily>)stockMapper.getStockDailyList(code);
-			for(int j=0;j<list.size();j++) {
-				StockDaily sd = list.get(j);
-				BigDecimal upPer = new BigDecimal(sd.getUpPer());
-				upPer = upPer.divide(new BigDecimal(1),0,BigDecimal.ROUND_HALF_UP);
-				sd.setUpLevel(upPer.toString());
-			}
-		}
-	}
-	
-//	@Test
-//	@Transactional
-//	@Rollback(false)
-	public void getTradeDay() {
-		String date = "2018-05-02";
-		String to = "632849309@qq.com";
-		String subject = date+"";
-		try {
-			MailUtil.sendMail(to, subject,"lalala");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-//	@Test
-//	@Transactional
-//	@Rollback(false)
-	public void testMacd() {
-		ArrayList<Stock> list = (ArrayList<Stock>) stockMapper.getStockList();
-		for(int i=0;i<list.size();i++) {
-			Stock s = list.get(i);
-			String stockCode = s.getStockCode();
-			try {
-				supportService.getMACD(stockCode);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println(stockCode+"操作完成");
-		}
-	}
 	@Test
 	@Transactional
-	@Rollback(false)	
-	public void getKDJ() {
-		ArrayList<Stock> stockList = (ArrayList<Stock>) stockMapper.getStockListSh();
+	@Rollback(false)
+	public void testSupportMacd() {
+		ArrayList<Stock> stockList = stockMapper.getStockList();
 		for(int i=0;i<stockList.size();i++) {
-			Stock sd = stockList.get(i);
-			String stockCode = sd.getStockCode();
-			supportService.getKDJ(stockCode);
+			Stock s = stockList.get(i);
+			String stockCode = s.getStockCode();
+			ArrayList<StockDaily> stockDailyList = stockMapper.getStockDailyList(stockCode);
+			try {
+				boolean flag = false;//true上涨，false下跌
+				SupportMacd sm = new SupportMacd();
+				for(int j=1;j<stockDailyList.size();j++) {
+					StockDaily sd = stockDailyList.get(j);
+					StockDaily sdYesterday = stockDailyList.get(j-1);
+					BigDecimal bar = new BigDecimal(sd.getBar());
+					BigDecimal barYesterday = new BigDecimal(sdYesterday.getBar());
+					if(bar.compareTo(barYesterday) >0 && !flag) {
+						if(!flag) {
+							sm.setStockCode(sd.getStockCode());
+							sm.setStockName(sd.getStockName());
+							sm.setStartDay(sd.getTradeDay());
+							sm.setStartPrice(new BigDecimal(sd.getCloseToday()).floatValue());
+							sm.setStartBar(new BigDecimal(sd.getBar()).floatValue());
+						}
+						flag = true;
+					}else if(flag) {
+						BigDecimal upPerToday = new BigDecimal(sd.getUpPer());
+						if(upPerToday.compareTo(new BigDecimal((0))) < 0){
+							sm.setEndDay(sd.getTradeDay());
+							sm.setEndPrice(new BigDecimal(sd.getCloseToday()).floatValue());
+							BigDecimal upPer = (new BigDecimal(sm.getEndPrice()).subtract(new BigDecimal(sm.getStartPrice())))
+									.divide(new BigDecimal(sm.getStartPrice()),4,BigDecimal.ROUND_HALF_UP);
+							sm.setUpPer(upPer.floatValue());
+							supportMapper.addSupportMacd(sm);
+							flag = false;
+						}
+					}
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(stockCode+"失败");
+			}
+			
 		}
-		
-		stockList = (ArrayList<Stock>) stockMapper.getStockListSz();
+	}
+	
+//	@Test
+//	@Transactional
+//	@Rollback(false)
+	public void testSupportKdj() {
+		ArrayList<Stock> stockList = stockMapper.getStockList();
 		for(int i=0;i<stockList.size();i++) {
-			Stock sd = stockList.get(i);
-			String stockCode = sd.getStockCode();
-			supportService.getKDJ(stockCode);
+			Stock s = stockList.get(i);
+			String stockCode = s.getStockCode();
+			ArrayList<StockDaily> stockDailyList = stockMapper.getStockDailyList(stockCode);
+			try {
+				boolean flag = false;
+				SupportKdj sk = new SupportKdj();
+				for(int j=1;j<stockDailyList.size();j++) {
+					StockDaily sd = stockDailyList.get(j);
+					StockDaily sdYesterday = stockDailyList.get(j-1);
+					BigDecimal J = new BigDecimal(sd.getJ());
+					BigDecimal JYesterday = new BigDecimal(sdYesterday.getJ());
+					if(!flag && JYesterday.compareTo(new BigDecimal(0)) <=0 && J.compareTo(new BigDecimal(0))>0) {
+						sk.setStockCode(sd.getStockCode());
+						sk.setStockName(sd.getStockName());
+						sk.setStartDay(sd.getTradeDay());
+						sk.setStartPrice(new BigDecimal(sd.getCloseToday()).floatValue());
+						sk.setStartBar(new BigDecimal(sd.getBar()).floatValue());
+						flag = true;
+					}
+					if(flag && JYesterday.compareTo(J)>0) {
+						if(J.compareTo(new BigDecimal(100)) > 0) {
+							continue;
+						}else {
+							sk.setEndDay(sd.getTradeDay());
+							sk.setEndPrice(new BigDecimal(sd.getCloseToday()).floatValue());
+							BigDecimal upPer = (new BigDecimal(sk.getEndPrice()).subtract(new BigDecimal(sk.getStartPrice())))
+									.divide(new BigDecimal(sk.getStartPrice()),4,BigDecimal.ROUND_HALF_UP);
+							sk.setUpPer(upPer.floatValue());
+							supportMapper.addSupportKdj(sk);
+							flag = false;
+						}
+					}
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(stockCode+"失败");
+			}
 		}
-		
-		stockList = (ArrayList<Stock>) stockMapper.getStockListCy();
+	}
+	
+//	@Test
+//	@Transactional
+//	@Rollback(false)
+	public void testLine() {
+		ArrayList<Stock> stockList = stockMapper.getStockList();
 		for(int i=0;i<stockList.size();i++) {
-			Stock sd = stockList.get(i);
-			String stockCode = sd.getStockCode();
-			supportService.getKDJ(stockCode);
-		}
-		
-		stockList = (ArrayList<Stock>) stockMapper.getStockListOther();
-		for(int i=0;i<stockList.size();i++) {
-			Stock sd = stockList.get(i);
-			String stockCode = sd.getStockCode();
-			supportService.getKDJ(stockCode);
+			Stock s = stockList.get(i);
+			String stockCode = s.getStockCode();
+			ArrayList<StockDaily> stockDailyList = stockMapper.getStockDailyList(stockCode);
+			try {
+				boolean flag = true;//true上涨false下跌
+				Line line = new Line();
+				line.setStockCode(stockCode);
+				line.setStartDay(stockDailyList.get(0).getTradeDay());
+				line.setStartPrice(new BigDecimal(stockDailyList.get(0).getCloseToday()).floatValue());
+				for(int j=0;j<stockDailyList.size()-1;j++) {
+					String closeTodayYesterDay = stockDailyList.get(j).getCloseToday();
+					String closeToday = stockDailyList.get(j+1).getCloseToday();
+					if(new BigDecimal(closeTodayYesterDay).compareTo(new BigDecimal(closeToday)) > 0 && flag) {
+						line.setEndDay(stockDailyList.get(j).getTradeDay());
+						BigDecimal endPrice = new BigDecimal(closeTodayYesterDay);
+						BigDecimal startPrice = new BigDecimal(line.getStartPrice());
+						line.setEndPrice(endPrice.floatValue());
+						line.setUpPer(endPrice.subtract(startPrice).divide(startPrice,4,BigDecimal.ROUND_HALF_UP).floatValue());
+						supportMapper.addLine(line);
+						line.setStartDay(stockDailyList.get(j).getTradeDay());
+						line.setStartPrice(new BigDecimal(stockDailyList.get(j+1).getCloseToday()).floatValue());
+						flag = false;
+					}
+					if(new BigDecimal(closeTodayYesterDay).compareTo(new BigDecimal(closeToday)) < 0 && !flag) {
+						line.setEndDay(stockDailyList.get(j).getTradeDay());
+						BigDecimal endPrice = new BigDecimal(closeTodayYesterDay);
+						BigDecimal startPrice = new BigDecimal(line.getStartPrice());
+						line.setEndPrice(endPrice.floatValue());
+						line.setUpPer(endPrice.subtract(startPrice).divide(startPrice,4,BigDecimal.ROUND_HALF_UP).floatValue());
+						supportMapper.addLine(line);
+						line.setStartDay(stockDailyList.get(j+1).getTradeDay());
+						line.setStartPrice(new BigDecimal(stockDailyList.get(j+1).getCloseToday()).floatValue());
+						flag = true;
+					}
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(stockCode+"失败");
+			}
 		}
 	}
 }

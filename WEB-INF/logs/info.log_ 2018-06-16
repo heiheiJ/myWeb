@@ -1,0 +1,369 @@
+2018-06-16 00:32:57  [ main:0 ] - [ INFO ]  Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2018-06-16 00:32:57  [ main:43 ] - [ INFO ]  Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@675d3402, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@51565ec2, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482f8f11, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1593948d, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1b604f19, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7823a2f9]
+2018-06-16 00:32:58  [ main:262 ] - [ INFO ]  Loading XML bean definitions from class path resource [springmvc.xml]
+2018-06-16 00:32:58  [ main:559 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-service.xml]
+2018-06-16 00:32:58  [ main:590 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-dao.xml]
+2018-06-16 00:32:58  [ main:637 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-transaction.xml]
+2018-06-16 00:32:58  [ main:700 ] - [ INFO ]  Refreshing org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:32:58 CST 2018]; root of context hierarchy
+2018-06-16 00:32:58  [ main:1090 ] - [ INFO ]  JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-06-16 00:32:59  [ main:1954 ] - [ ERROR ]  Error while adding the mapper 'interface com.jhyarrow.myWeb.mapper.SupportMapper' to configuration.
+org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:120)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.parse(XMLMapperBuilder.java:92)
+	at org.apache.ibatis.builder.annotation.MapperAnnotationBuilder.loadXmlResource(MapperAnnotationBuilder.java:173)
+	at org.apache.ibatis.builder.annotation.MapperAnnotationBuilder.parse(MapperAnnotationBuilder.java:124)
+	at org.apache.ibatis.binding.MapperRegistry.addMapper(MapperRegistry.java:72)
+	at org.apache.ibatis.session.Configuration.addMapper(Configuration.java:741)
+	at org.mybatis.spring.mapper.MapperFactoryBean.checkDaoConfig(MapperFactoryBean.java:80)
+	at org.springframework.dao.support.DaoSupport.afterPropertiesSet(DaoSupport.java:44)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:128)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:108)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:251)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:287)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:289)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:247)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:94)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:191)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:118)
+	at org.apache.ibatis.builder.xml.XMLStatementBuilder.parseStatementNode(XMLStatementBuilder.java:68)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:135)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:128)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:118)
+	... 75 more
+Caused by: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:120)
+	at org.apache.ibatis.builder.BaseBuilder.resolveAlias(BaseBuilder.java:149)
+	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:116)
+	... 79 more
+Caused by: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:200)
+	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:89)
+	at org.apache.ibatis.io.Resources.classForName(Resources.java:261)
+	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:116)
+	... 81 more
+2018-06-16 00:32:59  [ main:2007 ] - [ WARN ]  Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'supportController': Unsatisfied dependency expressed through field 'supportService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'supportService': Unsatisfied dependency expressed through field 'supportMapper'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'supportMapper' defined in file [F:\workplace\myWeb\target\classes\com\jhyarrow\myWeb\mapper\SupportMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+2018-06-16 00:32:59  [ main:2011 ] - [ ERROR ]  Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482f8f11] to prepare test instance [myWeb.SupportTest@2c4d1ac]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:287)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:289)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:247)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:94)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:191)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'supportController': Unsatisfied dependency expressed through field 'supportService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'supportService': Unsatisfied dependency expressed through field 'supportMapper'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'supportMapper' defined in file [F:\workplace\myWeb\target\classes\com\jhyarrow\myWeb\mapper\SupportMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:128)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:108)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:251)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	... 25 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'supportService': Unsatisfied dependency expressed through field 'supportMapper'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'supportMapper' defined in file [F:\workplace\myWeb\target\classes\com\jhyarrow\myWeb\mapper\SupportMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
+	... 43 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'supportMapper' defined in file [F:\workplace\myWeb\target\classes\com\jhyarrow\myWeb\mapper\SupportMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1628)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
+	... 56 more
+Caused by: java.lang.IllegalArgumentException: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+	at org.mybatis.spring.mapper.MapperFactoryBean.checkDaoConfig(MapperFactoryBean.java:83)
+	at org.springframework.dao.support.DaoSupport.afterPropertiesSet(DaoSupport.java:44)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624)
+	... 66 more
+Caused by: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:120)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.parse(XMLMapperBuilder.java:92)
+	at org.apache.ibatis.builder.annotation.MapperAnnotationBuilder.loadXmlResource(MapperAnnotationBuilder.java:173)
+	at org.apache.ibatis.builder.annotation.MapperAnnotationBuilder.parse(MapperAnnotationBuilder.java:124)
+	at org.apache.ibatis.binding.MapperRegistry.addMapper(MapperRegistry.java:72)
+	at org.apache.ibatis.session.Configuration.addMapper(Configuration.java:741)
+	at org.mybatis.spring.mapper.MapperFactoryBean.checkDaoConfig(MapperFactoryBean.java:80)
+	... 69 more
+Caused by: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:118)
+	at org.apache.ibatis.builder.xml.XMLStatementBuilder.parseStatementNode(XMLStatementBuilder.java:68)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:135)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:128)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:118)
+	... 75 more
+Caused by: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.jhyarrow.myWeb.domain.Line3'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:120)
+	at org.apache.ibatis.builder.BaseBuilder.resolveAlias(BaseBuilder.java:149)
+	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:116)
+	... 79 more
+Caused by: java.lang.ClassNotFoundException: Cannot find class: com.jhyarrow.myWeb.domain.Line3
+	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:200)
+	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:89)
+	at org.apache.ibatis.io.Resources.classForName(Resources.java:261)
+	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:116)
+	... 81 more
+2018-06-16 00:34:09  [ main:0 ] - [ INFO ]  Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2018-06-16 00:34:09  [ main:16 ] - [ INFO ]  Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@675d3402, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@51565ec2, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482f8f11, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1593948d, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1b604f19, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7823a2f9]
+2018-06-16 00:34:09  [ main:125 ] - [ INFO ]  Loading XML bean definitions from class path resource [springmvc.xml]
+2018-06-16 00:34:10  [ main:439 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-service.xml]
+2018-06-16 00:34:10  [ main:481 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-dao.xml]
+2018-06-16 00:34:10  [ main:542 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-transaction.xml]
+2018-06-16 00:34:10  [ main:596 ] - [ INFO ]  Refreshing org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:34:10 CST 2018]; root of context hierarchy
+2018-06-16 00:34:10  [ main:815 ] - [ INFO ]  JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-06-16 00:34:11  [ main:2057 ] - [ INFO ]  Mapped "{[/getBlogListPrevious]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogListPrevious(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:34:11  [ main:2064 ] - [ INFO ]  Mapped "{[/getBlog]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:34:11  [ main:2064 ] - [ INFO ]  Mapped "{[/getBlogListNext]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogListNext(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:34:11  [ main:2064 ] - [ INFO ]  Mapped "{[/addBlog]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.addBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:34:11  [ main:2065 ] - [ INFO ]  Mapped "{[/getBlogList]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogList(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:34:11  [ main:2065 ] - [ INFO ]  Mapped "{[/addBlogView]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.addBlogView()
+2018-06-16 00:34:11  [ main:2065 ] - [ INFO ]  Mapped "{[/index]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getIndex(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:34:11  [ main:2065 ] - [ INFO ]  Mapped "{[/getMain]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getMain(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:34:11  [ main:2065 ] - [ INFO ]  Mapped "{[/getMusic]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getMusic(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:34:11  [ main:2065 ] - [ INFO ]  Mapped "{[/getQuestionList]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.getQuestionList()
+2018-06-16 00:34:11  [ main:2065 ] - [ INFO ]  Mapped "{[/getQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.getQuestion(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:34:11  [ main:2065 ] - [ INFO ]  Mapped "{[/addQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.addBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:34:11  [ main:2065 ] - [ INFO ]  Mapped "{[/addQuestionView]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.addQuestionView()
+2018-06-16 00:34:11  [ main:2065 ] - [ INFO ]  Mapped "{[/updateQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.updateQuestion(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:34:11  [ main:2065 ] - [ INFO ]  Mapped "{[/support/getGoldenNeedle],produces=[text/html;charset=UTF-8]}" onto public java.lang.String com.jhyarrow.myWeb.controller.SupportController.getGoldenNeedle(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:34:11  [ main:2065 ] - [ INFO ]  Mapped "{[/login]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.login(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:34:11  [ main:2065 ] - [ INFO ]  Mapped "{[/logOff]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.logOff(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:34:11  [ main:2081 ] - [ INFO ]  Mapped "{[/getLogIn]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.getLogin()
+2018-06-16 00:34:11  [ main:2315 ] - [ INFO ]  Looking for @ControllerAdvice: org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:34:10 CST 2018]; root of context hierarchy
+2018-06-16 00:34:12  [ main:2393 ] - [ INFO ]  Looking for @ControllerAdvice: org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:34:10 CST 2018]; root of context hierarchy
+2018-06-16 00:34:12  [ main:3046 ] - [ INFO ]  Began transaction (1) for test context [DefaultTestContext@4c4d362a testClass = SupportTest, testInstance = myWeb.SupportTest@5400db36, testMethod = testLine@SupportTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@62e70ea3 testClass = SupportTest, locations = '{classpath:springmvc.xml, classpath:applicationContext-service.xml, classpath:applicationContext-dao.xml, classpath:applicationContext-transaction.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]]; transaction manager [org.springframework.jdbc.datasource.DataSourceTransactionManager@3bd323e9]; rollback [false]
+2018-06-16 00:34:17  [ main:7870 ] - [ INFO ]  Committed transaction for test context [DefaultTestContext@4c4d362a testClass = SupportTest, testInstance = myWeb.SupportTest@5400db36, testMethod = testLine@SupportTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@62e70ea3 testClass = SupportTest, locations = '{classpath:springmvc.xml, classpath:applicationContext-service.xml, classpath:applicationContext-dao.xml, classpath:applicationContext-transaction.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]].
+2018-06-16 00:34:17  [ Thread-1:7882 ] - [ INFO ]  Closing org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:34:10 CST 2018]; root of context hierarchy
+2018-06-16 00:36:39  [ main:0 ] - [ INFO ]  Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2018-06-16 00:36:39  [ main:31 ] - [ INFO ]  Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@675d3402, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@51565ec2, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482f8f11, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1593948d, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1b604f19, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7823a2f9]
+2018-06-16 00:36:40  [ main:302 ] - [ INFO ]  Loading XML bean definitions from class path resource [springmvc.xml]
+2018-06-16 00:36:40  [ main:662 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-service.xml]
+2018-06-16 00:36:40  [ main:678 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-dao.xml]
+2018-06-16 00:36:40  [ main:725 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-transaction.xml]
+2018-06-16 00:36:40  [ main:803 ] - [ INFO ]  Refreshing org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:36:40 CST 2018]; root of context hierarchy
+2018-06-16 00:36:41  [ main:1100 ] - [ INFO ]  JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-06-16 00:36:42  [ main:2925 ] - [ INFO ]  Mapped "{[/getBlogListPrevious]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogListPrevious(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:36:42  [ main:2941 ] - [ INFO ]  Mapped "{[/addBlogView]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.addBlogView()
+2018-06-16 00:36:42  [ main:2941 ] - [ INFO ]  Mapped "{[/addBlog]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.addBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:36:42  [ main:2941 ] - [ INFO ]  Mapped "{[/getBlog]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:36:42  [ main:2941 ] - [ INFO ]  Mapped "{[/getBlogListNext]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogListNext(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:36:42  [ main:2941 ] - [ INFO ]  Mapped "{[/getBlogList]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogList(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:36:42  [ main:2941 ] - [ INFO ]  Mapped "{[/index]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getIndex(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:36:42  [ main:2941 ] - [ INFO ]  Mapped "{[/getMusic]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getMusic(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:36:42  [ main:2941 ] - [ INFO ]  Mapped "{[/getMain]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getMain(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:36:42  [ main:2941 ] - [ INFO ]  Mapped "{[/addQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.addBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:36:42  [ main:2957 ] - [ INFO ]  Mapped "{[/getQuestionList]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.getQuestionList()
+2018-06-16 00:36:42  [ main:2957 ] - [ INFO ]  Mapped "{[/addQuestionView]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.addQuestionView()
+2018-06-16 00:36:42  [ main:2957 ] - [ INFO ]  Mapped "{[/getQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.getQuestion(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:36:42  [ main:2957 ] - [ INFO ]  Mapped "{[/updateQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.updateQuestion(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:36:42  [ main:2957 ] - [ INFO ]  Mapped "{[/support/getGoldenNeedle],produces=[text/html;charset=UTF-8]}" onto public java.lang.String com.jhyarrow.myWeb.controller.SupportController.getGoldenNeedle(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:36:42  [ main:2972 ] - [ INFO ]  Mapped "{[/login]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.login(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:36:42  [ main:2972 ] - [ INFO ]  Mapped "{[/logOff]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.logOff(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:36:42  [ main:2972 ] - [ INFO ]  Mapped "{[/getLogIn]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.getLogin()
+2018-06-16 00:36:43  [ main:3254 ] - [ INFO ]  Looking for @ControllerAdvice: org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:36:40 CST 2018]; root of context hierarchy
+2018-06-16 00:36:43  [ main:3332 ] - [ INFO ]  Looking for @ControllerAdvice: org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:36:40 CST 2018]; root of context hierarchy
+2018-06-16 00:36:44  [ main:4112 ] - [ INFO ]  Began transaction (1) for test context [DefaultTestContext@4c4d362a testClass = SupportTest, testInstance = myWeb.SupportTest@5400db36, testMethod = testLine@SupportTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@62e70ea3 testClass = SupportTest, locations = '{classpath:springmvc.xml, classpath:applicationContext-service.xml, classpath:applicationContext-dao.xml, classpath:applicationContext-transaction.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]]; transaction manager [org.springframework.jdbc.datasource.DataSourceTransactionManager@3bd323e9]; rollback [false]
+2018-06-16 00:36:46  [ main:7032 ] - [ INFO ]  Committed transaction for test context [DefaultTestContext@4c4d362a testClass = SupportTest, testInstance = myWeb.SupportTest@5400db36, testMethod = testLine@SupportTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@62e70ea3 testClass = SupportTest, locations = '{classpath:springmvc.xml, classpath:applicationContext-service.xml, classpath:applicationContext-dao.xml, classpath:applicationContext-transaction.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]].
+2018-06-16 00:36:46  [ Thread-1:7034 ] - [ INFO ]  Closing org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:36:40 CST 2018]; root of context hierarchy
+2018-06-16 00:37:31  [ main:0 ] - [ INFO ]  Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2018-06-16 00:37:31  [ main:16 ] - [ INFO ]  Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@675d3402, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@51565ec2, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482f8f11, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1593948d, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1b604f19, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7823a2f9]
+2018-06-16 00:37:32  [ main:203 ] - [ INFO ]  Loading XML bean definitions from class path resource [springmvc.xml]
+2018-06-16 00:37:32  [ main:547 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-service.xml]
+2018-06-16 00:37:32  [ main:574 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-dao.xml]
+2018-06-16 00:37:32  [ main:652 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-transaction.xml]
+2018-06-16 00:37:32  [ main:793 ] - [ INFO ]  Refreshing org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:37:32 CST 2018]; root of context hierarchy
+2018-06-16 00:37:32  [ main:1043 ] - [ INFO ]  JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-06-16 00:37:34  [ main:2228 ] - [ INFO ]  Mapped "{[/getBlogListPrevious]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogListPrevious(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:37:34  [ main:2233 ] - [ INFO ]  Mapped "{[/addBlogView]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.addBlogView()
+2018-06-16 00:37:34  [ main:2233 ] - [ INFO ]  Mapped "{[/getBlogList]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogList(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/getBlogListNext]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogListNext(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/getBlog]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/addBlog]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.addBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/index]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getIndex(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/getMain]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getMain(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/getMusic]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getMusic(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/addQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.addBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/getQuestionList]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.getQuestionList()
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/updateQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.updateQuestion(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/getQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.getQuestion(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/addQuestionView]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.addQuestionView()
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/support/getGoldenNeedle],produces=[text/html;charset=UTF-8]}" onto public java.lang.String com.jhyarrow.myWeb.controller.SupportController.getGoldenNeedle(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/login]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.login(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/getLogIn]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.getLogin()
+2018-06-16 00:37:34  [ main:2234 ] - [ INFO ]  Mapped "{[/logOff]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.logOff(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:37:34  [ main:2484 ] - [ INFO ]  Looking for @ControllerAdvice: org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:37:32 CST 2018]; root of context hierarchy
+2018-06-16 00:37:34  [ main:2562 ] - [ INFO ]  Looking for @ControllerAdvice: org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:37:32 CST 2018]; root of context hierarchy
+2018-06-16 00:37:35  [ main:3470 ] - [ INFO ]  Began transaction (1) for test context [DefaultTestContext@4c4d362a testClass = SupportTest, testInstance = myWeb.SupportTest@5400db36, testMethod = testLine@SupportTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@62e70ea3 testClass = SupportTest, locations = '{classpath:springmvc.xml, classpath:applicationContext-service.xml, classpath:applicationContext-dao.xml, classpath:applicationContext-transaction.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]]; transaction manager [org.springframework.jdbc.datasource.DataSourceTransactionManager@3bd323e9]; rollback [false]
+2018-06-16 00:37:38  [ main:7001 ] - [ INFO ]  Committed transaction for test context [DefaultTestContext@4c4d362a testClass = SupportTest, testInstance = myWeb.SupportTest@5400db36, testMethod = testLine@SupportTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@62e70ea3 testClass = SupportTest, locations = '{classpath:springmvc.xml, classpath:applicationContext-service.xml, classpath:applicationContext-dao.xml, classpath:applicationContext-transaction.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]].
+2018-06-16 00:37:38  [ Thread-1:7005 ] - [ INFO ]  Closing org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:37:32 CST 2018]; root of context hierarchy
+2018-06-16 00:38:45  [ main:0 ] - [ INFO ]  Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2018-06-16 00:38:45  [ main:16 ] - [ INFO ]  Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@675d3402, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@51565ec2, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482f8f11, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1593948d, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1b604f19, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7823a2f9]
+2018-06-16 00:38:45  [ main:109 ] - [ INFO ]  Loading XML bean definitions from class path resource [springmvc.xml]
+2018-06-16 00:38:45  [ main:391 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-service.xml]
+2018-06-16 00:38:45  [ main:419 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-dao.xml]
+2018-06-16 00:38:45  [ main:466 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-transaction.xml]
+2018-06-16 00:38:45  [ main:544 ] - [ INFO ]  Refreshing org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:38:45 CST 2018]; root of context hierarchy
+2018-06-16 00:38:46  [ main:857 ] - [ INFO ]  JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-06-16 00:38:47  [ main:2060 ] - [ INFO ]  Mapped "{[/getBlogListPrevious]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogListPrevious(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:38:47  [ main:2076 ] - [ INFO ]  Mapped "{[/getBlog]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:38:47  [ main:2076 ] - [ INFO ]  Mapped "{[/addBlog]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.addBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/getBlogList]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogList(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/addBlogView]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.addBlogView()
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/getBlogListNext]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogListNext(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/index]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getIndex(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/getMain]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getMain(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/getMusic]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getMusic(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/addQuestionView]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.addQuestionView()
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/updateQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.updateQuestion(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/getQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.getQuestion(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/getQuestionList]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.getQuestionList()
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/addQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.addBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/support/getGoldenNeedle],produces=[text/html;charset=UTF-8]}" onto public java.lang.String com.jhyarrow.myWeb.controller.SupportController.getGoldenNeedle(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/login]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.login(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/getLogIn]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.getLogin()
+2018-06-16 00:38:47  [ main:2077 ] - [ INFO ]  Mapped "{[/logOff]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.logOff(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:38:47  [ main:2312 ] - [ INFO ]  Looking for @ControllerAdvice: org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:38:45 CST 2018]; root of context hierarchy
+2018-06-16 00:38:47  [ main:2374 ] - [ INFO ]  Looking for @ControllerAdvice: org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:38:45 CST 2018]; root of context hierarchy
+2018-06-16 00:38:48  [ main:3348 ] - [ INFO ]  Began transaction (1) for test context [DefaultTestContext@4c4d362a testClass = SupportTest, testInstance = myWeb.SupportTest@5400db36, testMethod = testLine@SupportTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@62e70ea3 testClass = SupportTest, locations = '{classpath:springmvc.xml, classpath:applicationContext-service.xml, classpath:applicationContext-dao.xml, classpath:applicationContext-transaction.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]]; transaction manager [org.springframework.jdbc.datasource.DataSourceTransactionManager@3bd323e9]; rollback [false]
+2018-06-16 00:44:00  [ main:0 ] - [ INFO ]  Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2018-06-16 00:44:00  [ main:26 ] - [ INFO ]  Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@675d3402, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@51565ec2, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482f8f11, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1593948d, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1b604f19, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7823a2f9]
+2018-06-16 00:44:01  [ main:120 ] - [ INFO ]  Loading XML bean definitions from class path resource [springmvc.xml]
+2018-06-16 00:44:01  [ main:432 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-service.xml]
+2018-06-16 00:44:01  [ main:465 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-dao.xml]
+2018-06-16 00:44:01  [ main:512 ] - [ INFO ]  Loading XML bean definitions from class path resource [applicationContext-transaction.xml]
+2018-06-16 00:44:01  [ main:590 ] - [ INFO ]  Refreshing org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:44:01 CST 2018]; root of context hierarchy
+2018-06-16 00:44:01  [ main:840 ] - [ INFO ]  JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-06-16 00:44:02  [ main:2066 ] - [ INFO ]  Mapped "{[/addBlog]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.addBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:44:02  [ main:2069 ] - [ INFO ]  Mapped "{[/getBlogList]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogList(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:44:02  [ main:2069 ] - [ INFO ]  Mapped "{[/getBlog]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/addBlogView]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.addBlogView()
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/getBlogListNext]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogListNext(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/getBlogListPrevious]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.BlogController.getBlogListPrevious(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/index]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getIndex(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/getMain]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getMain(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/getMusic]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.IndexController.getMusic(javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/addQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.addBlog(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/updateQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.updateQuestion(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/addQuestionView]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.addQuestionView()
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/getQuestion]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.getQuestion(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/getQuestionList]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.QuestionController.getQuestionList()
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/support/getGoldenNeedle],produces=[text/html;charset=UTF-8]}" onto public java.lang.String com.jhyarrow.myWeb.controller.SupportController.getGoldenNeedle(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/login]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.login(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/getLogIn]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.getLogin()
+2018-06-16 00:44:02  [ main:2070 ] - [ INFO ]  Mapped "{[/logOff]}" onto public org.springframework.web.servlet.ModelAndView com.jhyarrow.myWeb.controller.UserController.logOff(javax.servlet.http.HttpServletRequest)
+2018-06-16 00:44:03  [ main:2320 ] - [ INFO ]  Looking for @ControllerAdvice: org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:44:01 CST 2018]; root of context hierarchy
+2018-06-16 00:44:03  [ main:2382 ] - [ INFO ]  Looking for @ControllerAdvice: org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:44:01 CST 2018]; root of context hierarchy
+2018-06-16 00:44:03  [ main:3044 ] - [ INFO ]  Began transaction (1) for test context [DefaultTestContext@4c4d362a testClass = SupportTest, testInstance = myWeb.SupportTest@5400db36, testMethod = testLine@SupportTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@62e70ea3 testClass = SupportTest, locations = '{classpath:springmvc.xml, classpath:applicationContext-service.xml, classpath:applicationContext-dao.xml, classpath:applicationContext-transaction.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]]; transaction manager [org.springframework.jdbc.datasource.DataSourceTransactionManager@3bd323e9]; rollback [false]
+2018-06-16 01:22:10  [ main:2289888 ] - [ INFO ]  Committed transaction for test context [DefaultTestContext@4c4d362a testClass = SupportTest, testInstance = myWeb.SupportTest@5400db36, testMethod = testLine@SupportTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@62e70ea3 testClass = SupportTest, locations = '{classpath:springmvc.xml, classpath:applicationContext-service.xml, classpath:applicationContext-dao.xml, classpath:applicationContext-transaction.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]].
+2018-06-16 01:22:10  [ Thread-1:2289905 ] - [ INFO ]  Closing org.springframework.context.support.GenericApplicationContext@6e06451e: startup date [Sat Jun 16 00:44:01 CST 2018]; root of context hierarchy

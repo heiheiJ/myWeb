@@ -52,11 +52,14 @@ public class StockServiceImpl implements StockService{
 				}
 				String upPer = sd.getUpPer();
 				if(upPer == null) {
-					stockMapper.updateStockDaily(sd);
 				}else {
 					BigDecimal upPerBd =  new BigDecimal(upPer).multiply(new BigDecimal(100)).divide(new BigDecimal(1),0,BigDecimal.ROUND_HALF_UP);
 					sd.setUpLevel(upPerBd.toString());
 				}
+				stockMapper.updateStockDaily(sd);
+			}
+			if(stockDailyList.size() == 0) {
+				continue;
 			}
 			s.setLastTradeDay(stockDailyList.get(stockDailyList.size()-1).getTradeDay());
 			stockMapper.updateStock(s);

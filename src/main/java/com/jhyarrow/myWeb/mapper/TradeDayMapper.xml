@@ -13,7 +13,7 @@
     	truncate table trade_day
     </update>
     
-    <insert id="addTradeDay" parameterType="com.jhyarrow.myWeb.domain.TradeDay">
-    	insert into trade_day (date,trade_day) values(#{date},#{tradeDay})
+    <insert id="addTradeDay">
+    	insert into trade_day select b.date,(@rowno:=@rowno+1)rowno from (select date from stock_daily group by date order by date) b ,(select @rowno:=0)  t2 
     </insert>
 </mapper>

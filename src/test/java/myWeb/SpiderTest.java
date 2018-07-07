@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
+import com.jhyarrow.myWeb.domain.SpiderStockDailyAllError;
 import com.jhyarrow.myWeb.domain.SpiderStockDailyError;
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.mapper.StockMapper;
@@ -45,7 +46,12 @@ public class SpiderTest extends JUnitTest {
 //	@Transactional
 //	@Rollback(false)
 	public void spideStock() {
-		spiderService.spideStock();
+		try {
+			spiderService.spideStock();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 		
 
@@ -69,19 +75,8 @@ public class SpiderTest extends JUnitTest {
 	@Transactional
 	@Rollback(false)
 	public void addNewStock() throws Exception {
-		long start = System.currentTimeMillis();
-		stockService.truncateStockDaily();
-		ArrayList<Stock> stockList = stockService.getStockList();
-		for(int i=0;i<stockList.size();i++) {
-			Stock s = stockList.get(i);
-			try {
-				spiderService.spideStockDaily(s.getStockCode(), s.getStockName(), "1990-01-01", "2018-06-08");
-			}catch (Exception e) {
-			}
-			System.out.println(s.getStockCode()+"处理完成");
-		}
-		long end = System.currentTimeMillis();
-		System.out.println((end-start)/1000+"秒");
+		supportService.get9();
+		supportService.getKDJ();
 	}
-	
 }
+	

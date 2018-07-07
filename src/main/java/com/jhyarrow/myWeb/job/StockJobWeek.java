@@ -7,6 +7,7 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.jhyarrow.myWeb.domain.SpiderStockDailyAllError;
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.domain.StockIndexDaily;
 import com.jhyarrow.myWeb.service.SpiderService;
@@ -45,7 +46,7 @@ public class StockJobWeek {
 			//step2获取所有指数数据
 			start = System.currentTimeMillis();
 			stockService.truncateStockIndexDaily();
-			spiderService.spideStockIndexDaily("1990-01-01","2018-06-05");
+			spiderService.spideStockIndexDaily("1990-01-01",date);
 			end = System.currentTimeMillis();
 			logger.info(date+"指数数据下载完成，用时"+(end-start)/1000+"秒");
 			sb.append(date+"指数数据下载完成，用时"+(end-start)/1000+"秒<br>");
@@ -79,6 +80,15 @@ public class StockJobWeek {
 			for(int i=0;i<stockList.size();i++) {
 				Stock s = stockList.get(i);
 				spiderService.spideStockDaily(s.getStockCode(), s.getStockName(), "1990-01-01", date);
+			}
+			ArrayList<SpiderStockDailyAllError> spiderStockDailyAllErrorList = supportService.getSpiderStockDailyAllErrorList();
+			while(spiderStockDailyAllErrorList.size()!=0) {
+				for(int i=0;i<spiderStockDailyAllErrorList.size();i++) {
+					SpiderStockDailyAllError ssdae = spiderStockDailyAllErrorList.get(i);
+					supportService.deleteSpiderStockDailyAllError(ssdae);
+					spiderService.spideStockDaily(ssdae.getStockCode(), ssdae.getStockName(), "1990-01-01", date);
+				}
+				spiderStockDailyAllErrorList = supportService.getSpiderStockDailyAllErrorList();
 			}
 			end = System.currentTimeMillis();
 			logger.info(date+"获取所有股票数据完成，用时"+(end-start)/1000+"秒");
