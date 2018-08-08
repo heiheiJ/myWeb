@@ -18,8 +18,8 @@
     	truncate table stock_index_daily
     </update>
     
-    <update id="updateStockIndexDaily" parameterType="com.jhyarrow.myWeb.domain.StockIndexDaily">
-    	update stock_index_daily set trade_day = #{tradeDay} where date = #{date}
+    <update id="updateStockIndexDailyTradeDay" >
+    	update stock_index_daily a set a.trade_day = (select trade_day from trade_day b where b.date = a.date)
     </update>
     
     <select id="getStockIndexDailyList" resultType="com.jhyarrow.myWeb.domain.StockIndexDaily">

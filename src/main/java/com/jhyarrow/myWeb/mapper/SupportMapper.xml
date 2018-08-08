@@ -77,4 +77,52 @@
     	insert into support_kdj(stock_code,stock_name,start_day,end_day,start_price,end_price,up_per) 
     	values (#{stockCode},#{stockName},#{startDay},#{endDay},#{startPrice},#{endPrice},#{upPer})
     </insert>
+    
+    <insert id="addLine5" parameterType="com.jhyarrow.myWeb.domain.Line5">
+    	insert into line5(day1,day2,day3,day4,day5,ans,stock_code,date) 
+    	values (#{day1},#{day2},#{day3},#{day4},#{day5},#{ans},#{stockCode},#{date})
+    </insert>
+    
+    <select id="getLine5ConclusionList" resultType="com.jhyarrow.myWeb.domain.Line5Conclusion">
+    	select * from line5_conclusion
+    </select>
+    
+    <select id="getLine5" resultType="com.jhyarrow.myWeb.domain.Line5">
+    	select * from line5 where day1=#{day1} and day2=#{day2} and day3=#{day3} and day4=#{day4} and day5=#{day5}
+    </select>
+    
+    <update id="updateLine5Conclusion" parameterType="com.jhyarrow.myWeb.domain.Line5Conclusion">
+    	update line5_conclusion set avg = #{avg},cnt = #{cnt},max =#{max},min=#{min},up=#{up},down=#{down} 
+    	 where day1=#{day1} and day2=#{day2} and day3=#{day3} and day4=#{day4} and day5=#{day5}
+    </update>
+    
+    <select id="getLine5Conclusion" resultType="com.jhyarrow.myWeb.domain.Line5Conclusion">
+    	select * from line5_conclusion where day1=#{day1} and day2=#{day2} and day3=#{day3} and day4 = #{day4} and day5=#{day5}
+    </select>
+    
+    <insert id="addSupport5" parameterType="com.jhyarrow.myWeb.domain.Support5">
+    	insert into support5(stock_code,stock_name,date,avg,p) 
+    	values (#{stockCode},#{stockName},#{date},#{avg},#{p})
+    </insert>
+    
+    <insert id="addDualThrust" parameterType="com.jhyarrow.myWeb.domain.DualThrust">
+    	insert into dual_thrust(stock_code,buy_date,buy_amt,sell_date,sell_amt,benifit) 
+    	values (#{stockCode},#{buyDate},#{buyAmt},#{sellDate},#{sellAmt},#{benifit})
+    </insert>
+    
+    <insert id="addHgtStockDaily" parameterType="com.jhyarrow.myWeb.domain.HgtStockDaily">
+    	insert into hgt_stock_daily(trade_day,stock_code,stock_name,close_today,jing_amt,buy_amt,sell_amt,
+	total_amt,next_up,next_open_today) 
+    	values (#{tradeDay},#{stockCode},#{stockName},#{closeToday},#{jingAmt},#{buyAmt},#{sellAmt}
+    	,#{totalAmt},#{nextUp},#{nextOpenToday})
+    </insert>
+    
+    <select id="getHgtStockDailyList" resultType="com.jhyarrow.myWeb.domain.HgtStockDaily">
+    	select * from hgt_stock_daily order by trade_day
+    </select>
+    
+    <update id="updateHgtStockDaily" parameterType="com.jhyarrow.myWeb.domain.HgtStockDaily">
+    	update hgt_stock_daily set next_up = #{nextUp},next_open_today=#{nextOpenToday} 
+    	 where stock_code =#{stockCode} and trade_day = #{tradeDay}
+    </update>
 </mapper>

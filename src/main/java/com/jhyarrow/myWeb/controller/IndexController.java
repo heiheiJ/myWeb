@@ -19,20 +19,14 @@ public class IndexController {
 	private MusicService musicService;
 	
 	@RequestMapping("/index")
-	public ModelAndView getIndex(HttpServletRequest request) throws Exception{
-		
-		ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index");
-
-        return modelAndView;
+	public String getIndex(HttpServletRequest request) throws Exception{
+        return "index";
     }
 	
 	@RequestMapping("/getMain")
-	public ModelAndView getMain(HttpServletRequest request) throws Exception{
-		ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("main");
+	public String getMain(HttpServletRequest request) throws Exception{
 
-        return modelAndView;
+        return "main";
     }
 	
 	@RequestMapping("/getMusic")

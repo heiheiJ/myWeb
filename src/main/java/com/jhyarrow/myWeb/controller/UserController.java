@@ -1,6 +1,5 @@
 package com.jhyarrow.myWeb.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jhyarrow.myWeb.domain.User;
+import com.jhyarrow.myWeb.exception.MyException;
 import com.jhyarrow.myWeb.service.UserService;
 
 @Controller
@@ -17,21 +17,16 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping("/login")
-	public ModelAndView login(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+	public String login(HttpSession session,String username,String password) throws Exception{
 		User user = userService.getUser(username);
 		if(user == null) {
-			mv.setViewName("goAway");
+			throw new MyException("用户名不存在");
 		}else if(password.equals(user.getPassword())){
-			HttpSession session = request.getSession();
 			session.setAttribute("username", username);
-			mv.setViewName("main");
 		}else {
-			mv.setViewName("goAway");
+			throw new MyException("密码错误");
 		}
-		return mv;
+		return "redirect:/getMain.action";
 	}
 	
 	@RequestMapping("/getLogIn")
@@ -42,12 +37,9 @@ public class UserController {
 	}
 	
 	@RequestMapping("/logOff")
-	public ModelAndView logOff(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		session.setAttribute("username","");
+	public String logOff(HttpSession session) {
+		session.invalidate();
 		
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/main");
-		return mv;
+		return "redirect:/getMain.action";
 	}
 }

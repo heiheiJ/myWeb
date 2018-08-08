@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhyarrow.myWeb.domain.Blog;
+import com.jhyarrow.myWeb.exception.MyException;
 import com.jhyarrow.myWeb.mapper.BlogMapper;
 import com.jhyarrow.myWeb.service.BlogService;
 
@@ -19,11 +20,15 @@ public class BlogServiceImpl implements BlogService{
 		return blogmapper.getBlogList(pageNum,pageSize);
 	}
 
-	public Blog getBlog(int id) {
-		return blogmapper.getBlog(id);
+	public Blog getBlog(int id)  throws Exception{
+		Blog blog = blogmapper.getBlog(id);
+		if(blog == null) {
+			throw new MyException("博客信息不存在！");
+		}
+		return blog;
 	}
 	
-	public void addBlog(Blog blog) {
+	public void addBlog(Blog blog){
 		blogmapper.addBlog(blog);
 	}
 	

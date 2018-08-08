@@ -3,6 +3,9 @@ package com.jhyarrow.myWeb.job;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import com.jhyarrow.myWeb.service.SpiderService;
 import com.jhyarrow.myWeb.service.StockService;
 import com.jhyarrow.myWeb.service.SupportService;
 import com.jhyarrow.myWeb.service.TradeDayService;
+import com.jhyarrow.myWeb.thread.StockSpideThread;
 import com.jhyarrow.myWeb.util.MailUtil;
 
 public class StockJobWeek {
@@ -32,6 +36,7 @@ public class StockJobWeek {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String date = sdf.format(new Date());
 		StringBuffer sb = new StringBuffer();
+		ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		try {
 			logger.info(date+"每周跑批开始");
 			sb.append(date+"每周跑批开始<br>");
@@ -61,14 +66,7 @@ public class StockJobWeek {
 			
 			//step4更新指数表trade_day
 			start = System.currentTimeMillis();
-			ArrayList<StockIndexDaily> list = stockService.getStockIndexDailyList();
-			for(int i=0;i<list.size();i++) {
-				StockIndexDaily sid = list.get(i);
-				String stockIndexDailyDate = sid.getDate();
-				Integer tradeDay = tradeDayService.getTradeDayByDate(stockIndexDailyDate);
-				sid.setTradeDay(tradeDay);
-				stockService.updateStockIndexDaily(sid);
-			}
+			stockService.updateStockIndexDailyTradeDay();
 			end = System.currentTimeMillis();
 			logger.info(date+"更新指数数据完成，用时"+(end-start)/1000+"秒");
 			sb.append(date+"更新指数数据完成，用时"+(end-start)/1000+"秒<br>");
@@ -77,10 +75,18 @@ public class StockJobWeek {
 			start = System.currentTimeMillis();
 			stockService.truncateStockDaily();
 			ArrayList<Stock> stockList = stockService.getStockList();
+			CountDownLatch countDownLatch  =  new  CountDownLatch (stockList.size());
 			for(int i=0;i<stockList.size();i++) {
-				Stock s = stockList.get(i);
-				spiderService.spideStockDaily(s.getStockCode(), s.getStockName(), "1990-01-01", date);
+				Stock stock = stockList.get(i);
+				StockSpideThread sst = new StockSpideThread(spiderService, stock,date,countDownLatch);
+				executor.execute(sst);
 			}
+			try {
+				countDownLatch.await();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
 			ArrayList<SpiderStockDailyAllError> spiderStockDailyAllErrorList = supportService.getSpiderStockDailyAllErrorList();
 			while(spiderStockDailyAllErrorList.size()!=0) {
 				for(int i=0;i<spiderStockDailyAllErrorList.size();i++) {
@@ -90,6 +96,7 @@ public class StockJobWeek {
 				}
 				spiderStockDailyAllErrorList = supportService.getSpiderStockDailyAllErrorList();
 			}
+			stockService.updateStockDailyTradeDay();
 			end = System.currentTimeMillis();
 			logger.info(date+"获取所有股票数据完成，用时"+(end-start)/1000+"秒");
 			sb.append(date+"获取所有股票数据完成，用时"+(end-start)/1000+"秒<br>");
@@ -101,20 +108,20 @@ public class StockJobWeek {
 			logger.info(date+"更新数据，用时"+(end-start)/1000+"秒");
 			sb.append(date+"更新数据，用时"+(end-start)/1000+"秒<br>");
 			
-			//step7计算macd
-			start = System.currentTimeMillis();
-			supportService.getMACD();
-			end = System.currentTimeMillis();
-			logger.info(date+"计算MACD完成，用时"+(end-start)/1000+"秒");
-			sb.append(date+"计算MACD完成，用时"+(end-start)/1000+"秒<br>");
-			
-			//step8计算kdj
-			start = System.currentTimeMillis();
-			supportService.get9();
-			supportService.getKDJ();
-			end = System.currentTimeMillis();
-			logger.info(date+"计算kdj完成，用时"+(end-start)/1000+"秒");
-			sb.append(date+"计算kdj完成，用时"+(end-start)/1000+"秒<br>");
+//			//step7计算macd
+//			start = System.currentTimeMillis();
+//			supportService.getMACD();
+//			end = System.currentTimeMillis();
+//			logger.info(date+"计算MACD完成，用时"+(end-start)/1000+"秒");
+//			sb.append(date+"计算MACD完成，用时"+(end-start)/1000+"秒<br>");
+//			
+//			//step8计算kdj
+//			start = System.currentTimeMillis();
+//			supportService.get9();
+//			supportService.getKDJ();
+//			end = System.currentTimeMillis();
+//			logger.info(date+"计算kdj完成，用时"+(end-start)/1000+"秒");
+//			sb.append(date+"计算kdj完成，用时"+(end-start)/1000+"秒<br>");
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -128,6 +135,7 @@ public class StockJobWeek {
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
+			executor.shutdown();
 		}
 	}
 }

@@ -9,6 +9,10 @@
     	select trade_day from trade_day where date = #{date}
     </select>
     
+    <select id="getTradeDayByTradeDay" parameterType="Integer" resultType="String" >
+    	select date from trade_day where trade_day = #{tradeDay}
+    </select>
+    
     <update id="truncateTradeDay">
     	truncate table trade_day
     </update>

@@ -25,7 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		HttpSession session = request.getSession();
 		String username = (String)session.getAttribute("username");
 		if(username == null || username == "") {
-			request.getRequestDispatcher("/WEB-INF/jsp/goAway.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/user/login.jsp").forward(request, response);
 			return false;
 		}
 		return true;

@@ -21,6 +21,8 @@ public interface StockMapper {
 	public void addStockDaily(StockDaily stockDaily);
 	//获取stockCode记录，按trade_day增序
 	public ArrayList<StockDaily> getStockDailyList(String stockCode);
+	//获取某一年的stockCode记录，按trade_day增序
+	public ArrayList<StockDaily> getStockDailyListByYear(@Param("stockCode") String stockCode,@Param("year") String year);
 	//更新股票日常数据
 	public void updateStockDaily(StockDaily stockDaily);
 	//更新股票最新交易日
@@ -37,8 +39,13 @@ public interface StockMapper {
 	public void updateStockDailyMACD(StockDaily stockDaily);
 	//更新kdj数值
 	public void updateStockDailyKdj(StockDaily stockDaily);
-	
-	
+	//更新股票交易日数据
+	public void updateStockDailyTradeDay();
+	//添加股票数据
+	public int insertStockDailyList(List<StockDaily> stockDailyList);
+	//获取近N天记录，按date降序
+	public ArrayList<StockDaily> getStockDailyListN(@Param("stockCode") String stockCode,@Param("n") int n,@Param("tradeDay") Integer trade_day);
+
 	
 	public Stock getStockByCode(String code);
 	
@@ -49,9 +56,7 @@ public interface StockMapper {
 	
 	
 	
-	//获取近N天记录，按date降序
-	public ArrayList<StockDaily> getStockDailyListN(@Param("stockCode") String stockCode,@Param("n") int n,@Param("tradeDay") Integer trade_day);
-	
+		
 	
 	//获取当天记录数
 	public int getStockDailyCount(String date);

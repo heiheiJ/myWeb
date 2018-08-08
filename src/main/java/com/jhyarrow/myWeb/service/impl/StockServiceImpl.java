@@ -23,9 +23,13 @@ public class StockServiceImpl implements StockService{
 	public void truncateStockIndexDaily() {
 		stockIndexMapper.truncateStockIndexDaily();
 	}
-	//更新指数数据
-	public void updateStockIndexDaily(StockIndexDaily sid) {
-		stockIndexMapper.updateStockIndexDaily(sid);
+	//更新指数交易日数据
+	public void updateStockIndexDailyTradeDay() {
+		stockIndexMapper.updateStockIndexDailyTradeDay();
+	}
+	//更新股票交易日数据
+	public void updateStockDailyTradeDay() {
+		stockMapper.updateStockDailyTradeDay();
 	}
 	//获取指数数据列表
 	public ArrayList<StockIndexDaily> getStockIndexDailyList(){

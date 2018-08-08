@@ -64,7 +64,7 @@ public class SpiderServiceImpl implements SpiderService{
 			stockList.add(stock);
 		}
 			
-		for(int k=2;k<=182;k++) {
+		for(int k=2;k<=184;k++) {
 			httpGet = new HttpGet(url + "stocklist_"+k+".html");
 			httpResponse = httpCient.execute(httpGet);
 			httpEntity = httpResponse.getEntity();
@@ -99,7 +99,6 @@ public class SpiderServiceImpl implements SpiderService{
 		HttpResponse httpResponse;
 		String response = "" ;
 		String date = "";
-		Integer tradeDay = -1;
 		try {
 			httpResponse = httpCient.execute(httpPost);
 			HttpEntity httpEntity = httpResponse.getEntity();
@@ -122,7 +121,6 @@ public class SpiderServiceImpl implements SpiderService{
 				sd.setStockCode(code);
 				sd.setStockName(stockName);
 				date = datas[0];
-				tradeDay = tradeDayMapper.getTradeDayByDate(date);
 				sd.setDate(date);
 				sd.setOpenToday(datas[1]);
 				sd.setCloseToday(datas[2]);
@@ -137,7 +135,6 @@ public class SpiderServiceImpl implements SpiderService{
 				sd.setVolumn(datas[7]);
 				sd.setTurnVolume(datas[8]);
 				sd.setTurnoverRate(String.valueOf(Double.parseDouble(datas[9].replaceAll("-", "0").replaceAll("%", ""))/100.0));
-				sd.setTradeDay(tradeDay);
 				BigDecimal upPerBd = new BigDecimal(upPer).multiply(new BigDecimal(100)).divide(new BigDecimal(1),0,BigDecimal.ROUND_HALF_UP);
 				sd.setUpLevel(upPerBd.toString());
 				stockMapper.addStockDaily(sd);

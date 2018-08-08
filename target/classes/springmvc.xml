@@ -27,4 +27,7 @@
         <!-- 配置jsp路径的后缀 -->
         <property name="suffix" value=".jsp"/>
     </bean>
+    
+    <!-- 全局异常处理器 -->
+    <bean class="com.jhyarrow.myWeb.exception.MyExceptionResolver"></bean>
 </beans>

@@ -11,7 +11,8 @@ public interface TradeDayMapper {
 	public void addTradeDay();
 	//获取date的tradeDay
 	public Integer getTradeDayByDate(String date);
-	
+	//获取tradeDay的date
+	public String getTradeDayByTradeDay(Integer tradeDay);
 	
 	public ArrayList<TradeDay> getTradeDayList();
 	

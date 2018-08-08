@@ -1,4 +1,5 @@
 <%@page contentType="text/html;charset=utf-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,8 +12,9 @@
 	    	<label class="col-sm-2 control-label">类型</label>
 		    <div class="col-sm-10">
 		    	<select class="form-control" name="type">
-					<option value="1">读书笔记</option>
-				    <option value="2">工作计划</option>
+		    		<c:forEach items="${typeList}" var="type">
+		    			<option value="${type.key}">${type.value}</option>
+		    		</c:forEach>
 				</select>
 		    </div>
 	  	</div>

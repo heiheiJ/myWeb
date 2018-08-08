@@ -10,8 +10,10 @@ import com.jhyarrow.myWeb.domain.StockIndexDaily;
 public interface StockService {
 	//清空指数数据
 	public void truncateStockIndexDaily();
-	//更新指数数据
-	public void updateStockIndexDaily(StockIndexDaily sid);
+	//更新指数交易日数据
+	public void updateStockIndexDailyTradeDay();
+	//更新股票交易日数据
+	public void updateStockDailyTradeDay();
 	//获取指数数据列表
 	public ArrayList<StockIndexDaily> getStockIndexDailyList();
 	//获取股票列表

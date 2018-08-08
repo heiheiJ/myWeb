@@ -5,11 +5,14 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.jhyarrow.myWeb.domain.DualThrust;
 import com.jhyarrow.myWeb.domain.Line;
+import com.jhyarrow.myWeb.domain.Line5Conclusion;
 import com.jhyarrow.myWeb.domain.SpiderStockDailyAllError;
 import com.jhyarrow.myWeb.domain.SpiderStockDailyError;
 import com.jhyarrow.myWeb.domain.Stock;
 import com.jhyarrow.myWeb.domain.StockDaily;
+import com.jhyarrow.myWeb.domain.Support5;
 import com.jhyarrow.myWeb.domain.support.SupportGoldenNeedle;
 import com.jhyarrow.myWeb.mapper.StockMapper;
 import com.jhyarrow.myWeb.mapper.SupportMapper;
@@ -218,6 +221,90 @@ public class SupportServiceImpl implements SupportService{
 	public void deleteSpiderStockDailyAllError(SpiderStockDailyAllError ssde) {
 		supportMapper.deleteSpiderStockDailyAllError(ssde);
 	}
+	//计算5日趋势推荐
+	public void getSupport5(Stock s) {
+		ArrayList<StockDaily> list = stockMapper.getStockDailyListN(s.getStockCode(), 5, null);
+		if(list.size() == 5) {
+			Integer day5 = new BigDecimal(list.get(0).getUpPer()).multiply(new BigDecimal(100)).divide(new BigDecimal(1),BigDecimal.ROUND_HALF_UP).intValue();
+			Integer day4 = new BigDecimal(list.get(1).getUpPer()).multiply(new BigDecimal(100)).divide(new BigDecimal(1),BigDecimal.ROUND_HALF_UP).intValue();
+			Integer day3 = new BigDecimal(list.get(2).getUpPer()).multiply(new BigDecimal(100)).divide(new BigDecimal(1),BigDecimal.ROUND_HALF_UP).intValue();
+			Integer day2 = new BigDecimal(list.get(3).getUpPer()).multiply(new BigDecimal(100)).divide(new BigDecimal(1),BigDecimal.ROUND_HALF_UP).intValue();
+			Integer day1 = new BigDecimal(list.get(4).getUpPer()).multiply(new BigDecimal(100)).divide(new BigDecimal(1),BigDecimal.ROUND_HALF_UP).intValue();
+			Line5Conclusion line5Conclusion = new Line5Conclusion();
+			line5Conclusion.setDay1(day1);
+			line5Conclusion.setDay2(day2);
+			line5Conclusion.setDay3(day3);
+			line5Conclusion.setDay4(day4);
+			line5Conclusion.setDay5(day5);
+			line5Conclusion = supportMapper.getLine5Conclusion(line5Conclusion);
+			if(line5Conclusion == null) {
+				return;
+			}
+			float p = line5Conclusion.getP();
+			if(p<0.8) {
+				return;
+			}
+			int cnt = line5Conclusion.getCnt();
+			if(cnt < 10) {
+				return;
+			}
+			Support5 support = new Support5();
+			support.setAvg(line5Conclusion.getAvg());
+			support.setDate("2017-01-16");
+			support.setP(line5Conclusion.getP());
+			support.setStockName(s.getStockName());
+			support.setStockCode(s.getStockCode());
+			supportMapper.addSupport5(support);
+		}
+	}
+	
+	//DualThrust策略
+	public void getDualThrust(Stock s) {
+		String stockCode = s.getStockCode();
+		ArrayList<StockDaily> stockDailyList = stockMapper.getStockDailyList(stockCode);
+		if(stockDailyList.size() == 0) {
+			return;
+		}
+		boolean isIn = false;//是否建仓
+		BigDecimal high = new BigDecimal(stockDailyList.get(0).getHighest());
+		BigDecimal close = new BigDecimal(stockDailyList.get(0).getCloseToday());
+		BigDecimal low = new BigDecimal(stockDailyList.get(0).getLowest());
+		BigDecimal range;
+		BigDecimal k1 = new BigDecimal(0.5);
+		BigDecimal k2 = new BigDecimal(0.5);
+		if(high.subtract(close).abs().compareTo(low.subtract(close).abs()) > 0) {
+			range = high.subtract(close).abs();
+		}else {
+			range = low.subtract(close).abs();
+		}
+		DualThrust d = new DualThrust();
+		
+		for(int i=1;i<stockDailyList.size();i++) {
+			StockDaily stockDaily = stockDailyList.get(i);
+			BigDecimal open = new BigDecimal(stockDaily.getOpenToday());
+			BigDecimal buyLine1 = k1.multiply(range).add(open);
+			BigDecimal buyLine2 = open.subtract(k2.multiply(range));
+			high = new BigDecimal(stockDaily.getHighest());
+			if(!isIn && high.compareTo(buyLine1) >=0) {//建仓
+				String date = stockDaily.getDate();
+				d.setBuyDate(date);
+				d.setStockCode(stockCode);
+				d.setBuyAmt(buyLine1.floatValue());
+				isIn = true;
+				continue;
+			}
+			if(isIn && low.compareTo(buyLine2) <=0) {//清仓
+				String date = stockDaily.getDate();
+				d.setSellDate(date);
+				d.setSellAmt(buyLine2.floatValue());
+				supportMapper.addDualThrust(d);
+				isIn = false;
+				continue;
+			}
+		}
+	}
+	
+	
 	//获取趋势线
 	public void getLine() {
 		

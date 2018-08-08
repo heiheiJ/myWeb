@@ -10,8 +10,8 @@ public interface StockIndexMapper {
 	public void truncateStockIndexDaily();
 	//添加指数数据
 	public int addStockIndexDaily(StockIndexDaily stock);
-	//更新指数数据
-	public void updateStockIndexDaily(StockIndexDaily sid);
+	//更新指数交易日数据
+	public void updateStockIndexDailyTradeDay();
 	//获取stockCode的所有指数列表
 	public ArrayList<StockIndexDaily> getStockIndexDailyByCode(String stockCode);
 	//获取指数数据列表

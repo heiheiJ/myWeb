@@ -8,12 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jhyarrow.myWeb.domain.Blog;
+import com.jhyarrow.myWeb.exception.MyException;
 import com.jhyarrow.myWeb.service.BlogService;
 
 @Controller
@@ -21,11 +23,17 @@ public class BlogController {
 	@Autowired
 	private BlogService blogService;
 	
+	@ModelAttribute("typeList")
+	public Map<String,String> getType(){
+		Map<String,String> typeList = new HashMap<String,String>();
+		typeList.put("1", "读书笔记");
+		typeList.put("2", "工作计划");
+		return typeList;
+	}
+	
 	//博客列表页面
 	@RequestMapping("/getBlogList")
 	public ModelAndView getBlogList(HttpServletRequest request){
-		HttpSession session = request.getSession();
-		String username = (String)session.getAttribute("username");
 		int page = request.getAttribute("page") == null ? Integer.parseInt(request.getParameter("page")) 
 				:Integer.parseInt((String)request.getAttribute("page"));
 		ArrayList<Blog> blogList = (ArrayList<Blog>) blogService.getBlogList(page,10);
@@ -38,8 +46,7 @@ public class BlogController {
 	
 	//查看博客页面
 	@RequestMapping("/getBlog")
-	public ModelAndView getBlog(HttpServletRequest request) {
-		int id = Integer.parseInt(request.getParameter("id"));
+	public ModelAndView getBlog(HttpServletRequest request,@RequestParam(required = true) Integer id) throws Exception {
 		Blog blog = blogService.getBlog(id);
 		blog.setInfo(blog.getInfo().replaceAll("<", "&lt;").replaceAll(">", "&gt;")
 				.replaceAll("	", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").replaceAll("\\n", "<br>"));
@@ -60,13 +67,10 @@ public class BlogController {
 	
 	//添加博客数据
 	@RequestMapping("/addBlog")
-	public ModelAndView addBlog(HttpServletRequest request) {
+	public ModelAndView addBlog(HttpServletRequest request,Blog blog) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			Blog blog = new Blog();
-			blog.setInfo(request.getParameter("info"));
-			blog.setTitle(request.getParameter("title"));
-			String type = request.getParameter("type");
+			String type = blog.getType();
 			if("1".equals(type)) {
 				type = "读书笔记";
 			}else if("2".equals(type)){

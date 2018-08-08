@@ -85,18 +85,4 @@ public class StockTest extends JUnitTest{
 		}
 	}
 	
-	@Test
-	@Transactional
-	@Rollback(false)
-	public  void stockJobWeek4() {
-		ArrayList<StockIndexDaily> list = stockService.getStockIndexDailyList();
-		for(int i=0;i<list.size();i++) {
-			StockIndexDaily sid = list.get(i);
-			String stockIndexDailyDate = sid.getDate();
-			stockIndexDailyDate = stockIndexDailyDate.substring(0, 10);
-			Integer tradeDay = tradeDayService.getTradeDayByDate(stockIndexDailyDate);
-			sid.setTradeDay(tradeDay);
-			stockService.updateStockIndexDaily(sid);
-		}
-	}
 }

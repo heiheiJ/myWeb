@@ -8,6 +8,17 @@
     		</foreach>
     </insert>
     
+    <insert id="insertStockDailyList">
+    	insert into stock_daily(stock_code,stock_name,date,trade_day,open_today,close_today,up,up_per
+    	,highest,lowest,volumn,turn_volume,turnover_rate,up_level,prev_trade_day) values
+    		<foreach collection="list" item="stockDaily" separator=",">
+    			(#{stockDaily.stockCode},#{stockDaily.stockName},#{stockDaily.date},#{stockDaily.tradeDay},#{stockDaily.openToday},
+    			#{stockDaily.closeToday},#{stockDaily.up},#{stockDaily.upPer},#{stockDaily.highest},#{stockDaily.lowest}
+    			,#{stockDaily.volumn},#{stockDaily.turnVolume},#{stockDaily.turnoverRate},#{stockDaily.upLevel},#{stockDaily.prevTradeDay})
+    		</foreach>
+    </insert>
+    
+    
     <select id="getStockByCode" resultType="com.jhyarrow.myWeb.domain.Stock">
     	select * from stock  where stock_code = #{stockCode}
     </select>
@@ -33,6 +44,10 @@
     
     <select id="getStockDailyList" parameterType="String" resultType="com.jhyarrow.myWeb.domain.StockDaily">
     	select * from stock_daily where stock_code = #{stockCode} order by trade_day
+    </select>
+    
+    <select id="getStockDailyListByYear"  resultType="com.jhyarrow.myWeb.domain.StockDaily">
+    	select * from stock_daily where stock_code = #{stockCode} and year(date) = #{year} order by trade_day
     </select>
     
     <insert id="addStockDaily" parameterType="com.jhyarrow.myWeb.domain.StockDaily">
@@ -84,5 +99,9 @@
     
     <update id="truncateStockDaily">
     	truncate table stock_daily
+    </update>
+    
+    <update id="updateStockDailyTradeDay" >
+    	update stock_daily a set a.trade_day = (select trade_day from trade_day b where b.date = a.date)
     </update>
 </mapper>
