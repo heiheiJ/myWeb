@@ -51,7 +51,7 @@ public class StockJobWeek {
 			//step2获取所有指数数据
 			start = System.currentTimeMillis();
 			stockService.truncateStockIndexDaily();
-			spiderService.spideStockIndexDaily("1990-01-01",date);
+			spiderService.spideStockIndexDaily("2008-01-01",date);
 			end = System.currentTimeMillis();
 			logger.info(date+"指数数据下载完成，用时"+(end-start)/1000+"秒");
 			sb.append(date+"指数数据下载完成，用时"+(end-start)/1000+"秒<br>");

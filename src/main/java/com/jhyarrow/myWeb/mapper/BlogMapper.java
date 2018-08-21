@@ -9,7 +9,7 @@ import com.jhyarrow.myWeb.domain.Blog;
 
 public interface BlogMapper {
 	//获取博客列表
-	public List<Blog> getBlogList(@Param("pageNumKey") int pageNum,@Param("pageSizeKey") int pageSize);
+	public List<Blog> getBlogList();
 	
 	
 	

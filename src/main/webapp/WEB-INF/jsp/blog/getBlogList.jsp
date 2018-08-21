@@ -19,7 +19,7 @@
 		<tr>
 		<c:forEach items="${blogList}" var="blog">
 		<tr>
-			<td>${blog.rowno}</td>
+			<td>${blog.id}</td>
 			<td>${blog.title}</td>
 			<td>${blog.inputDate}</td>
 			<td>${blog.type}</td>
@@ -28,7 +28,7 @@
 		</c:forEach>
 	</table>
 	<ul class="pager">
-		<li><a href="getBlogList.action?page=1">首页</a></li>
+		<li><a href="getBlogList.action?page=0">首页</a></li>
 		<li><a href="getBlogListPrevious.action?page=${page}">上一页</a></li>
 		<li><a href="getBlogListNext.action?page=${page}">下一页</a></li>
 		<li><a href="getBlogListNext.action?page=100">尾页</a></li>

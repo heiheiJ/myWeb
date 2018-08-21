@@ -8,7 +8,8 @@
     </select>
     
     <select id="getBlogList" resultType="com.jhyarrow.myWeb.domain.Blog">
-    	select * from blog
+    	select  * from blog
+    	
    
     </select>
     

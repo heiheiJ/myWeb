@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageHelper;
 import com.jhyarrow.myWeb.domain.Blog;
 import com.jhyarrow.myWeb.exception.MyException;
 import com.jhyarrow.myWeb.service.BlogService;
@@ -33,10 +34,9 @@ public class BlogController {
 	
 	//博客列表页面
 	@RequestMapping("/getBlogList")
-	public ModelAndView getBlogList(HttpServletRequest request){
-		int page = request.getAttribute("page") == null ? Integer.parseInt(request.getParameter("page")) 
-				:Integer.parseInt((String)request.getAttribute("page"));
-		ArrayList<Blog> blogList = (ArrayList<Blog>) blogService.getBlogList(page,10);
+	public ModelAndView getBlogList(int page){
+		PageHelper.offsetPage(page*5, 5);
+		ArrayList<Blog> blogList = (ArrayList<Blog>) blogService.getBlogList();
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("blogList",blogList);
         modelAndView.setViewName("/blog/getBlogList");
@@ -88,20 +88,17 @@ public class BlogController {
 	}
 	
 	@RequestMapping("/getBlogListPrevious")
-	public ModelAndView getBlogListPrevious(HttpServletRequest request) {
-		int page = Integer.parseInt(request.getParameter("page"));
+	public ModelAndView getBlogListPrevious(int page) {
 		if(page == 0) {
 			page = 0;
 		}else {
 			page --;
 		}
-		request.setAttribute("page", String.valueOf(page));
-		return getBlogList(request);
+		return getBlogList(page);
 	}
 	
 	@RequestMapping("/getBlogListNext")
-	public ModelAndView getBlogListNext(HttpServletRequest request) {
-		int page = Integer.parseInt(request.getParameter("page"));
+	public ModelAndView getBlogListNext(HttpServletRequest request,int page) {
 		HttpSession session = request.getSession();
 		String username = (String)session.getAttribute("username");
 		Map<String, Object> userMap = new HashMap<String,Object>();	
@@ -111,12 +108,12 @@ public class BlogController {
 			userMap.put("type", null);
 		}
 		int count = blogService.getBlogListCount(userMap);
-		if(page+1 >= (count-1)/10) {
-			page = (count-1)/10;
+		if(page+1 >= (count-1)/5) {
+			page = (count-1)/5;
 		}else {
 			page ++;
 		}
-		request.setAttribute("page", String.valueOf(page));
-		return getBlogList(request);
+		
+		return getBlogList(page);
 	}
 }

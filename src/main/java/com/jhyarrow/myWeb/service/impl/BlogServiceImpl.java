@@ -16,8 +16,8 @@ public class BlogServiceImpl implements BlogService{
 	@Autowired
 	private BlogMapper blogmapper;
 	//获取博客列表
-	public List<Blog> getBlogList(int pageNum,int pageSize) {
-		return blogmapper.getBlogList(pageNum,pageSize);
+	public List<Blog> getBlogList() {
+		return blogmapper.getBlogList();
 	}
 
 	public Blog getBlog(int id)  throws Exception{

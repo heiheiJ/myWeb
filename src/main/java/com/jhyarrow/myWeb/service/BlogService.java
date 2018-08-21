@@ -8,7 +8,7 @@ import com.jhyarrow.myWeb.exception.MyException;
 
 public interface BlogService {
 	//获取博客列表
-	public List<Blog> getBlogList(int pageNum,int pageSize);
+	public List<Blog> getBlogList();
 	//添加博客
 	public void addBlog(Blog blog);
 	//查询博客
